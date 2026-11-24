@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1018"><title>PREDYKTOR — Tennis Intelligence</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./"><span class="brand-icon">P</span><span><b>PREDYKTOR</b><small>TENNIS INTELLIGENCE</small></span></a><div class="status"><i></i> AUTOMATYCZNY PIPELINE <span id="updated">Ładowanie danych…</span></div></header>
+<main class="wrap">
+<section class="hero"><div><p class="eyebrow">MODEL VS BET365 MARKET · ATP / WTA / CHALLENGER</p><h1>Centrum predykcji</h1><p>Prognozy przedmeczowe, rozliczone wyniki i porównanie skuteczności modelu z rynkiem.</p></div><div class="actions"><button id="refresh">↻ Odśwież</button><label for="file-input">＋ Import CSV / JSON</label><input id="file-input" type="file" accept=".csv,.json"></div></section>
+<section class="metrics">
+<article><small>WSZYSTKIE ANALIZY</small><strong id="total">—</strong><span>zapisane w NeonDB</span></article>
+<article><small>ROZLICZONE MECZE</small><strong id="settled">—</strong><span>potwierdzony wynik</span></article>
+<article><small>SKUTECZNOŚĆ MODELU</small><strong id="model-acc">—</strong><span id="model-correct">trafne wskazania</span></article>
+<article><small>SKUTECZNOŚĆ RYNKU</small><strong id="market-acc">—</strong><span>trafne wskazania</span></article>
+<article class="warning"><small>NIEROZLICZONE</small><strong id="unsettled">—</strong><span>mecze po terminie</span></article>
+</section>
+<section class="panel"><div class="section-title"><div><p class="eyebrow">UPCOMING</p><h2>Zaplanowane spotkania</h2></div><span class="pill" id="pending-count">0</span></div>
+<div class="filters"><nav><button class="active" data-tour="ALL">Wszystkie</button><button data-tour="ATP">ATP</button><button data-tour="WTA">WTA</button><button data-tour="CHALLENGER">Challenger</button></nav><input id="search" placeholder="Szukaj zawodnika lub turnieju…"><label class="check"><input id="value-only" type="checkbox"> Tylko value</label></div>
+<div id="predictions" class="cards"><div class="empty">Brak załadowanych predykcji.</div></div></section>
+<div class="columns">
+<section class="panel"><div class="section-title"><div><p class="eyebrow">MODEL / MARKET</p><h2>Porównanie wskazań</h2></div></div>
+<div class="outcomes"><div><span>Obaj trafili</span><b id="both">—</b></div><div><span>Tylko model</span><b id="model-only">—</b></div><div><span>Tylko rynek</span><b id="market-only">—</b></div><div><span>Obaj błędnie</span><b id="both-wrong">—</b></div></div>
+<div class="disagree"><div><span>Rozbieżne wskazania</span><b id="disagreements">—</b></div><div><span>Model trafia</span><b id="model-disagree-acc">—</b></div><div><span>Rynek trafia</span><b id="market-disagree-acc">—</b></div></div>
+<p class="hint">Skuteczność oznacza trafność wskazania faworyta. Prawdopodobieństwa rynku są normalizowane bez marży (no-vig).</p></section>
+<section class="panel"><div class="section-title"><div><p class="eyebrow">SET SCORES</p><h2>Rozkład wyników setowych</h2></div></div><div id="set-bars" class="bars"><div class="empty">Brak rozliczonych wyników.</div></div><p id="set-note" class="hint">Wyniki A:B z perspektywy kolejności zawodników zapisanej przy predykcji.</p></section>
+</div>
+<section class="panel"><div class="section-title"><div><p class="eyebrow">TOUR BREAKDOWN</p><h2>Skuteczność według rozgrywek</h2></div></div><div class="table-scroll"><table><thead><tr><th>Tour</th><th>Mecze</th><th>Model</th><th>Rynek</th><th>Rozbieżne</th><th>Brier modelu</th><th>Brier rynku</th></tr></thead><tbody id="tour-stats"><tr><td colspan="7" class="empty">Brak danych.</td></tr></tbody></table></div></section>
+<section class="panel unresolved"><div class="section-title"><div><p class="eyebrow">DATA QUALITY</p><h2>Nierozliczone mecze</h2><p class="sub">Mecze po terminie, dla których nie odnaleziono jeszcze jednoznacznego wyniku.</p></div><span class="pill amber" id="unsettled-pill">0</span></div><div id="reasons" class="reason-grid"></div><div class="table-scroll"><table><thead><tr><th>Spotkanie</th><th>Tour / turniej</th><th>Powód</th><th>Próby</th><th>Ostatnia kontrola</th><th>Wiek</th></tr></thead><tbody id="unsettled-rows"><tr><td colspan="6" class="empty">Brak nierozliczonych meczów.</td></tr></tbody></table></div></section>
+<section class="panel"><div class="section-title"><div><p class="eyebrow">HISTORY</p><h2>Ostatnio rozliczone spotkania</h2></div><span class="pill" id="history-count">0</span></div><div class="table-scroll"><table><thead><tr><th>Mecz</th><th>Tour</th><th>Wynik setów</th><th>Zwycięzca</th><th>Model</th><th>Rynek</th><th>Relacja</th></tr></thead><tbody id="history-rows"><tr><td colspan="7" class="empty">Brak historii.</td></tr></tbody></table></div></section>
+<footer><span>PREDYKTOR · PRIVATE ANALYTICS</span><span>Model probabilities are estimates, not guarantees.</span></footer>
+</main><script src="app.js"></script>
+</body></html>
