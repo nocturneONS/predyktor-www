@@ -1,1 +1,95 @@
-{"generated_at":null,"total_predictions":0,"pending_count":0,"overall":{},"by_tour":{},"unsettled":{"count":0,"by_reason":{}}}
+{
+  "generated_at": "2026-11-24T12:42:40.174874+00:00",
+  "total_predictions": 53,
+  "pending_count": 53,
+  "overall": {
+    "settled": 0,
+    "model_correct": 0,
+    "market_correct": 0,
+    "model_accuracy": null,
+    "market_accuracy": null,
+    "disagreements": 0,
+    "model_accuracy_when_disagree": null,
+    "market_accuracy_when_disagree": null,
+    "model_brier_score": null,
+    "market_brier_score": null,
+    "set_score_distribution": {},
+    "sets_played_distribution": {},
+    "set_score_by_relation": {
+      "both_correct": {},
+      "model_only_correct": {},
+      "market_only_correct": {},
+      "both_wrong": {}
+    },
+    "model_market_outcomes": {}
+  },
+  "by_tour": {
+    "ATP": {
+      "settled": 0,
+      "model_correct": 0,
+      "market_correct": 0,
+      "model_accuracy": null,
+      "market_accuracy": null,
+      "disagreements": 0,
+      "model_accuracy_when_disagree": null,
+      "market_accuracy_when_disagree": null,
+      "model_brier_score": null,
+      "market_brier_score": null,
+      "set_score_distribution": {},
+      "sets_played_distribution": {},
+      "set_score_by_relation": {
+        "both_correct": {},
+        "model_only_correct": {},
+        "market_only_correct": {},
+        "both_wrong": {}
+      },
+      "model_market_outcomes": {}
+    },
+    "WTA": {
+      "settled": 0,
+      "model_correct": 0,
+      "market_correct": 0,
+      "model_accuracy": null,
+      "market_accuracy": null,
+      "disagreements": 0,
+      "model_accuracy_when_disagree": null,
+      "market_accuracy_when_disagree": null,
+      "model_brier_score": null,
+      "market_brier_score": null,
+      "set_score_distribution": {},
+      "sets_played_distribution": {},
+      "set_score_by_relation": {
+        "both_correct": {},
+        "model_only_correct": {},
+        "market_only_correct": {},
+        "both_wrong": {}
+      },
+      "model_market_outcomes": {}
+    },
+    "CHALLENGER": {
+      "settled": 0,
+      "model_correct": 0,
+      "market_correct": 0,
+      "model_accuracy": null,
+      "market_accuracy": null,
+      "disagreements": 0,
+      "model_accuracy_when_disagree": null,
+      "market_accuracy_when_disagree": null,
+      "model_brier_score": null,
+      "market_brier_score": null,
+      "set_score_distribution": {},
+      "sets_played_distribution": {},
+      "set_score_by_relation": {
+        "both_correct": {},
+        "model_only_correct": {},
+        "market_only_correct": {},
+        "both_wrong": {}
+      },
+      "model_market_outcomes": {}
+    }
+  },
+  "unsettled": {
+    "count": 0,
+    "by_reason": {}
+  }
+}
