@@ -39,3 +39,22 @@
 @media(max-width:1050px){.match{grid-template-columns:minmax(250px,1.2fr) 1fr 1fr minmax(95px,.5fr);gap:12px;padding:14px}.player-name{font-size:13px}.prob-pair span{font-size:15px}}
 @media(max-width:760px){.match{grid-template-columns:1fr 1fr;gap:13px}.matchup{grid-column:1/-1}.prob-column{min-width:0}.edge-column{grid-column:1/-1;border-left:0;border-top:1px solid #30445d;padding:10px 0 0;display:flex;align-items:center;justify-content:space-between;text-align:left}.edge{font-size:20px}.edge-caption{margin:0 0 0 8px}.suggest{margin:0;text-align:right}.match-foot{margin-top:7px}}
 @media(max-width:420px){.match{padding:12px;gap:11px}.player-name{font-size:12px}.odds{font-size:10px;min-width:49px;padding:3px 6px}.prob-pair span{font-size:13px}.label{font-size:8px}.edge-column{flex-wrap:wrap}.suggest{width:100%;text-align:left;margin-top:5px}}
+
+/* Match intelligence analytics */
+.intel-filters{display:flex;gap:5px;margin:0 0 16px;padding:4px;background:#0d1622;border:1px solid var(--line);border-radius:9px;width:max-content;max-width:100%;flex-wrap:wrap}
+.intel-filters button{border:0;background:transparent;color:var(--muted);padding:7px 12px;border-radius:6px;font-size:10px;font-weight:750;cursor:pointer}
+.intel-filters button.active{background:#29415e;color:#eaf4ff}
+.intel-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.intel-kpis article{background:#101a27;border:1px solid #2b3d52;border-radius:10px;padding:13px}
+.intel-kpis small,.intel-kpis span{display:block;color:var(--muted);font-size:9px;letter-spacing:.06em}
+.intel-kpis strong{display:block;font-size:25px;line-height:1.25;margin:7px 0 3px;font-variant-numeric:tabular-nums}
+.intel-block{background:#101823;border:1px solid #2a3b50;border-radius:11px;padding:15px;margin-top:12px;min-width:0}
+.intel-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px}
+.intel-heading b{display:block;font-size:12px}.intel-heading small,.intel-heading>span{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.intel-table{min-width:760px}.intel-table th,.intel-table td{padding:11px 9px}.config-chip{display:inline-block;padding:4px 8px;border-radius:6px;background:#20344a;color:#c5e7ff;font-variant-numeric:tabular-nums}
+.muted{color:var(--muted);font-size:9px}.market-cell{color:#f2c17c}.intel-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.outcome-list{display:flex;flex-direction:column;gap:8px}.outcome-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px;background:#172333;border-radius:8px}.outcome-row b{display:block;font-size:10px}.outcome-row small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.outcome-row>strong{font-size:11px;color:#9fcaff;text-align:right;white-space:nowrap}
+.score-tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}.score-tiles>div,.mistake-grid>div{padding:11px;background:#172333;border-radius:8px}.score-tiles strong{display:block;font-size:23px;color:#65c6ff}.score-tiles small{display:block;font-size:9px;color:var(--muted)}.score-tiles.secondary{margin-top:8px}.score-tiles.secondary strong{color:#f2b66c;font-size:18px}
+.mistake-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mistake-grid small,.mistake-grid span{display:block;color:var(--muted);font-size:9px}.mistake-grid strong{display:block;font-size:14px;margin:7px 0;color:#f1bd70}.mistake-grid span{font-size:9px}
+@media(max-width:900px){.intel-kpis{grid-template-columns:repeat(2,1fr)}.intel-columns{grid-template-columns:1fr}}
+@media(max-width:520px){.intel-kpis{gap:6px}.intel-kpis article{padding:10px}.intel-kpis strong{font-size:21px}.intel-filters{width:100%;justify-content:space-between}.intel-filters button{padding:7px 9px}.intel-block{padding:11px}.mistake-grid{grid-template-columns:1fr}.outcome-row{align-items:flex-start;flex-direction:column}.outcome-row>strong{text-align:left}}
