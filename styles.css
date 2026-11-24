@@ -8,3 +8,34 @@
 .columns{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.columns .panel{min-width:0}.outcomes{display:grid;grid-template-columns:1fr 1fr;gap:8px}.outcomes div{background:#101722;border-radius:8px;padding:10px}.outcomes span,.disagree span{display:block;color:var(--muted);font-size:10px}.outcomes b{display:block;font-size:19px;margin-top:3px}.disagree{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:9px;background:#1b293a;border:1px solid #354a66;border-radius:8px;padding:11px;margin-top:10px}.disagree b{display:block;font-size:16px;margin-top:3px}.hint{font-size:9px;color:#77879b;margin:11px 0 0}.bars{display:flex;flex-direction:column;gap:11px}.barrow{display:grid;grid-template-columns:45px 1fr 80px;align-items:center;gap:9px}.barrow span:first-child{font-weight:750;font-size:10px}.track{height:7px;background:#0d141e;border-radius:8px;overflow:hidden}.track i{height:100%;display:block;background:linear-gradient(90deg,#5e85c4,#a3c5ff)}.barrow small{text-align:right;color:var(--muted);font-size:9px}
 .table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;white-space:nowrap;font-size:10px}th{text-align:left;color:#8292a8;font-size:9px;text-transform:uppercase;letter-spacing:.08em;padding:10px;border-bottom:1px solid #344357}td{padding:10px;border-bottom:1px solid #273445;color:#dbe4f0}tbody tr:last-child td{border-bottom:0}td.empty{text-align:center;color:var(--muted)}.good{color:var(--green)}.bad{color:var(--red)}.reason-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.reason{background:#101722;border:1px solid #354357;border-radius:8px;padding:10px}.reason span{display:block;color:var(--muted);font-size:9px}.reason b{display:block;color:var(--amber);font-size:17px;margin-top:4px}.unresolved{border-color:#5a492b}footer{display:flex;justify-content:space-between;gap:14px;color:#65748a;font-size:9px;margin-top:24px}
 @media(max-width:1050px){.metrics{grid-template-columns:repeat(3,1fr)}.cards{grid-template-columns:1fr}.reason-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:760px){.topbar{padding:0 14px}.status{font-size:8px}.wrap{padding:24px 13px 40px}.hero{align-items:flex-start;flex-direction:column}.actions{width:100%}.metrics{grid-template-columns:repeat(2,1fr)}.metrics article:last-child{grid-column:span 2}.columns{grid-template-columns:1fr}.panel{padding:15px}.match{grid-template-columns:1fr 1fr}.match>div:first-child{grid-column:span 2}.filters nav{width:100%;justify-content:space-between}.filters nav button{padding:7px 8px}.filters input[type=search],#search{margin-left:0;flex:1}.reason-grid{grid-template-columns:repeat(2,1fr)}footer{flex-direction:column}}@media(max-width:420px){.metrics{gap:7px}.metrics article{padding:11px}.metrics strong{font-size:23px}.status span{display:none}.match{gap:9px}.disagree{grid-template-columns:1fr 1fr}.disagree div:first-child{grid-column:span 2}}
+
+
+/* PREDYKTOR match board refresh */
+.cards{display:grid;grid-template-columns:1fr;gap:9px}
+.match{display:grid;grid-template-columns:minmax(300px,1.42fr) minmax(190px,1fr) minmax(190px,1fr) minmax(112px,.55fr);gap:20px;align-items:center;padding:16px 18px;background:linear-gradient(105deg,#111c2b 0%,#101925 55%,#111a27 100%);border:1px solid #2a4059;border-radius:12px;min-width:0;transition:border-color .18s,transform .18s,background .18s}
+.match:hover{border-color:#426487;background:linear-gradient(105deg,#14243a 0%,#111d2c 60%,#132032 100%);transform:translateY(-1px)}
+.matchup{min-width:0}.match .meta{font-size:10px;letter-spacing:.045em;margin:0 0 7px;color:#8fa5bf}
+.player-line{display:flex;align-items:center;gap:10px;min-width:0;margin:3px 0;line-height:1.25}
+.player-name{font-size:15px;font-weight:800;letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.player-a .player-name{color:#36baff}.player-b .player-name{color:#ffad32}
+.odds{font-size:11px;font-weight:800;font-variant-numeric:tabular-nums;padding:3px 8px;border-radius:7px;min-width:57px;text-align:center;flex:none}
+.odds-a{color:#a9e5ff;background:#0b3b5b;border:1px solid #176b9c}.odds-b{color:#ffdaa0;background:#57330d;border:1px solid #98601b}
+.match-foot{display:flex;align-items:center;gap:9px;margin-top:9px;min-width:0}
+.tour-tag{font-size:9px;font-weight:850;letter-spacing:.06em;padding:3px 8px;border-radius:20px;background:#153e61;border:1px solid #236b9e;color:#b9e8ff;flex:none}
+.tour-tag.wta{background:#38215b;border-color:#67409b;color:#e3ccff}.tour-tag.atp{background:#153e61;border-color:#236b9e;color:#b9e8ff}
+.tourney{font-size:10px;color:#9aabc0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prob-column{min-width:0}.prob-pair{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin:7px 0 6px}
+.prob-pair span{font-size:17px;font-weight:850;letter-spacing:-.025em;text-align:center;font-variant-numeric:tabular-nums;padding:4px 2px;border-radius:7px}
+.prob-a{color:#b8eaff;background:linear-gradient(180deg,#104e78,#0b3859);border:1px solid #176a9b}
+.prob-b{color:#ffe0ad;background:linear-gradient(180deg,#70430f,#4a2d0c);border:1px solid #98601b}
+.split-bar{height:8px;display:flex;overflow:hidden;border-radius:10px;background:#273447;gap:2px}
+.split-bar i{height:100%;display:block;min-width:0}
+.split-a{background:linear-gradient(90deg,#1598dc,#42c1ff)}
+.split-b{background:linear-gradient(90deg,#f59a20,#ffc04c)}
+.edge-column{text-align:center;border-left:1px solid #30445d;padding-left:15px;min-width:0}
+.edge{font-size:22px;line-height:1.1;font-weight:900;white-space:nowrap;color:#52e6b1;font-variant-numeric:tabular-nums}
+.edge-caption{font-size:9px;letter-spacing:.13em;color:#8fa5bf;margin-top:5px;font-weight:800}
+.suggest{font-size:9px;line-height:1.5;color:#9aabc0;margin-top:7px;overflow-wrap:anywhere}
+@media(max-width:1050px){.match{grid-template-columns:minmax(250px,1.2fr) 1fr 1fr minmax(95px,.5fr);gap:12px;padding:14px}.player-name{font-size:13px}.prob-pair span{font-size:15px}}
+@media(max-width:760px){.match{grid-template-columns:1fr 1fr;gap:13px}.matchup{grid-column:1/-1}.prob-column{min-width:0}.edge-column{grid-column:1/-1;border-left:0;border-top:1px solid #30445d;padding:10px 0 0;display:flex;align-items:center;justify-content:space-between;text-align:left}.edge{font-size:20px}.edge-caption{margin:0 0 0 8px}.suggest{margin:0;text-align:right}.match-foot{margin-top:7px}}
+@media(max-width:420px){.match{padding:12px;gap:11px}.player-name{font-size:12px}.odds{font-size:10px;min-width:49px;padding:3px 6px}.prob-pair span{font-size:13px}.label{font-size:8px}.edge-column{flex-wrap:wrap}.suggest{width:100%;text-align:left;margin-top:5px}}
