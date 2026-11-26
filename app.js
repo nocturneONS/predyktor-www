@@ -25,7 +25,16 @@ function renderPredictions(){
   return '<article class="match"><div class="matchup"><div class="meta">'+esc(r.tour)+' <span>·</span> '+esc(dt(r.kickoff_utc))+'</div><div class="player-line player-a"><span class="player-name">'+esc(r.player_a)+'</span><span class="odds odds-a">'+odds(r.odds_a)+'</span></div><div class="player-line player-b"><span class="player-name">'+esc(r.player_b)+'</span><span class="odds odds-b">'+odds(r.odds_b)+'</span></div><div class="match-foot"><span class="tour-tag '+(r.tour==="WTA"?"wta":r.tour==="ATP"?"atp":"challenger")+'">'+esc(r.tour==="CHALLENGER"?"CHALLENGER":r.tour)+'</span><span class="tourney">'+esc(r.tourney_name||r.league||"")+'</span></div></div><div class="prob-column"><div class="label">MODEL A / B</div>'+split(r.model_probability_a,r.model_probability_b)+'</div><div class="prob-column"><div class="label">RYNEK NO-VIG A / B</div>'+split(r.market_probability_a,r.market_probability_b)+'</div><div class="edge-column"><div class="edge '+(best<0?"negative":"")+'">'+(best>=0?"+":"")+(best*100).toFixed(1)+' pp</div><div class="edge-caption">EDGE'+(value(r)?' · VALUE':'')+'</div><div class="suggest">Model: '+esc(mf||"—")+'<br>Rynek: '+esc(rf||"—")+'</div></div></article>'
  }).join("")
 }
-function renderOutcomes(){const o=S.stats&&S.stats.overall||{},m=o.model_market_outcomes||{};$("both").textContent=count(m.both_correct||0);$("model-only").textContent=count(m.model_only_correct||0);$("market-only").textContent=count(m.market_only_correct||0);$("both-wrong").textContent=count(m.both_wrong||0);$("disagreements").textContent=count(o.disagreements||0);$("model-disagree-acc").textContent=pct(o.model_accuracy_when_disagree);$("market-disagree-acc").textContent=pct(o.market_accuracy_when_disagree)}
+function renderOutcomes(){
+ const v=S.stats&&S.stats.match_intelligence&&S.stats.match_intelligence.overall||{};
+ $("both").textContent=count(v.value_count?Math.max(0,v.value_count-v.value_model_only-v.value_market_only-v.value_both_wrong):0);
+ $("model-only").textContent=count(v.value_model_only||0);
+ $("market-only").textContent=count(v.value_market_only||0);
+ $("both-wrong").textContent=count(v.value_both_wrong||0);
+ $("disagreements").textContent=count(v.value_count||0);
+ $("model-disagree-acc").textContent=pct(v.value_model_accuracy);
+ $("market-disagree-acc").textContent=pct(v.value_market_accuracy);
+}
 function renderSets(){
  const root=$("intel-content"),all=S.stats&&S.stats.match_intelligence;
  if(!all){root.innerHTML='<div class="empty">Brak analityki. Dane pojawią się po kolejnym eksporcie pipeline.</div>';return}
