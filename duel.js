@@ -9,7 +9,7 @@ function renderDuel(){
    const a=Number(r.set_score_a),b=Number(r.set_score_b);
    return Number.isInteger(a)&&Number.isInteger(b)&&[[2,0],[0,2],[2,1],[1,2]].some(([x,y])=>a===x&&b===y);
   })
-  .sort((a,b)=>new Date(a.match_date||a.kickoff_utc)-new Date(b.match_date||b.kickoff_utc));
+  .sort((a,b)=>new Date(a.kickoff_utc||a.match_date)-new Date(b.kickoff_utc||b.match_date));
  const start=1000, rules={hades:{stake:100,odds:2.25},herkules:{stake:50,odds:3.5}};
  const bets=rows.map(r=>{
   const a=Number(r.set_score_a),b=Number(r.set_score_b),sets=a+b,side=r.market_favorite_side;
