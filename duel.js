@@ -2,7 +2,7 @@
 function renderDuel(){
  const root=document.getElementById("duel-panel");
  if(!root)return;
- const mode=["flat","edge","progressive"].includes(window.__duelMode)?window.__duelMode:"flat";
+ const mode="flat";
  const rows=(window.__predyktorSettled||[]).filter(r=>
   r.status==="settled"&&r.result_type==="regular"&&r.market_analysis&&r.market_analysis.is_value===true
  ).filter(r=>{
@@ -71,10 +71,15 @@ function renderDuel(){
   return {bank,wins,profit,turnover,placed,history,items,count:bets.length,accuracy:placed?wins/placed:0,roi:turnover?profit/turnover:null};
  }
  const results={};
- for(const key of Object.keys(rules))results[key]=simulate(key,mode);
+ for(const key of Object.keys(rules))results[key]=simulate(key,"flat");
+ const strategies=[
+  {id:"flat",title:"A · Flat stake",desc:"Stała stawka bazowa dla każdej persony."},
+  {id:"edge",title:"B · Edge-based",desc:"Zeus i Herkules: stawka rośnie z Edge. Hera i Hades: stawka maleje."},
+  {id:"progressive",title:"C · Progresja",desc:"Po przegranej: 2×, 4×, 6×, 8× bazy; wygrana resetuje progresję."}
+ ];
+ const strategyResults=Object.fromEntries(strategies.map(x=>[x.id,Object.fromEntries(Object.keys(rules).map(key=>[key,simulate(key,x.id)]))]));
  const h=results.hades,k=results.herkules,z=results.zeus,he=results.hera;
- const allHistory=Object.values(results).flatMap(x=>x.history);
- const path=values=>{
+ const path=(values,allHistory)=>{
   if(values.length<2)return "";
   const min=Math.min(start,...allHistory),max=Math.max(start,...allHistory),range=max-min||1,w=700,hg=145;
   return values.map((v,i)=>(i?"L":"M")+(i/(values.length-1)*w).toFixed(1)+" "+(hg-(v-min)/range*hg).toFixed(1)).join(" ");
@@ -95,7 +100,12 @@ function renderDuel(){
   '<td>'+badge(items.zeus)+'<small>'+(items.zeus.placedBet?fmt(items.zeus.stake)+' j · kurs '+fmt(items.zeus.odds):'')+' · '+esc(modelName(r))+' 2:0</small></td>'+
   '<td>'+badge(items.hera)+'<small>'+(items.hera.placedBet?fmt(items.hera.stake)+' j · kurs '+fmt(items.hera.odds):'')+' · '+esc(modelName(r))+' 2:0 / 2:1</small></td></tr>'
  ).join(""):'<tr><td colspan="8" class="empty">Brak rozliczonych meczów VALUE.</td></tr>';
- const chart='<svg class="duel-chart" viewBox="0 0 700 175" role="img" aria-label="Przebieg bankrolla czterech person"><line x1="0" y1="145" x2="700" y2="145"/><line x1="0" y1="72" x2="700" y2="72"/><path class="hades-line" d="'+path(h.history)+'"/><path class="herkules-line" d="'+path(k.history)+'"/><path class="zeus-line" d="'+path(z.history)+'"/><path class="hera-line" d="'+path(he.history)+'"/></svg>';
+ const makeChart=(modeId)=>{
+  const group=strategyResults[modeId],all=Object.values(group).flatMap(x=>x.history);
+  const p=(key,cls)=>'<path class="'+cls+'" d="'+path(group[key].history,all)+'"/>';
+  return '<svg class="duel-chart" viewBox="0 0 700 175" role="img" aria-label="Bankroll: '+modeId+'"><line x1="0" y1="145" x2="700" y2="145"/><line x1="0" y1="72" x2="700" y2="72"/>'+p("hades","hades-line")+p("herkules","herkules-line")+p("zeus","zeus-line")+p("hera","hera-line")+'</svg>';
+ };
+ const charts='<div class="duel-charts">'+strategies.map(x=>'<article class="duel-strategy-chart"><h3>'+x.title+'</h3><p>'+x.desc+'</p>'+makeChart(x.id)+'</article>').join("")+'</div>';
  const card=(key,title,tag,ruleText,res,cls,avatar)=>
   '<article class="duel-card '+cls+'"><div class="duel-avatar">'+avatar+'</div><div><div class="duel-name">'+title+'</div><div class="duel-tag">'+tag+'</div><div class="duel-rule">'+ruleText+'</div></div><div class="duel-bank">'+fmt(res.bank)+' <small>j</small></div><div class="duel-profit '+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j · ROI '+(res.roi===null?"—":pct(res.roi))+'</div><small>'+res.wins+'/'+res.placed+' trafień · '+(res.placed?pct(res.accuracy):"—")+' · '+res.placed+'/'+bets.length+' zakładów</small></article>';
  const totalPlaced=Object.values(results).reduce((s,x)=>s+x.placed,0);
@@ -112,11 +122,24 @@ function renderDuel(){
  card("zeus","ZEUS","Król prostych zwycięstw","Faworyt modelu wygrywa 2:0.",z,"zeus","⚡")+
  card("hera","HERA","Strona modelu","Faworyt modelu wygrywa 2:0 lub 2:1.",he,"hera","👑")+'</div>'+
  '<div class="duel-stats"><div><small>MECZE VALUE</small><b>'+bets.length+'</b></div><div><small>HADES · TRAFIENIA</small><b>'+h.wins+' / '+h.placed+' · '+(h.placed?pct(h.accuracy):"—")+'</b></div><div><small>HERKULES · TRAFIENIA</small><b>'+k.wins+' / '+k.placed+' · '+(k.placed?pct(k.accuracy):"—")+'</b></div><div><small>ZEUS · TRAFIENIA</small><b>'+z.wins+' / '+z.placed+' · '+(z.placed?pct(z.accuracy):"—")+'</b></div><div><small>HERA · TRAFIENIA</small><b>'+he.wins+' / '+he.placed+' · '+(he.placed?pct(he.accuracy):"—")+'</b></div></div>'+
- '<div class="duel-chart-wrap"><div class="duel-chart-head"><div><b>Przebieg bankrolla</b><label class="duel-mode-label" for="duel-mode">Sposób rozliczania stawek</label></div><select id="duel-mode" class="duel-mode-select"><option value="flat" '+(mode==="flat"?"selected":"")+'>A · Flat stake</option><option value="edge" '+(mode==="edge"?"selected":"")+'>B · Edge-based stake</option><option value="progressive" '+(mode==="progressive"?"selected":"")+'>C · Progresja po przegranej</option></select></div>'+
- '<div class="duel-mode-description">'+(mode==="flat"?"Stałe stawki bazowe pokazano w tabeli powyżej.":mode==="edge"?"ROSNĄCA: Zeus i Herkules — większy Edge oznacza większą stawkę. MALEJĄCA: Hera i Hades — mniejszy Edge oznacza większą stawkę.":"Po każdej przegranej stawka rośnie: baza, 2×, 4×, 6×, 8×… Po wygranej wraca do bazy. Jeśli bankroll nie wystarcza na pełną stawkę, zakład jest pomijany i progresja pozostaje na tym samym poziomie.")+'</div>'+
- '<div class="duel-chart-head"><span><i class="legend-h"></i> Hades <i class="legend-k"></i> Herkules <i class="legend-z"></i> Zeus <i class="legend-he"></i> Hera</span><span>'+totalPlaced+' zakładów łącznie</span></div>'+chart+'</div>'+
+ charts+
  '<div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Tour</th><th>Mecz</th><th>Wynik</th><th>Hades</th><th>Herkules</th><th>Zeus</th><th>Hera</th></tr></thead><tbody>'+rowsHtml+'</tbody></table></div>'+
- '<p class="hint">ROI = zysk netto / suma faktycznie postawionych stawek. Kursy Hadesa (2.30), Herkulesa (4.00) i Zeusa (4.50) są założeniami symulacji; Hera korzysta z kursu głównego na zwycięstwo faworyta modelu. Strategia Edge: Zeus i Herkules mają rosnący dobór stawek, Hera i Hades malejący. Strategia progresywna podwaja stawkę po pierwszej przegranej, następnie stosuje 4×, 6×, 8× bazy itd. i resetuje po wygranej. Nie ma prowizji.</p>';
- const select=root.querySelector("#duel-mode");
- if(select)select.addEventListener("change",()=>{window.__duelMode=select.value;renderDuel();});
+;
+ const pageSize=25;
+ let page=Number(window.__duelResultsPage||0);
+ const pageCount=Math.max(1,Math.ceil(latest.length/pageSize));
+ page=Math.min(page,pageCount-1);window.__duelResultsPage=page;
+ const tbody=root.querySelector(".duel-table tbody");
+ if(tbody)tbody.innerHTML=latest.slice(page*pageSize,(page+1)*pageSize).map(({r,items})=>
+  '<tr><td>'+esc(r.match_date||r.kickoff_utc?.slice(0,10))+'</td><td><span class="duel-tour">'+esc(r.tour)+'</span></td><td><b>'+esc(r.player_a)+' – '+esc(r.player_b)+'</b><small>'+esc(r.tourney_name||r.league||"")+'</small></td><td><b>'+score(r)+'</b><small>'+r.sets+' sety</small></td>'+
+  '<td>'+badge(items.hades)+'<small>'+(items.hades.placedBet?fmt(items.hades.stake)+' j · kurs '+fmt(items.hades.odds):'')+'</small></td>'+
+  '<td>'+badge(items.herkules)+'<small>'+(items.herkules.placedBet?fmt(items.herkules.stake)+' j · kurs '+fmt(items.herkules.odds):'')+'</small></td>'+
+  '<td>'+badge(items.zeus)+'<small>'+(items.zeus.placedBet?fmt(items.zeus.stake)+' j · kurs '+fmt(items.zeus.odds):'')+' · '+esc(modelName(r))+' 2:0</small></td>'+
+  '<td>'+badge(items.hera)+'<small>'+(items.hera.placedBet?fmt(items.hera.stake)+' j · kurs '+fmt(items.hera.odds):'')+' · '+esc(modelName(r))+' 2:0 / 2:1</small></td></tr>'
+ ).join("")||'<tr><td colspan="8" class="empty">Brak rozliczonych meczów VALUE.</td></tr>';
+ const pager=root.querySelector(".duel-pagination");
+ if(pager){pager.innerHTML='<button type="button" id="duel-prev" '+(page===0?'disabled':'')+'>← Poprzednie</button><span>Strona '+(page+1)+' / '+pageCount+' · '+latest.length+' wyników</span><button type="button" id="duel-next" '+(page>=pageCount-1?'disabled':'')+'>Następne →</button>';
+  pager.querySelector("#duel-prev").addEventListener("click",()=>{window.__duelResultsPage=Math.max(0,page-1);renderDuel()});
+  pager.querySelector("#duel-next").addEventListener("click",()=>{window.__duelResultsPage=Math.min(pageCount-1,page+1);renderDuel()});
+ }
 }
