@@ -78,7 +78,9 @@ function renderDuel(){
   {id:"progressive",title:"C · Progresja",desc:"Po przegranej: 2×, 4×, 6×, 8× bazy; wygrana resetuje progresję."}
  ];
  const strategyResults=Object.fromEntries(strategies.map(x=>[x.id,Object.fromEntries(Object.keys(rules).map(key=>[key,simulate(key,x.id)]))]));
- const h=results.hades,k=results.herkules,z=results.zeus,he=results.hera;
+ const selectedStrategy=window.__duelSelectedStrategy||"flat";
+ const selectedResults=strategyResults[selectedStrategy]||strategyResults.flat;
+ const h=selectedResults.hades,k=selectedResults.herkules,z=selectedResults.zeus,he=selectedResults.hera;
  const path=(values,allHistory)=>{
   if(values.length<2)return "";
   const min=Math.min(start,...allHistory),max=Math.max(start,...allHistory),range=max-min||1,w=700,hg=145;
@@ -105,10 +107,10 @@ function renderDuel(){
   const p=(key,cls)=>'<path class="'+cls+'" d="'+path(group[key].history,all)+'"/>';
   return '<svg class="duel-chart" viewBox="0 0 700 175" role="img" aria-label="Bankroll: '+modeId+'"><line x1="0" y1="145" x2="700" y2="145"/><line x1="0" y1="72" x2="700" y2="72"/>'+p("hades","hades-line")+p("herkules","herkules-line")+p("zeus","zeus-line")+p("hera","hera-line")+'</svg>';
  };
- const charts='<div class="duel-charts">'+strategies.map(x=>'<article class="duel-strategy-chart"><h3>'+x.title+'</h3><p>'+x.desc+'</p>'+makeChart(x.id)+'</article>').join("")+'</div>';
+ const charts='<div class="duel-charts">'+strategies.map(x=>'<article class="duel-strategy-chart '+(x.id===selectedStrategy?"active":"") +'" data-strategy="'+x.id+'" role="button" tabindex="0" aria-pressed="'+(x.id===selectedStrategy?"true":"false")+'"><h3>'+x.title+'</h3><p>'+x.desc+'</p>'+makeChart(x.id)+'</article>').join("")+'</div>';
  const card=(key,title,tag,ruleText,res,cls,avatar)=>
   '<article class="duel-card '+cls+'"><div class="duel-avatar">'+avatar+'</div><div><div class="duel-name">'+title+'</div><div class="duel-tag">'+tag+'</div><div class="duel-rule">'+ruleText+'</div></div><div class="duel-bank">'+fmt(res.bank)+' <small>j</small></div><div class="duel-profit '+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j · ROI '+(res.roi===null?"—":pct(res.roi))+'</div></article>';
- const totalPlaced=Object.values(results).reduce((s,x)=>s+x.placed,0);
+ const totalPlaced=Object.values(selectedResults).reduce((s,x)=>s+x.placed,0);
  root.innerHTML='<div class="duel-stake-box"><div class="duel-stake-heading"><b>Tabela stawek i kursów</b><span>Założenia symulacji</span></div><div class="table-scroll"><table class="duel-stake-table"><thead><tr><th>Persona</th><th>Strategia</th><th>Kurs</th><th>Stawka bazowa</th><th>Edge</th></tr></thead><tbody>'+
  '<tr><td><b>Hades</b></td><td>3 sety</td><td>2.30</td><td>100 j</td><td><span class="stake-direction falling">Malejąca</span></td></tr>'+
  '<tr><td><b>Herkules</b></td><td>Rynek 2:1</td><td>4.00</td><td>50 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
@@ -136,6 +138,11 @@ function renderDuel(){
   '<td>'+badge(items.zeus)+'<small>'+(items.zeus.placedBet?fmt(items.zeus.stake)+' j · kurs '+fmt(items.zeus.odds):'')+' · '+esc(modelName(r))+' 2:0</small></td>'+
   '<td>'+badge(items.hera)+'<small>'+(items.hera.placedBet?fmt(items.hera.stake)+' j · kurs '+fmt(items.hera.odds):'')+' · '+esc(modelName(r))+' 2:0 / 2:1</small></td></tr>'
  ).join("")||'<tr><td colspan="8" class="empty">Brak rozliczonych meczów VALUE.</td></tr>';
+ root.querySelectorAll(".duel-strategy-chart").forEach(chart=>{
+  const choose=()=>{const next=chart.dataset.strategy;if(next===window.__duelSelectedStrategy)return;window.__duelSelectedStrategy=next;window.__duelResultsPage=0;renderDuel();};
+  chart.addEventListener("click",choose);
+  chart.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();choose();}});
+ });
  const pager=root.querySelector(".duel-pagination");
  if(pager){pager.innerHTML='<button type="button" id="duel-prev" '+(page===0?'disabled':'')+'>← Poprzednie</button><span>Strona '+(page+1)+' / '+pageCount+' · '+latest.length+' wyników</span><button type="button" id="duel-next" '+(page>=pageCount-1?'disabled':'')+'>Następne →</button>';
   pager.querySelector("#duel-prev").addEventListener("click",()=>{window.__duelResultsPage=Math.max(0,page-1);renderDuel()});
