@@ -6,7 +6,7 @@
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta name="theme-color" content="#0b1018"><title>PREDYKTOR — Tennis Intelligence</title>
-<link rel="stylesheet" href="styles.css?v=login-gate-1">
+<link rel="stylesheet" href="styles.css?v=main-tabs-1">
 </head>
 <body>
 <header class="topbar"><a class="brand" href="./"><span class="brand-icon">P</span><span><b>PREDYKTOR</b><small>TENNIS INTELLIGENCE</small></span></a><div class="status"><i></i> AUTOMATYCZNY PIPELINE <span id="updated">Ładowanie danych…</span></div></header>
@@ -23,17 +23,17 @@
   </form>
 </section>
 <main class="wrap">
-<section class="hero"><div><p class="eyebrow">MODEL VS BET365 MARKET · ATP / WTA / CHALLENGER</p><h1>Centrum predykcji</h1><p>Prognozy przedmeczowe, rozliczone wyniki i porównanie skuteczności modelu z rynkiem.</p></div><div class="actions"><button id="refresh">↻ Odśwież</button><label for="file-input">＋ Import CSV / JSON</label><input id="file-input" type="file" accept=".csv,.json"></div></section>
-<section class="metrics">
+
+
+<nav class="main-tabs" aria-label="Sekcje dashboardu"><button class="active" data-tab="upcoming">Upcoming</button><button data-tab="stats">Statystyki</button><button data-tab="simulation">Symulacja</button></nav><div class="tab-content active" id="tab-upcoming"><section class="panel"><div class="section-title"><div><p class="eyebrow">UPCOMING</p><h2>Zaplanowane spotkania</h2></div><span class="pill" id="pending-count">0</span></div>
+<div class="filters"><nav><button class="active" data-tour="ALL">Wszystkie</button><button data-tour="ATP">ATP</button><button data-tour="WTA">WTA</button><button data-tour="CHALLENGER">Challenger</button></nav><input id="search" placeholder="Szukaj zawodnika lub turnieju…"><label class="check"><input id="value-only" type="checkbox"> Tylko value</label></div>
+<div id="predictions" class="cards"><div class="empty">Brak załadowanych predykcji.</div></div></section></div><div class="tab-content" id="tab-stats"><section class="metrics">
 <article><small>WSZYSTKIE ANALIZY</small><strong id="total">—</strong><span>zapisane w NeonDB</span></article>
 <article><small>ROZLICZONE MECZE</small><strong id="settled">—</strong><span>potwierdzony wynik</span></article>
 <article><small>SKUTECZNOŚĆ MODELU</small><strong id="model-acc">—</strong><span id="model-correct">trafne wskazania</span></article>
 <article><small>SKUTECZNOŚĆ RYNKU</small><strong id="market-acc">—</strong><span>trafne wskazania</span></article>
 <article class="warning"><small>NIEROZLICZONE</small><strong id="unsettled">—</strong><span>mecze po terminie</span></article>
-</section>
-<section class="panel"><div class="section-title"><div><p class="eyebrow">UPCOMING</p><h2>Zaplanowane spotkania</h2></div><span class="pill" id="pending-count">0</span></div>
-<div class="filters"><nav><button class="active" data-tour="ALL">Wszystkie</button><button data-tour="ATP">ATP</button><button data-tour="WTA">WTA</button><button data-tour="CHALLENGER">Challenger</button></nav><input id="search" placeholder="Szukaj zawodnika lub turnieju…"><label class="check"><input id="value-only" type="checkbox"> Tylko value</label></div>
-<div id="predictions" class="cards"><div class="empty">Brak załadowanych predykcji.</div></div></section>
+</section></div><div class="tab-content" id="tab-simulation"></div>
 
 <section class="panel"><div class="section-title"><div><p class="eyebrow">TOUR BREAKDOWN</p><h2>Skuteczność według rozgrywek</h2></div></div><div class="table-scroll"><table><thead><tr><th>Tour</th><th>Mecze</th><th>Model</th><th>Rynek</th><th>Rozbieżne</th><th>Brier modelu</th><th>Brier rynku</th></tr></thead><tbody id="tour-stats"><tr><td colspan="7" class="empty">Brak danych.</td></tr></tbody></table></div></section>
 <section class="panel unresolved"><div class="section-title"><div><p class="eyebrow">DATA QUALITY</p><h2>Nierozliczone mecze</h2><p class="sub">Mecze po terminie, dla których nie odnaleziono jeszcze jednoznacznego wyniku.</p></div><span class="pill amber" id="unsettled-pill">0</span></div><div id="reasons" class="reason-grid"></div><div class="table-scroll"><table><thead><tr><th>Spotkanie</th><th>Tour / turniej</th><th>Powód</th><th>Próby</th><th>Ostatnia kontrola</th><th>Wiek</th></tr></thead><tbody id="unsettled-rows"><tr><td colspan="6" class="empty">Brak nierozliczonych meczów.</td></tr></tbody></table></div></section>
@@ -53,7 +53,7 @@
     gate.hidden=true;
     if(!window.__predyktorScriptsLoaded){
       window.__predyktorScriptsLoaded=true;
-      const app=document.createElement("script");app.src="app.js";app.onload=function(){const duel=document.createElement("script");duel.src="duel.js?v=bff9632";document.body.appendChild(duel);};document.body.appendChild(app);
+      const app=document.createElement("script");app.src="app.js?v=main-tabs-1";app.onload=function(){const duel=document.createElement("script");duel.src="duel.js?v=main-tabs-1";document.body.appendChild(duel);};document.body.appendChild(app);
     }
   }
   if(sessionStorage.getItem(KEY)==="1")openDashboard();
