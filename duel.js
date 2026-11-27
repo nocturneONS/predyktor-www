@@ -5,13 +5,16 @@ function renderDuel(){
  const rows=(window.__predyktorSettled||[]).filter(r=>
    r.status==="settled" && r.result_type==="regular" &&
    r.market_analysis&&r.market_analysis.is_value===true
- ).filter(r=>Number.isFinite(Number(r.set_score_a))&&Number.isFinite(Number(r.set_score_b)))
+ ).filter(r=>{
+   const a=Number(r.set_score_a),b=Number(r.set_score_b);
+   return Number.isInteger(a)&&Number.isInteger(b)&&[[2,0],[0,2],[2,1],[1,2]].some(([x,y])=>a===x&&b===y);
+  })
   .sort((a,b)=>new Date(a.match_date||a.kickoff_utc)-new Date(b.match_date||b.kickoff_utc));
  const start=1000, rules={hades:{stake:100,odds:2.25},herkules:{stake:50,odds:3.5}};
  const bets=rows.map(r=>{
   const a=Number(r.set_score_a),b=Number(r.set_score_b),sets=a+b,side=r.market_favorite_side;
   const hadesWin=sets===3;
-  const herkulesWin=(side==="A"&&a===2&&b<=1)||(side==="B"&&b===2&&a<=1);
+  const herkulesWin=(side==="A"&&a===2&&b===1)||(side==="B"&&b===2&&a===1);
   return {...r,sets,hadesWin,herkulesWin};
  });
  const calc=(key)=>{
