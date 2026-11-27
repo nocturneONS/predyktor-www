@@ -10,6 +10,18 @@
 </head>
 <body>
 <header class="topbar"><a class="brand" href="./"><span class="brand-icon">P</span><span><b>PREDYKTOR</b><small>TENNIS INTELLIGENCE</small></span></a><div class="status"><i></i> AUTOMATYCZNY PIPELINE <span id="updated">Ładowanie danych…</span></div></header>
+<section id="login-gate" class="login-gate" aria-labelledby="login-title">
+  <form id="login-form" class="login-card">
+    <div class="login-mark">P</div>
+    <p class="eyebrow">PREDYKTOR · PRIVATE ANALYTICS</p>
+    <h1 id="login-title">Dostęp chroniony</h1>
+    <p>Wprowadź hasło, aby otworzyć dashboard.</p>
+    <label for="login-password">Hasło</label>
+    <input id="login-password" type="password" autocomplete="current-password" required autofocus>
+    <p id="login-error" class="login-error" role="alert" hidden>Nieprawidłowe hasło. Spróbuj ponownie.</p>
+    <button type="submit">Otwórz PREDYKTOR</button>
+  </form>
+</section>
 <main class="wrap">
 <section class="hero"><div><p class="eyebrow">MODEL VS BET365 MARKET · ATP / WTA / CHALLENGER</p><h1>Centrum predykcji</h1><p>Prognozy przedmeczowe, rozliczone wyniki i porównanie skuteczności modelu z rynkiem.</p></div><div class="actions"><button id="refresh">↻ Odśwież</button><label for="file-input">＋ Import CSV / JSON</label><input id="file-input" type="file" accept=".csv,.json"></div></section>
 <section class="metrics">
@@ -27,5 +39,34 @@
 <section class="panel unresolved"><div class="section-title"><div><p class="eyebrow">DATA QUALITY</p><h2>Nierozliczone mecze</h2><p class="sub">Mecze po terminie, dla których nie odnaleziono jeszcze jednoznacznego wyniku.</p></div><span class="pill amber" id="unsettled-pill">0</span></div><div id="reasons" class="reason-grid"></div><div class="table-scroll"><table><thead><tr><th>Spotkanie</th><th>Tour / turniej</th><th>Powód</th><th>Próby</th><th>Ostatnia kontrola</th><th>Wiek</th></tr></thead><tbody id="unsettled-rows"><tr><td colspan="6" class="empty">Brak nierozliczonych meczów.</td></tr></tbody></table></div></section>
 <section id="duel-panel" class="panel"></section><section class="panel" hidden><div class="section-title"><div><p class="eyebrow">HISTORY</p><h2>Ostatnio rozliczone spotkania</h2></div><span class="pill" id="history-count">0</span></div><div class="table-scroll"><table><thead><tr><th>Mecz</th><th>Tour</th><th>Wynik setów</th><th>Zwycięzca</th><th>Model</th><th>Rynek</th><th>Relacja</th></tr></thead><tbody id="history-rows"><tr><td colspan="7" class="empty">Brak historii.</td></tr></tbody></table></div></section>
 <footer><span>PREDYKTOR · PRIVATE ANALYTICS</span><span>Model probabilities are estimates, not guarantees.</span></footer>
-</main><script src="app.js"></script><script src="duel.js?v=bff9632"></script>
+</main>
+<script src="config.js"></script>
+<script>
+(function(){
+  const KEY="predyktor-session";
+  const gate=document.getElementById("login-gate");
+  const form=document.getElementById("login-form");
+  const input=document.getElementById("login-password");
+  const error=document.getElementById("login-error");
+  function openDashboard(){
+    document.body.classList.add("authenticated");
+    gate.hidden=true;
+    if(!window.__predyktorScriptsLoaded){
+      window.__predyktorScriptsLoaded=true;
+      const app=document.createElement("script");app.src="app.js";document.body.appendChild(app);
+      const duel=document.createElement("script");duel.src="duel.js?v=bff9632";document.body.appendChild(duel);
+    }
+  }
+  if(sessionStorage.getItem(KEY)==="1")openDashboard();
+  form.addEventListener("submit",function(event){
+    event.preventDefault();
+    if(input.value===window.PREDYKTOR_CONFIG.password){
+      sessionStorage.setItem(KEY,"1");error.hidden=true;openDashboard();
+    }else{
+      error.hidden=false;input.value="";input.focus();
+    }
+  });
+})();
+</script>
+</body></html>
 </body></html>
