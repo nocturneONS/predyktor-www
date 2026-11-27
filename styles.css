@@ -132,3 +132,21 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .login-card [hidden]{display:none}
 
 .login-gate[hidden]{display:none}
+
+/* Main navigation and page sections */
+.main-tabs{display:flex;gap:8px;margin:0 0 16px;padding:5px;background:#101925;border:1px solid #2a3b50;border-radius:11px;width:max-content;max-width:100%}
+.main-tabs button{border:0;border-radius:7px;padding:10px 22px;background:transparent;color:#9aabc0;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.main-tabs button.active{background:#294766;color:#eff7ff;box-shadow:0 2px 8px #0003}
+.tab-content{display:none}.tab-content.active{display:block}
+.tab-content>.panel:first-child{margin-top:0}
+.metrics{margin-top:0}
+.duel-charts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+.duel-strategy-chart{min-width:0;padding:12px;background:#101823;border:1px solid #2a3b50;border-radius:10px}
+.duel-strategy-chart h3{font-size:12px;margin:0 0 4px}
+.duel-strategy-chart p{font-size:9px;color:var(--muted);margin:0}
+.duel-strategy-chart .duel-chart{margin-top:10px}
+.duel-pagination{display:flex;justify-content:center;align-items:center;gap:12px;padding:13px 0 2px;color:var(--muted);font-size:10px}
+.duel-pagination button{border:1px solid #354a63;border-radius:7px;padding:7px 12px;background:#1b293a;color:#e5edf7;cursor:pointer}
+.duel-pagination button:disabled{opacity:.35;cursor:default}
+@media(max-width:900px){.duel-charts{grid-template-columns:1fr}}
+@media(max-width:560px){.main-tabs{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}.main-tabs button{padding:10px 5px;font-size:11px}}
