@@ -91,7 +91,7 @@ function renderDuel(){
  };
  const badge=(item)=>{
   if(!item.placedBet)return '<span class="duel-result no-bet">— BEZ ZAKŁADU</span>';
-  return '<span class="duel-result '+(item.won?"won":"lost")+'">'+(item.won?"✓ WYGRANA":"✕ PRZEGRANA")+' <b>'+(item.delta>0?"+":"")+fmt(item.delta)+' j</b></span>';
+  return '<span class="duel-result '+(item.won?"won":"lost")+'"><b>'+(item.delta>0?"+":"")+fmt(item.delta)+' j</b></span>';
  };
  const byKey={hades:h,herkules:k,zeus:z,hera:he};
  const latest=bets.map((r,i)=>({r,items:Object.fromEntries(Object.keys(rules).map(key=>[key,byKey[key].items[i]]))})).reverse();
