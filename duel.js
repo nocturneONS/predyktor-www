@@ -99,12 +99,12 @@ function renderDuel(){
  const sideName=r=>r.market_favorite_side==="A"?r.player_a:r.market_favorite_side==="B"?r.player_b:"—";
  const modelName=r=>r.model_favorite_side==="A"?r.player_a:r.model_favorite_side==="B"?r.player_b:"—";
  const rowsHtml=latest.length?latest.map(({r,items})=>
-  '<tr><td>'+esc(r.match_date||r.kickoff_utc?.slice(0,10))+'</td><td><span class="duel-tour">'+esc(r.tour)+'</span></td><td><b>'+esc(r.player_a)+' – '+esc(r.player_b)+'</b><small>'+esc(r.tourney_name||r.league||"")+'</small></td><td><b>'+score(r)+'</b><small>'+r.sets+' sety</small></td>'+
-  '<td>'+badge(items.hades)+'<small>'+(items.hades.placedBet?fmt(items.hades.stake)+' j · kurs '+fmt(items.hades.odds):'')+'</small></td>'+
-  '<td>'+badge(items.herkules)+'<small>'+(items.herkules.placedBet?fmt(items.herkules.stake)+' j · kurs '+fmt(items.herkules.odds):'')+'</small></td>'+
-  '<td>'+badge(items.zeus)+'<small>'+(items.zeus.placedBet?fmt(items.zeus.stake)+' j · kurs '+fmt(items.zeus.odds):'')+' · '+esc(modelName(r))+' 2:0</small></td>'+
-  '<td>'+badge(items.hera)+'<small>'+(items.hera.placedBet?fmt(items.hera.stake)+' j · kurs '+fmt(items.hera.odds):'')+' · '+esc(modelName(r))+' 2:0 / 2:1</small></td></tr>'
- ).join(""):'<tr><td colspan="8" class="empty">Brak rozliczonych meczów VALUE.</td></tr>';
+  '<tr><td><span class="duel-tour">'+esc(r.tour)+'</span></td><td><b>'+esc(r.player_a)+' – '+esc(r.player_b)+'</b></td><td><b>'+score(r)+'</b></td>'+
+  '<td>'+badge(items.hades)+'</td>'+
+  '<td>'+badge(items.herkules)+'</td>'+
+  '<td>'+badge(items.zeus)+'</td>'+
+  '<td>'+badge(items.hera)+'</td></tr>'
+ ).join(""):'<tr><td colspan="7" class="empty">Brak rozliczonych meczów VALUE.</td></tr>';
  const makeChart=(modeId)=>{
   const group=strategyResults[modeId],all=Object.values(group).flatMap(x=>x.history);
   const p=(key,cls)=>'<path class="'+cls+'" d="'+path(group[key].history,all)+'"/>';
@@ -128,19 +128,19 @@ function renderDuel(){
  card("hera","HERA","Strona modelu","Faworyt modelu wygrywa 2:0 lub 2:1.",he,"hera","👑")+'</div>'+
  '<div class="duel-stats"><div><small>MECZE VALUE</small><b>'+bets.length+'</b></div><div><small>HADES · TRAFIENIA</small><b>'+h.wins+' / '+h.placed+' · '+(h.placed?pct(h.accuracy):"—")+'</b></div><div><small>HERKULES · TRAFIENIA</small><b>'+k.wins+' / '+k.placed+' · '+(k.placed?pct(k.accuracy):"—")+'</b></div><div><small>ZEUS · TRAFIENIA</small><b>'+z.wins+' / '+z.placed+' · '+(z.placed?pct(z.accuracy):"—")+'</b></div><div><small>HERA · TRAFIENIA</small><b>'+he.wins+' / '+he.placed+' · '+(he.placed?pct(he.accuracy):"—")+'</b></div></div>'+
  charts+
- '<div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Tour</th><th>Mecz</th><th>Wynik</th><th>Hades</th><th>Herkules</th><th>Zeus</th><th>Hera</th></tr></thead><tbody>'+rowsHtml+'</tbody></table></div><div class="duel-pagination"></div>';
+ '<div class="table-scroll"><table class="duel-table"><thead><tr><th>Tour</th><th>Mecz</th><th>Wynik</th><th>Hades</th><th>Herkules</th><th>Zeus</th><th>Hera</th></tr></thead><tbody>'+rowsHtml+'</tbody></table></div><div class="duel-pagination"></div>';
  const pageSize=10;
  let page=Number(window.__duelResultsPage||0);
  const pageCount=Math.max(1,Math.ceil(latest.length/pageSize));
  page=Math.min(page,pageCount-1);window.__duelResultsPage=page;
  const tbody=root.querySelector(".duel-table tbody");
  if(tbody)tbody.innerHTML=latest.slice(page*pageSize,(page+1)*pageSize).map(({r,items})=>
-  '<tr><td>'+esc(r.match_date||r.kickoff_utc?.slice(0,10))+'</td><td><span class="duel-tour">'+esc(r.tour)+'</span></td><td><b>'+esc(r.player_a)+' – '+esc(r.player_b)+'</b><small>'+esc(r.tourney_name||r.league||"")+'</small></td><td><b>'+score(r)+'</b><small>'+r.sets+' sety</small></td>'+
-  '<td>'+badge(items.hades)+'<small>'+(items.hades.placedBet?fmt(items.hades.stake)+' j · kurs '+fmt(items.hades.odds):'')+'</small></td>'+
-  '<td>'+badge(items.herkules)+'<small>'+(items.herkules.placedBet?fmt(items.herkules.stake)+' j · kurs '+fmt(items.herkules.odds):'')+'</small></td>'+
-  '<td>'+badge(items.zeus)+'<small>'+(items.zeus.placedBet?fmt(items.zeus.stake)+' j · kurs '+fmt(items.zeus.odds):'')+' · '+esc(modelName(r))+' 2:0</small></td>'+
-  '<td>'+badge(items.hera)+'<small>'+(items.hera.placedBet?fmt(items.hera.stake)+' j · kurs '+fmt(items.hera.odds):'')+' · '+esc(modelName(r))+' 2:0 / 2:1</small></td></tr>'
- ).join("")||'<tr><td colspan="8" class="empty">Brak rozliczonych meczów VALUE.</td></tr>';
+  '<tr><td><span class="duel-tour">'+esc(r.tour)+'</span></td><td><b>'+esc(r.player_a)+' – '+esc(r.player_b)+'</b></td><td><b>'+score(r)+'</b></td>'+
+  '<td>'+badge(items.hades)+'</td>'+
+  '<td>'+badge(items.herkules)+'</td>'+
+  '<td>'+badge(items.zeus)+'</td>'+
+  '<td>'+badge(items.hera)+'</td></tr>'
+ ).join("")||'<tr><td colspan="7" class="empty">Brak rozliczonych meczów VALUE.</td></tr>';
  root.querySelectorAll(".duel-strategy-chart").forEach(chart=>{
   const choose=()=>{const next=chart.dataset.strategy;if(next===window.__duelSelectedStrategy)return;window.__duelSelectedStrategy=next;window.__duelResultsPage=0;renderDuel();};
   chart.addEventListener("click",choose);
