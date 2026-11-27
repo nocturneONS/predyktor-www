@@ -40,13 +40,22 @@ function renderDuel(){
   if(gap<0.25)return base;
   return base*1.25;
  }
+ function stakeForReverseEdge(base,gap){
+  if(!Number.isFinite(gap)||gap<0)return 0;
+  if(gap<0.05)return base*1.25;
+  if(gap<0.10)return base;
+  if(gap<0.15)return base*0.75;
+  if(gap<0.20)return base*0.50;
+  if(gap<0.25)return base*0.25;
+  return 0;
+ }
  function simulate(key,kind){
   const rule=rules[key];let bank=start,wins=0,profit=0,turnover=0,placed=0;
   const history=[start],items=[];
   let alpha=20/rule.odds,beta=20-alpha;
   for(const r of bets){
    let stake=rule.stake;
-   if(kind==="edge")stake=stakeForEdge(rule.stake,r.edgeGap);
+   if(kind==="edge")stake=(key==="hades"||key==="hera")?stakeForReverseEdge(rule.stake,r.edgeGap):stakeForEdge(rule.stake,r.edgeGap);
    if(kind==="kelly"){
     const p=alpha/(alpha+beta);
     const fullKelly=Math.max(0,(rule.odds*p-1)/(rule.odds-1));
@@ -105,7 +114,7 @@ function renderDuel(){
  card("hera","HERA","Strona modelu","Faworyt modelu wygrywa 2:0 lub 2:1.",he,"hera","👑")+'</div>'+
  '<div class="duel-stats"><div><small>MECZE VALUE</small><b>'+bets.length+'</b></div><div><small>HADES · TRAFIENIA</small><b>'+h.wins+' / '+h.placed+' · '+(h.placed?pct(h.accuracy):"—")+'</b></div><div><small>HERKULES · TRAFIENIA</small><b>'+k.wins+' / '+k.placed+' · '+(k.placed?pct(k.accuracy):"—")+'</b></div><div><small>ZEUS · TRAFIENIA</small><b>'+z.wins+' / '+z.placed+' · '+(z.placed?pct(z.accuracy):"—")+'</b></div><div><small>HERA · TRAFIENIA</small><b>'+he.wins+' / '+he.placed+' · '+(he.placed?pct(he.accuracy):"—")+'</b></div></div>'+
  '<div class="duel-chart-wrap"><div class="duel-chart-head"><div><b>Przebieg bankrolla</b><label class="duel-mode-label" for="duel-mode">Sposób rozliczania stawek</label></div><select id="duel-mode" class="duel-mode-select"><option value="flat" '+(mode==="flat"?"selected":"")+'>A · Flat stake</option><option value="edge" '+(mode==="edge"?"selected":"")+'>B · Edge-based stake</option><option value="kelly" '+(mode==="kelly"?"selected":"")+'>C · Fractional Kelly (¼)</option></select></div>'+
- '<div class="duel-mode-description">'+(mode==="flat"?"Stała stawka bazowa w każdym meczu VALUE. Punkt odniesienia do porównań.":mode==="edge"?"Stawka zależy od różnicy prawdopodobieństwa modelu i rynku: poniżej 5 pp = brak zakładu; następnie ¼, ½, ¾, 1× lub 1,25× stawki bazowej.":"¼ Kelly liczony krocząco z wcześniejszych trafień danej persony. Estymacja startuje od 20 obserwacji-priorów na poziomie progu rentowności; stawka ograniczona do 2× bazy. Bez używania wyniku bieżącego meczu do wyliczenia jego stawki.")+'</div>'+
+ '<div class="duel-mode-description">'+(mode==="flat"?"Stała stawka bazowa w każdym meczu VALUE. Punkt odniesienia do porównań.":mode==="edge"?"Zeus i Herkules: rosnąca stawka wraz z Edge (poniżej 5 pp brak zakładu, potem ¼, ½, ¾, 1× i 1,25× bazy). Hera i Hades: skala malejąca (1,25× bazy przy Edge poniżej 5 pp, następnie 1×, ¾, ½, ¼ i brak zakładu od 25 pp).":"¼ Kelly liczony krocząco z wcześniejszych trafień danej persony. Estymacja startuje od 20 obserwacji-priorów na poziomie progu rentowności; stawka ograniczona do 2× bazy. Bez używania wyniku bieżącego meczu do wyliczenia jego stawki.")+'</div>'+
  '<div class="duel-chart-head"><span><i class="legend-h"></i> Hades <i class="legend-k"></i> Herkules <i class="legend-z"></i> Zeus <i class="legend-he"></i> Hera</span><span>'+totalPlaced+' zakładów łącznie</span></div>'+chart+'</div>'+
  '<div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Tour</th><th>Mecz</th><th>Wynik</th><th>Hades</th><th>Herkules</th><th>Zeus</th><th>Hera</th></tr></thead><tbody>'+rowsHtml+'</tbody></table></div>'+
  '<p class="hint">ROI = zysk netto / suma faktycznie postawionych stawek. W Edge-based stake próg i mnożniki są eksperymentalne. Kelly korzysta z kroczącej estymacji skuteczności konkretnej persony, a nie z prawdopodobieństwa wygrania meczu przez faworyta — dostępne dane nie zawierają jeszcze prawdopodobieństw dokładnych wyników setowych. Wartości kursów są założeniami symulacji. Zakłady bez stawki nie wchodzą do mianownika ROI. Nie ma prowizji.</p>';
