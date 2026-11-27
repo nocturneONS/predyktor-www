@@ -12,7 +12,7 @@ function renderDuel(){
  const start=1000;
  const rules={
   hades:{stake:100,odds:2.3,label:"Hades"},
-  herkules:{stake:50,odds:4.0,label:"Herkules"},
+  herkules:{stake:25,odds:null,label:"Herkules"},
   zeus:{stake:100,odds:4.5,label:"Zeus"},
   hera:{stake:50,odds:2,label:"Hera"}
  };
@@ -26,7 +26,8 @@ function renderDuel(){
   const gap=Math.abs(Number(r.model_probability_a)-Number(r.market_probability_a));
   return {...r,sets,edgeGap:Number.isFinite(gap)?gap:null,
    hadesWin:sets===3,
-   herkulesWin:(side==="A"&&a===2&&b===1)||(side==="B"&&b===2&&a===1),
+   herkulesWin:(modelSide==="A"&&a===2)||(modelSide==="B"&&b===2),
+   herkulesOdds:Number(modelSide==="A"?r.odds_a:modelSide==="B"?r.odds_b:NaN),
    zeusWin:(modelSide==="A"&&a===2&&b===0)||(modelSide==="B"&&b===2&&a===0),
    heraWin:(modelSide==="A"&&a===2&&b<=1)||(modelSide==="B"&&b===2&&a<=1),
    heraOdds:Number(modelSide==="A"?r.odds_a:modelSide==="B"?r.odds_b:NaN)
@@ -54,10 +55,12 @@ function renderDuel(){
   const rule=rules[key];let bank=start,wins=0,profit=0,turnover=0,placed=0,lossStreak=0;
   const history=[start],items=[];
   for(const r of bets){
-   const betOdds=key==="hera"?r.heraOdds:rule.odds;
+   const betOdds=key==="hera"?r.heraOdds:key==="herkules"?r.herkulesOdds:rule.odds;
    let stake=rule.stake;
-   if(kind==="edge")stake=(key==="hades"||key==="hera")?stakeForReverseEdge(rule.stake,r.edgeGap):stakeForEdge(rule.stake,r.edgeGap);
-   if(kind==="progressive")stake=rule.stake*(lossStreak===0?1:lossStreak*2);
+   if(key==="hades")stake=r.edgeGap>=.05&&r.edgeGap<.15?100*(lossStreak===0?1:lossStreak*2):0;
+   else if(key==="herkules")stake=r.edgeGap>=.10&&r.edgeGap<.15?25:r.edgeGap>=.15&&r.edgeGap<.20?50:r.edgeGap>=.20&&r.edgeGap<.25?75:0;
+   else if(kind==="edge")stake=key==="hera"?stakeForReverseEdge(rule.stake,r.edgeGap):stakeForEdge(rule.stake,r.edgeGap);
+   else if(kind==="progressive")stake=rule.stake*(lossStreak===0?1:lossStreak*2);
    if(key==="hera"&&(!Number.isFinite(betOdds)||betOdds<=1))stake=0;
    if(bank<stake)stake=0;
    const placedBet=stake>0;
@@ -66,16 +69,16 @@ function renderDuel(){
    if(placedBet){placed++;turnover+=stake;profit+=delta;bank+=delta;if(won)wins++;}
    items.push({...r,stake,odds:betOdds,delta,placedBet,won,lossStreakBefore:lossStreak});
    history.push(bank);
-   if(kind==="progressive"&&placedBet)lossStreak=won?0:lossStreak+1;
+   if((key==="hades"||kind==="progressive")&&placedBet)lossStreak=won?0:lossStreak+1;
   }
   return {bank,wins,profit,turnover,placed,history,items,count:bets.length,accuracy:placed?wins/placed:0,roi:turnover?profit/turnover:null};
  }
  const results={};
  for(const key of Object.keys(rules))results[key]=simulate(key,"flat");
  const strategies=[
-  {id:"flat",title:"A · Flat stake",desc:"Stała stawka bazowa dla każdej persony."},
-  {id:"edge",title:"B · Edge-based",desc:"Zeus i Herkules: stawka rośnie z Edge. Hera i Hades: stawka maleje."},
-  {id:"progressive",title:"C · Progresja",desc:"Po przegranej: 2×, 4×, 6×, 8× bazy; wygrana resetuje progresję."}
+  {id:"flat",title:"A · Flat stake",desc:"Zeus i Hera: stała stawka. Hades i Herkules zachowują własne reguły."},
+  {id:"edge",title:"B · Edge-based",desc:"Zeus i Hera zmieniają stawkę według Edge. Hades i Herkules bez zmian."},
+  {id:"progressive",title:"C · Progresja",desc:"Zeus i Hera progresują po przegranej. Hades zawsze ma własną progresję 2×, 4×, 6×…"}
  ];
  const strategyResults=Object.fromEntries(strategies.map(x=>[x.id,Object.fromEntries(Object.keys(rules).map(key=>[key,simulate(key,x.id)]))]));
  const selectedStrategy=window.__duelSelectedStrategy||"flat";
@@ -112,15 +115,15 @@ function renderDuel(){
   '<article class="duel-card '+cls+'"><div class="duel-avatar">'+avatar+'</div><div><div class="duel-name">'+title+'</div><div class="duel-tag">'+tag+'</div><div class="duel-rule">'+ruleText+'</div></div><div class="duel-bank">'+fmt(res.bank)+' <small>j</small></div><div class="duel-profit '+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j · ROI '+(res.roi===null?"—":pct(res.roi))+'</div></article>';
  const totalPlaced=Object.values(selectedResults).reduce((s,x)=>s+x.placed,0);
  root.innerHTML='<div class="duel-stake-box"><div class="duel-stake-heading"><b>Tabela stawek i kursów</b><span>Założenia symulacji</span></div><div class="table-scroll"><table class="duel-stake-table"><thead><tr><th>Persona</th><th>Strategia</th><th>Kurs</th><th>Stawka bazowa</th><th>Edge</th></tr></thead><tbody>'+
- '<tr><td><b>Hades</b></td><td>3 sety</td><td>2.30</td><td>100 j</td><td><span class="stake-direction falling">Malejąca</span></td></tr>'+
- '<tr><td><b>Herkules</b></td><td>Rynek 2:1</td><td>4.00</td><td>50 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
+ '<tr><td><b>Hades</b></td><td>3 sety · EDGE 5–15 pp</td><td>2.30*</td><td>100 j bazowo</td><td><span class="stake-direction rising">Progresja 2×</span></td></tr>'+
+ '<tr><td><b>Herkules</b></td><td>Faworyt modelu · EDGE 10–25 pp</td><td>Kurs główny</td><td>25 / 50 / 75 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
  '<tr><td><b>Zeus</b></td><td>Model 2:0</td><td>4.50</td><td>100 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
  '<tr><td><b>Hera</b></td><td>Model 2:0 / 2:1</td><td>Kurs główny</td><td>50 j</td><td><span class="stake-direction falling">Malejąca</span></td></tr>'+
  '</tbody></table></div></div>'+
  '<div class="section-title"><div><p class="eyebrow">SIMULATED VALUE BETTING</p><h2>⚔️ Pojedynek typerów — 4 persony</h2><p class="sub">Wyłącznie kompletne mecze VALUE · start 1000 j na personę</p></div><span class="pill">'+bets.length+' meczów VALUE</span></div>'+
  '<div class="duel-grid">'+
- card("hades","HADES","Łowca trzeciego seta","Wygrywa przy 2:1 lub 1:2.",h,"hades","♛")+
- card("herkules","HERKULES","Obrońca faworyta rynku","Wygrywa, gdy faworyt rynku zwycięża 2:1.",k,"herkules","⚔")+
+ card("hades","HADES","Łowca trzeciego seta","EDGE 5–15 pp · progresja 2× po każdej porażce.",h,"hades","♛")+
+ card("herkules","HERKULES","Faworyt modelu","Zwycięstwo faworyta modelu · EDGE 10–25 pp.",k,"herkules","⚔")+
  card("zeus","ZEUS","Król prostych zwycięstw","Faworyt modelu wygrywa 2:0.",z,"zeus","⚡")+
  card("hera","HERA","Strona modelu","Faworyt modelu wygrywa 2:0 lub 2:1.",he,"hera","👑")+'</div>'+
  '<div class="duel-stats"><div><small>MECZE VALUE</small><b>'+bets.length+'</b></div><div><small>HADES · TRAFIENIA</small><b>'+h.wins+' / '+h.placed+' · '+(h.placed?pct(h.accuracy):"—")+'</b></div><div><small>HERKULES · TRAFIENIA</small><b>'+k.wins+' / '+k.placed+' · '+(k.placed?pct(k.accuracy):"—")+'</b></div><div><small>ZEUS · TRAFIENIA</small><b>'+z.wins+' / '+z.placed+' · '+(z.placed?pct(z.accuracy):"—")+'</b></div><div><small>HERA · TRAFIENIA</small><b>'+he.wins+' / '+he.placed+' · '+(he.placed?pct(he.accuracy):"—")+'</b></div></div>'+
