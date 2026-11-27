@@ -116,3 +116,17 @@
 .stake-direction.rising{color:#a8d9ff;background:#16334b;border:1px solid #32658b}
 .stake-direction.falling{color:#e2c0ff;background:#352344;border:1px solid #76508f}
 @media(max-width:560px){.duel-stake-box{padding:10px 8px}.duel-stake-table th,.duel-stake-table td{padding:7px 5px;font-size:9px}.duel-stake-heading{align-items:flex-start;flex-direction:column}}
+
+/* Client-side convenience password gate; not a security boundary. */
+body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
+.login-gate{min-height:calc(100vh - 70px);display:grid;place-items:center;padding:24px}
+.login-card{width:min(100%,390px);padding:30px;border:1px solid #2a3b50;border-radius:16px;background:linear-gradient(145deg,#152235,#0e151f);box-shadow:0 20px 70px #0008;display:flex;flex-direction:column;gap:12px}
+.login-mark{width:46px;height:46px;display:grid;place-items:center;border-radius:12px;background:#1b3850;color:#8fd0ff;font-size:24px;font-weight:800}
+.login-card h1{margin:0;color:#f0f5fb;font-size:25px}
+.login-card p{margin:0;color:#9aabc0;font-size:12px}
+.login-card label{margin-top:8px;color:#c7d5e5;font-size:11px}
+.login-card input{width:100%;box-sizing:border-box;padding:12px;border:1px solid #39516b;border-radius:8px;background:#0b121c;color:#f0f5fb;font:inherit}
+.login-card button{padding:12px;border:0;border-radius:8px;background:#2876a8;color:white;font-weight:700;cursor:pointer}
+.login-card button:hover{background:#338dc4}
+.login-card .login-error{color:#ff8796}
+.login-card [hidden]{display:none}
