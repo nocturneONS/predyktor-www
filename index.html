@@ -53,8 +53,7 @@
     gate.hidden=true;
     if(!window.__predyktorScriptsLoaded){
       window.__predyktorScriptsLoaded=true;
-      const app=document.createElement("script");app.src="app.js";document.body.appendChild(app);
-      const duel=document.createElement("script");duel.src="duel.js?v=bff9632";document.body.appendChild(duel);
+      const app=document.createElement("script");app.src="app.js";app.onload=function(){const duel=document.createElement("script");duel.src="duel.js?v=bff9632";document.body.appendChild(duel);};document.body.appendChild(app);
     }
   }
   if(sessionStorage.getItem(KEY)==="1")openDashboard();
