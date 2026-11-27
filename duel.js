@@ -52,7 +52,7 @@ function renderDuel(){
     const fullKelly=Math.max(0,(rule.odds*p-1)/(rule.odds-1));
     stake=Math.min(bank*fullKelly*0.25,rule.stake*2);
    }
-   stake=Math.max(0,Math.min(stake,Math.max(0,bank)));
+   if(kind==="kelly")stake=Math.max(0,Math.min(stake,Math.max(0,bank)));
    const placedBet=stake>0;
    const won=r[winField[key]]===true;
    const delta=placedBet?(won?stake*(rule.odds-1):-stake):0;
@@ -63,7 +63,7 @@ function renderDuel(){
     if(won)alpha+=1;else beta+=1;
    }
   }
-  return {bank,wins,profit,turnover,placed,history,items,count:bets.length,accuracy:placed?wins/placed:0,roi:turnover?profit/turnover:0};
+  return {bank,wins,profit,turnover,placed,history,items,count:bets.length,accuracy:placed?wins/placed:0,roi:turnover?profit/turnover:null};
  }
  const modes={flat:"Stała stawka",edge:"Stawka zależna od Edge",kelly:"¼ Kelly — kroczący"};
  const results={};
@@ -93,7 +93,7 @@ function renderDuel(){
  ).join(""):'<tr><td colspan="8" class="empty">Brak rozliczonych meczów VALUE.</td></tr>';
  const chart='<svg class="duel-chart" viewBox="0 0 700 175" role="img" aria-label="Przebieg bankrolla czterech person"><line x1="0" y1="145" x2="700" y2="145"/><line x1="0" y1="72" x2="700" y2="72"/><path class="hades-line" d="'+path(h.history)+'"/><path class="herkules-line" d="'+path(k.history)+'"/><path class="zeus-line" d="'+path(z.history)+'"/><path class="hera-line" d="'+path(he.history)+'"/></svg>';
  const card=(key,title,tag,ruleText,res,cls,avatar)=>
-  '<article class="duel-card '+cls+'"><div class="duel-avatar">'+avatar+'</div><div><div class="duel-name">'+title+'</div><div class="duel-tag">'+tag+'</div><div class="duel-rule">'+ruleText+'</div></div><div class="duel-bank">'+fmt(res.bank)+' <small>j</small></div><div class="duel-profit '+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j · ROI '+pct(res.roi)+'</div><small>'+res.wins+'/'+res.placed+' trafień · '+pct(res.accuracy)+' · '+res.placed+'/'+bets.length+' zakładów</small></article>';
+  '<article class="duel-card '+cls+'"><div class="duel-avatar">'+avatar+'</div><div><div class="duel-name">'+title+'</div><div class="duel-tag">'+tag+'</div><div class="duel-rule">'+ruleText+'</div></div><div class="duel-bank">'+fmt(res.bank)+' <small>j</small></div><div class="duel-profit '+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j · ROI '+(res.roi===null?"—":pct(res.roi))+'</div><small>'+res.wins+'/'+res.placed+' trafień · '+(res.placed?pct(res.accuracy):"—")+' · '+res.placed+'/'+bets.length+' zakładów</small></article>';
  const totalPlaced=Object.values(results).reduce((s,x)=>s+x.placed,0);
  root.innerHTML='<div class="section-title"><div><p class="eyebrow">SIMULATED VALUE BETTING</p><h2>⚔️ Pojedynek typerów — 4 persony</h2><p class="sub">Wyłącznie kompletne mecze VALUE · start 1000 j na personę</p></div><span class="pill">'+bets.length+' meczów VALUE</span></div>'+
  '<div class="duel-rules"><span>HADES · 3 sety · kurs 2.25 · baza 100 j</span><span>HERKULES · rynek 2:1 · kurs 3.50 · baza 50 j</span><span>ZEUS · rynek 2:0 · kurs 1.60 · baza 100 j</span><span>HERA · model 2:0/2:1 · kurs 2.00 · baza 100 j</span></div>'+
@@ -102,7 +102,7 @@ function renderDuel(){
  card("herkules","HERKULES","Obrońca faworyta rynku","Wygrywa, gdy faworyt rynku zwycięża 2:1.",k,"herkules","⚔")+
  card("zeus","ZEUS","Król prostych zwycięstw","Faworyt rynku wygrywa 2:0.",z,"zeus","⚡")+
  card("hera","HERA","Strona modelu","Faworyt modelu wygrywa 2:0 lub 2:1.",he,"hera","👑")+'</div>'+
- '<div class="duel-stats"><div><small>MECZE VALUE</small><b>'+bets.length+'</b></div><div><small>HADES · TRAFIENIA</small><b>'+h.wins+' / '+h.placed+' · '+pct(h.accuracy)+'</b></div><div><small>HERKULES · TRAFIENIA</small><b>'+k.wins+' / '+k.placed+' · '+pct(k.accuracy)+'</b></div><div><small>ZEUS · TRAFIENIA</small><b>'+z.wins+' / '+z.placed+' · '+pct(z.accuracy)+'</b></div><div><small>HERA · TRAFIENIA</small><b>'+he.wins+' / '+he.placed+' · '+pct(he.accuracy)+'</b></div></div>'+
+ '<div class="duel-stats"><div><small>MECZE VALUE</small><b>'+bets.length+'</b></div><div><small>HADES · TRAFIENIA</small><b>'+h.wins+' / '+h.placed+' · '+(h.placed?pct(h.accuracy):"—")+'</b></div><div><small>HERKULES · TRAFIENIA</small><b>'+k.wins+' / '+k.placed+' · '+(k.placed?pct(k.accuracy):"—")+'</b></div><div><small>ZEUS · TRAFIENIA</small><b>'+z.wins+' / '+z.placed+' · '+(z.placed?pct(z.accuracy):"—")+'</b></div><div><small>HERA · TRAFIENIA</small><b>'+he.wins+' / '+he.placed+' · '+(he.placed?pct(he.accuracy):"—")+'</b></div></div>'+
  '<div class="duel-chart-wrap"><div class="duel-chart-head"><div><b>Przebieg bankrolla</b><label class="duel-mode-label" for="duel-mode">Sposób rozliczania stawek</label></div><select id="duel-mode" class="duel-mode-select"><option value="flat" '+(mode==="flat"?"selected":"")+'>A · Flat stake</option><option value="edge" '+(mode==="edge"?"selected":"")+'>B · Edge-based stake</option><option value="kelly" '+(mode==="kelly"?"selected":"")+'>C · Fractional Kelly (¼)</option></select></div>'+
  '<div class="duel-mode-description">'+(mode==="flat"?"Stała stawka bazowa w każdym meczu VALUE. Punkt odniesienia do porównań.":mode==="edge"?"Stawka zależy od różnicy prawdopodobieństwa modelu i rynku: poniżej 5 pp = brak zakładu; następnie ¼, ½, ¾, 1× lub 1,25× stawki bazowej.":"¼ Kelly liczony krocząco z wcześniejszych trafień danej persony. Estymacja startuje od 20 obserwacji-priorów na poziomie progu rentowności; stawka ograniczona do 2× bazy. Bez używania wyniku bieżącego meczu do wyliczenia jego stawki.")+'</div>'+
  '<div class="duel-chart-head"><span><i class="legend-h"></i> Hades <i class="legend-k"></i> Herkules <i class="legend-z"></i> Zeus <i class="legend-he"></i> Hera</span><span>'+totalPlaced+' zakładów łącznie</span></div>'+chart+'</div>'+
