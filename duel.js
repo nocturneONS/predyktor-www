@@ -61,7 +61,7 @@ function renderDuel(){
    else if(key==="herkules")stake=r.edgeGap>=.10&&r.edgeGap<.15?25:r.edgeGap>=.15&&r.edgeGap<.20?50:r.edgeGap>=.20&&r.edgeGap<.25?75:0;
    else if(kind==="edge")stake=key==="hera"?stakeForReverseEdge(rule.stake,r.edgeGap):stakeForEdge(rule.stake,r.edgeGap);
    else if(kind==="progressive")stake=rule.stake*(lossStreak===0?1:lossStreak*2);
-   if(key==="hera"&&(!Number.isFinite(betOdds)||betOdds<=1))stake=0;
+   if((key==="hera"||key==="herkules")&&(!Number.isFinite(betOdds)||betOdds<=1))stake=0;
    if(bank<stake)stake=0;
    const placedBet=stake>0;
    const won=r[winField[key]]===true;
@@ -119,7 +119,7 @@ function renderDuel(){
  '<tr><td><b>Herkules</b></td><td>Faworyt modelu · EDGE 10–25 pp</td><td>Kurs główny</td><td>25 / 50 / 75 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
  '<tr><td><b>Zeus</b></td><td>Model 2:0</td><td>4.50</td><td>100 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
  '<tr><td><b>Hera</b></td><td>Model 2:0 / 2:1</td><td>Kurs główny</td><td>50 j</td><td><span class="stake-direction falling">Malejąca</span></td></tr>'+
- '</tbody></table></div></div>'+
+ '</tbody></table></div><p class="hint">* Hades: kurs 2.30 jest założeniem symulacji, nie historycznym kursem rynku 3 setów. Herkules korzysta z kursu głównego wskazanej strony.</p></div>'+
  '<div class="section-title"><div><p class="eyebrow">SIMULATED VALUE BETTING</p><h2>⚔️ Pojedynek typerów — 4 persony</h2><p class="sub">Wyłącznie kompletne mecze VALUE · start 1000 j na personę</p></div><span class="pill">'+bets.length+' meczów VALUE</span></div>'+
  '<div class="duel-grid">'+
  card("hades","HADES","Łowca trzeciego seta","EDGE 5–15 pp · progresja 2× po każdej porażce.",h,"hades","♛")+
