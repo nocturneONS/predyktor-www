@@ -130,3 +130,5 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .login-card button:hover{background:#338dc4}
 .login-card .login-error{color:#ff8796}
 .login-card [hidden]{display:none}
+
+.login-gate[hidden]{display:none}
