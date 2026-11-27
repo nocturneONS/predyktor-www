@@ -107,7 +107,7 @@ function renderDuel(){
  };
  const charts='<div class="duel-charts">'+strategies.map(x=>'<article class="duel-strategy-chart"><h3>'+x.title+'</h3><p>'+x.desc+'</p>'+makeChart(x.id)+'</article>').join("")+'</div>';
  const card=(key,title,tag,ruleText,res,cls,avatar)=>
-  '<article class="duel-card '+cls+'"><div class="duel-avatar">'+avatar+'</div><div><div class="duel-name">'+title+'</div><div class="duel-tag">'+tag+'</div><div class="duel-rule">'+ruleText+'</div></div><div class="duel-bank">'+fmt(res.bank)+' <small>j</small></div><div class="duel-profit '+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j · ROI '+(res.roi===null?"—":pct(res.roi))+'</div><small>'+res.wins+'/'+res.placed+' trafień · '+(res.placed?pct(res.accuracy):"—")+' · '+res.placed+'/'+bets.length+' zakładów</small></article>';
+  '<article class="duel-card '+cls+'"><div class="duel-avatar">'+avatar+'</div><div><div class="duel-name">'+title+'</div><div class="duel-tag">'+tag+'</div><div class="duel-rule">'+ruleText+'</div></div><div class="duel-bank">'+fmt(res.bank)+' <small>j</small></div><div class="duel-profit '+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j · ROI '+(res.roi===null?"—":pct(res.roi))+'</div></article>';
  const totalPlaced=Object.values(results).reduce((s,x)=>s+x.placed,0);
  root.innerHTML='<div class="duel-stake-box"><div class="duel-stake-heading"><b>Tabela stawek i kursów</b><span>Założenia symulacji</span></div><div class="table-scroll"><table class="duel-stake-table"><thead><tr><th>Persona</th><th>Strategia</th><th>Kurs</th><th>Stawka bazowa</th><th>Edge</th></tr></thead><tbody>'+
  '<tr><td><b>Hades</b></td><td>3 sety</td><td>2.30</td><td>100 j</td><td><span class="stake-direction falling">Malejąca</span></td></tr>'+
