@@ -77,7 +77,7 @@ function renderDuel(){
  for(const key of Object.keys(rules))results[key]=simulate(key,"flat");
  const strategies=[
   {id:"flat",title:"A · Flat stake",desc:"Zeus i Hera: stała stawka. Hades i Herkules zachowują własne reguły."},
-  {id:"edge",title:"B · Edge-based",desc:"Zeus i Hera zmieniają stawkę według Edge. Hades i Herkules bez zmian."},
+  {id:"edge",title:"B · Edge-based",desc:"Zeus i Hera zmieniają stawkę według Edge. Hades nie jest częścią tej strategii."},
   {id:"progressive",title:"C · Progresja",desc:"Zeus i Hera progresują po przegranej. Hades zawsze ma własną progresję 2×, 4×, 6×…"}
  ];
  const strategyResults=Object.fromEntries(strategies.map(x=>[x.id,Object.fromEntries(Object.keys(rules).map(key=>[key,simulate(key,x.id)]))]));
@@ -108,13 +108,14 @@ function renderDuel(){
  const makeChart=(modeId)=>{
   const group=strategyResults[modeId],all=Object.values(group).flatMap(x=>x.history);
   const p=(key,cls)=>'<path class="'+cls+'" d="'+path(group[key].history,all)+'"/>';
-  return '<svg class="duel-chart" viewBox="0 0 700 175" role="img" aria-label="Bankroll: '+modeId+'"><line x1="0" y1="145" x2="700" y2="145"/><line x1="0" y1="72" x2="700" y2="72"/>'+p("hades","hades-line")+p("herkules","herkules-line")+p("zeus","zeus-line")+p("hera","hera-line")+'</svg>';
+  const hadesLine=modeId==="edge"?"":p("hades","hades-line");
+  return '<svg class="duel-chart" viewBox="0 0 700 175" role="img" aria-label="Bankroll: '+modeId+'"><line x1="0" y1="145" x2="700" y2="145"/><line x1="0" y1="72" x2="700" y2="72"/>'+hadesLine+p("herkules","herkules-line")+p("zeus","zeus-line")+p("hera","hera-line")+'</svg>';
  };
  const charts='<div class="duel-charts">'+strategies.map(x=>'<article class="duel-strategy-chart '+(x.id===selectedStrategy?"active":"") +'" data-strategy="'+x.id+'" role="button" tabindex="0" aria-pressed="'+(x.id===selectedStrategy?"true":"false")+'"><h3>'+x.title+'</h3><p>'+x.desc+'</p>'+makeChart(x.id)+'</article>').join("")+'</div>';
  const card=(key,title,tag,ruleText,res,cls,avatar)=>
   '<article class="duel-card '+cls+'"><div class="duel-avatar">'+avatar+'</div><div><div class="duel-name">'+title+'</div><div class="duel-tag">'+tag+'</div><div class="duel-rule">'+ruleText+'</div></div><div class="duel-bank">'+fmt(res.bank)+' <small>j</small></div><div class="duel-profit '+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j · ROI '+(res.roi===null?"—":pct(res.roi))+'</div></article>';
  const totalPlaced=Object.values(selectedResults).reduce((s,x)=>s+x.placed,0);
- root.innerHTML='<div class="duel-stake-box"><div class="duel-stake-heading"><b>Tabela stawek i kursów</b><span>Założenia symulacji</span></div><div class="table-scroll"><table class="duel-stake-table"><thead><tr><th>Persona</th><th>Strategia</th><th>Kurs</th><th>Stawka bazowa</th><th>Edge</th></tr></thead><tbody>'+
+ root.innerHTML='<div class="duel-stake-box"><div class="duel-stake-heading"><b>Tabela stawek i kursów</b><span>Założenia symulacji</span></div><div class="table-scroll"><table class="duel-stake-table"><thead><tr><th>Persona</th><th>Strategia</th><th>Kurs</th><th>Stawka bazowa</th><th>Zarządzanie stawką</th></tr></thead><tbody>'+
  '<tr><td><b>Hades</b></td><td>3 sety · EDGE 5–15 pp</td><td>2.30*</td><td>100 j bazowo</td><td><span class="stake-direction rising">Progresja 2×</span></td></tr>'+
  '<tr><td><b>Herkules</b></td><td>Faworyt modelu · EDGE 10–25 pp</td><td>Kurs główny</td><td>25 / 50 / 75 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
  '<tr><td><b>Zeus</b></td><td>Model 2:0</td><td>4.50</td><td>100 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
