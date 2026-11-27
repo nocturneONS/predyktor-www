@@ -102,3 +102,17 @@
 .duel-mode-description{margin:9px 0 12px;padding:9px 11px;border-left:2px solid #65b7e9;background:#111d2b;color:#a9bbd0;font-size:10px;line-height:1.5}
 .duel-result.no-bet{background:#253244;color:#a8b7c9}
 @media(max-width:560px){.duel-chart-head{align-items:flex-start;flex-direction:column}.duel-mode-select{width:100%;min-width:0}}
+
+
+.duel-stake-box{margin-bottom:14px;padding:12px 14px;background:#101823;border:1px solid #2a3b50;border-radius:10px}
+.duel-stake-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px;color:#e8f0fa;font-size:12px}
+.duel-stake-heading span{color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.06em}
+.duel-stake-table{width:100%;border-collapse:collapse;font-size:11px}
+.duel-stake-table th,.duel-stake-table td{padding:8px 9px;text-align:left;border-bottom:1px solid #26384b;white-space:nowrap}
+.duel-stake-table th{color:#8298b1;font-size:9px;text-transform:uppercase;letter-spacing:.05em}
+.duel-stake-table td{color:#d8e3ef}
+.duel-stake-table tr:last-child td{border-bottom:0}
+.stake-direction{display:inline-block;padding:3px 7px;border-radius:20px;font-size:9px;font-weight:700}
+.stake-direction.rising{color:#a8d9ff;background:#16334b;border:1px solid #32658b}
+.stake-direction.falling{color:#e2c0ff;background:#352344;border:1px solid #76508f}
+@media(max-width:560px){.duel-stake-box{padding:10px 8px}.duel-stake-table th,.duel-stake-table td{padding:7px 5px;font-size:9px}.duel-stake-heading{align-items:flex-start;flex-direction:column}}
