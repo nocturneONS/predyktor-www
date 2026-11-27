@@ -64,23 +64,27 @@
 .duel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .duel-card{display:grid;grid-template-columns:58px 1fr;gap:4px 12px;align-items:center;padding:15px;border-radius:12px;background:linear-gradient(130deg,#211a36,#121b29);border:1px solid #61418a}
 .duel-card.herkules{background:linear-gradient(130deg,#352817,#121b29);border-color:#8a632f}
+.duel-card.zeus{background:linear-gradient(130deg,#172e43,#121b29);border-color:#397ca8}
+.duel-card.hera{background:linear-gradient(130deg,#38233b,#121b29);border-color:#9a5b9d}
 .duel-avatar{grid-row:span 3;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:31px;color:#e0a6ff;background:radial-gradient(circle,#70469b,#241638);border:2px solid #a76be1}
 .herkules .duel-avatar{color:#ffdc9c;background:radial-gradient(circle,#9b6a2a,#35200d);border-color:#e4a644}
-.duel-name{font-size:19px;font-weight:900;letter-spacing:.08em;color:#d69aff}.herkules .duel-name{color:#ffc66d}
-.duel-tag{font-size:10px;color:#b6a0ce}.herkules .duel-tag{color:#d2b58a}
+.zeus .duel-avatar{color:#b9e4ff;background:radial-gradient(circle,#28648d,#10283b);border-color:#65b7e9}
+.hera .duel-avatar{color:#ffd0ff;background:radial-gradient(circle,#874b8d,#321c38);border-color:#d68bdb}
+.duel-name{font-size:19px;font-weight:900;letter-spacing:.08em;color:#d69aff}.herkules .duel-name{color:#ffc66d}.zeus .duel-name{color:#8bd2ff}.hera .duel-name{color:#f0a5f2}
+.duel-tag{font-size:10px;color:#b6a0ce}.herkules .duel-tag{color:#d2b58a}.zeus .duel-tag{color:#9bcce8}.hera .duel-tag{color:#d8a6dc}
 .duel-rule{font-size:10px;color:#9aaabd;margin-top:6px}
 .duel-bank{font-size:26px;font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:#e8d7ff}.duel-bank small{font-size:13px;color:#a9b8c9}
-.herkules .duel-bank{color:#ffe0a8}
+.herkules .duel-bank{color:#ffe0a8}.zeus .duel-bank{color:#b9e4ff}.hera .duel-bank{color:#ffd0ff}
 .duel-profit{font-size:10px;font-weight:800}.positive{color:#68dfae}.negative{color:#ff9292}
-.duel-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.duel-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
 .duel-stats>div{padding:11px;background:#101a27;border:1px solid #2a3c51;border-radius:9px;min-width:0}
 .duel-stats small{display:block;font-size:8px;color:var(--muted);letter-spacing:.08em}
 .duel-stats b{display:block;margin-top:5px;font-size:15px;font-variant-numeric:tabular-nums}
 .duel-chart-wrap{padding:12px 14px;background:#101823;border:1px solid #2a3b50;border-radius:10px;margin:12px 0}
 .duel-chart-head{display:flex;justify-content:space-between;gap:10px;font-size:11px}.duel-chart-head span{font-size:9px;color:var(--muted)}
-.duel-chart-head i{display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 4px 0 10px}.legend-h{background:#bd75f2}.legend-k{background:#f0ae4f}
+.duel-chart-head i{display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 4px 0 10px}.legend-h{background:#bd75f2}.legend-k{background:#f0ae4f}.legend-z{background:#55b9f0}.legend-he{background:#df83dc}
 .duel-chart{display:block;width:100%;height:auto;margin-top:8px}.duel-chart line{stroke:#2b3c50;stroke-width:1;stroke-dasharray:4 5}
-.hades-line{fill:none;stroke:#bd75f2;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}.herkules-line{fill:none;stroke:#f0ae4f;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.hades-line{fill:none;stroke:#bd75f2;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}.herkules-line{fill:none;stroke:#f0ae4f;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}.zeus-line{fill:none;stroke:#55b9f0;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}.hera-line{fill:none;stroke:#df83dc;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
 .duel-table{min-width:800px}.duel-table td{vertical-align:middle}.duel-table td small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
 .duel-tour{padding:3px 7px;background:#243a54;border-radius:5px;font-size:9px}
 .duel-result{display:inline-flex;gap:6px;align-items:center;padding:5px 7px;border-radius:6px;font-size:9px;font-weight:800;white-space:nowrap}
