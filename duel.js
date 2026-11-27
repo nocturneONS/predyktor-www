@@ -22,8 +22,8 @@ function renderDuel(){
  });
  const calc=(key)=>{
   let bank=start,wins=0,profit=0;
-  const history=[start];
-  for(const r of bets){const won=r[key];const delta=won?rules[key].stake*(rules[key].odds-1):-rules[key].stake;bank+=delta;profit+=delta;if(won)wins++;history.push(bank)}
+  const history=[start],winField=key+"Win";
+  for(const r of bets){const won=r[winField]===true;const delta=won?rules[key].stake*(rules[key].odds-1):-rules[key].stake;bank+=delta;profit+=delta;if(won)wins++;history.push(bank)}
   return {bank,wins,profit,history,count:bets.length,accuracy:bets.length?wins/bets.length:0,roi:profit/(bets.length*rules[key].stake||1)};
  };
  const h=calc("hades"),k=calc("herkules"),z=calc("zeus"),he=calc("hera"),fmt=v=>Number(v).toLocaleString("pl-PL",{minimumFractionDigits:2,maximumFractionDigits:2}),pct=v=>(v*100).toFixed(1)+"%",signed=v=>(v>0?"+":"")+fmt(v),esc=v=>String(v??"—").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
