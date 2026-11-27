@@ -58,3 +58,33 @@
 .mistake-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mistake-grid small,.mistake-grid span{display:block;color:var(--muted);font-size:9px}.mistake-grid strong{display:block;font-size:14px;margin:7px 0;color:#f1bd70}.mistake-grid span{font-size:9px}
 @media(max-width:900px){.intel-kpis{grid-template-columns:repeat(2,1fr)}.intel-columns{grid-template-columns:1fr}}
 @media(max-width:520px){.intel-kpis{gap:6px}.intel-kpis article{padding:10px}.intel-kpis strong{font-size:21px}.intel-filters{width:100%;justify-content:space-between}.intel-filters button{padding:7px 9px}.intel-block{padding:11px}.mistake-grid{grid-template-columns:1fr}.outcome-row{align-items:flex-start;flex-direction:column}.outcome-row>strong{text-align:left}}
+
+/* Hades vs Herkules simulation */
+.duel-rules{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;background:#101a27;border:1px solid #2b4059;border-radius:9px;color:#a9bbd0;font-size:10px;margin-bottom:12px}
+.duel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.duel-card{display:grid;grid-template-columns:58px 1fr;gap:4px 12px;align-items:center;padding:15px;border-radius:12px;background:linear-gradient(130deg,#211a36,#121b29);border:1px solid #61418a}
+.duel-card.herkules{background:linear-gradient(130deg,#352817,#121b29);border-color:#8a632f}
+.duel-avatar{grid-row:span 3;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:31px;color:#e0a6ff;background:radial-gradient(circle,#70469b,#241638);border:2px solid #a76be1}
+.herkules .duel-avatar{color:#ffdc9c;background:radial-gradient(circle,#9b6a2a,#35200d);border-color:#e4a644}
+.duel-name{font-size:19px;font-weight:900;letter-spacing:.08em;color:#d69aff}.herkules .duel-name{color:#ffc66d}
+.duel-tag{font-size:10px;color:#b6a0ce}.herkules .duel-tag{color:#d2b58a}
+.duel-rule{font-size:10px;color:#9aaabd;margin-top:6px}
+.duel-bank{font-size:26px;font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:#e8d7ff}.duel-bank small{font-size:13px;color:#a9b8c9}
+.herkules .duel-bank{color:#ffe0a8}
+.duel-profit{font-size:10px;font-weight:800}.positive{color:#68dfae}.negative{color:#ff9292}
+.duel-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.duel-stats>div{padding:11px;background:#101a27;border:1px solid #2a3c51;border-radius:9px;min-width:0}
+.duel-stats small{display:block;font-size:8px;color:var(--muted);letter-spacing:.08em}
+.duel-stats b{display:block;margin-top:5px;font-size:15px;font-variant-numeric:tabular-nums}
+.duel-chart-wrap{padding:12px 14px;background:#101823;border:1px solid #2a3b50;border-radius:10px;margin:12px 0}
+.duel-chart-head{display:flex;justify-content:space-between;gap:10px;font-size:11px}.duel-chart-head span{font-size:9px;color:var(--muted)}
+.duel-chart-head i{display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 4px 0 10px}.legend-h{background:#bd75f2}.legend-k{background:#f0ae4f}
+.duel-chart{display:block;width:100%;height:auto;margin-top:8px}.duel-chart line{stroke:#2b3c50;stroke-width:1;stroke-dasharray:4 5}
+.hades-line{fill:none;stroke:#bd75f2;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}.herkules-line{fill:none;stroke:#f0ae4f;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.duel-table{min-width:800px}.duel-table td{vertical-align:middle}.duel-table td small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.duel-tour{padding:3px 7px;background:#243a54;border-radius:5px;font-size:9px}
+.duel-result{display:inline-flex;gap:6px;align-items:center;padding:5px 7px;border-radius:6px;font-size:9px;font-weight:800;white-space:nowrap}
+.duel-result.won{background:#123b31;color:#79e2b5}.duel-result.lost{background:#40232b;color:#ff9da5}
+.duel-result b{font-variant-numeric:tabular-nums}
+@media(max-width:760px){.duel-grid{grid-template-columns:1fr}.duel-stats{grid-template-columns:repeat(2,1fr)}.duel-bank{font-size:23px}}
+@media(max-width:420px){.duel-card{grid-template-columns:48px 1fr;padding:11px;gap:4px 9px}.duel-avatar{width:48px;height:48px;font-size:26px}.duel-name{font-size:17px}.duel-stats b{font-size:13px}}
