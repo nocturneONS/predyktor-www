@@ -4,8 +4,7 @@ function renderDuel(){
  if(!root)return;
  const rows=(window.__predyktorSettled||[]).filter(r=>
    r.status==="settled" && r.result_type==="regular" &&
-   (r.market_analysis&&r.market_analysis.is_value===true ||
-    r.model_favorite_side&&r.market_favorite_side&&r.model_favorite_side!==r.market_favorite_side)
+   r.market_analysis&&r.market_analysis.is_value===true
  ).filter(r=>Number.isFinite(Number(r.set_score_a))&&Number.isFinite(Number(r.set_score_b)))
   .sort((a,b)=>new Date(a.match_date||a.kickoff_utc)-new Date(b.match_date||b.kickoff_utc));
  const start=1000, rules={hades:{stake:100,odds:2.25},herkules:{stake:50,odds:3.5}};
