@@ -13,7 +13,7 @@ function renderDuel(){
  const rules={
   hades:{stake:100,odds:2.3,label:"Hades"},
   herkules:{stake:25,odds:null,label:"Herkules"},
-  zeus:{stake:100,odds:4.5,label:"Zeus"},
+  zeus:{stake:100,odds:4.0,label:"Zeus"},
   hera:{stake:50,odds:2,label:"Hera"}
  };
  const fmt=v=>Number(v).toLocaleString("pl-PL",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -118,7 +118,7 @@ function renderDuel(){
  root.innerHTML='<div class="duel-stake-box"><div class="duel-stake-heading"><b>Tabela stawek i kursów</b><span>Założenia symulacji</span></div><div class="table-scroll"><table class="duel-stake-table"><thead><tr><th>Persona</th><th>Strategia</th><th>Kurs</th><th>Stawka bazowa</th><th>Zarządzanie stawką</th></tr></thead><tbody>'+
  '<tr><td><b>Hades</b></td><td>3 sety · EDGE 5–15 pp</td><td>2.30*</td><td>100 j bazowo</td><td><span class="stake-direction rising">Progresja 2×</span></td></tr>'+
  '<tr><td><b>Herkules</b></td><td>Faworyt modelu · EDGE 10–25 pp</td><td>Kurs główny</td><td>25 / 50 / 75 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
- '<tr><td><b>Zeus</b></td><td>Model 2:0</td><td>4.50</td><td>100 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
+ '<tr><td><b>Zeus</b></td><td>Model 2:0</td><td>4.00</td><td>100 j</td><td><span class="stake-direction rising">Rosnąca</span></td></tr>'+
  '<tr><td><b>Hera</b></td><td>Model 2:0 / 2:1</td><td>Kurs główny</td><td>50 j</td><td><span class="stake-direction falling">Malejąca</span></td></tr>'+
  '</tbody></table></div><p class="hint">* Hades: kurs 2.30 jest założeniem symulacji, nie historycznym kursem rynku 3 setów. Herkules korzysta z kursu głównego wskazanej strony.</p></div>'+
  '<div class="section-title"><div><p class="eyebrow">SIMULATED VALUE BETTING</p><h2>⚔️ Pojedynek typerów — 4 persony</h2><p class="sub">Wyłącznie kompletne mecze VALUE · start 1000 j na personę</p></div><span class="pill">'+bets.length+' meczów VALUE</span></div>'+
