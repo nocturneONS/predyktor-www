@@ -27,9 +27,10 @@ function renderDuel(){
   return {bank,wins,profit,history,count:bets.length,accuracy:bets.length?wins/bets.length:0,roi:profit/(bets.length*rules[key].stake||1)};
  };
  const h=calc("hades"),k=calc("herkules"),z=calc("zeus"),he=calc("hera"),fmt=v=>Number(v).toLocaleString("pl-PL",{minimumFractionDigits:2,maximumFractionDigits:2}),pct=v=>(v*100).toFixed(1)+"%",signed=v=>(v>0?"+":"")+fmt(v),esc=v=>String(v??"—").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const allHistory=[h.history,k.history,z.history,he.history].flat();
  const path=(values)=>{
   if(values.length<2)return "";
-  const min=Math.min(start,...values),max=Math.max(start,...values),range=max-min||1,w=700,hg=145;
+  const min=Math.min(start,...allHistory),max=Math.max(start,...allHistory),range=max-min||1,w=700,hg=145;
   return values.map((v,i)=>(i?"L":"M")+(i/(values.length-1)*w).toFixed(1)+" "+(hg-(v-min)/range*hg).toFixed(1)).join(" ");
  };
  const latest=bets.slice().reverse();
