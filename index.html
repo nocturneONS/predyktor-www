@@ -25,7 +25,7 @@
 <main class="wrap">
 
 
-<nav class="main-tabs" aria-label="Sekcje dashboardu"><button class="active" data-tab="upcoming">Upcoming</button><button data-tab="stats">Statystyki</button><button data-tab="simulation">Symulacja</button></nav><div class="tab-content active" id="tab-upcoming"><section class="panel edge-overview"><div class="section-title"><div><p class="eyebrow">EDGE-BASED · WYNIKI</p><h2>Wyniki strategii</h2></div><span class="pill">start 1000 j</span></div><div id="edge-persona-stats" class="edge-persona-stats"><div class="empty">Ładowanie wyników strategii…</div></div></section><section class="panel upcoming-controls"><div class="section-title"><div><p class="eyebrow">STRATEGIA NA MECZACH</p><h2>Wybierz gracza</h2></div><select id="edge-player" aria-label="Wybierz gracza"><option value="hades">Hades</option><option value="herkules">Herkules</option><option value="zeus">Zeus</option><option value="hera">Hera</option></select></div></section><section class="panel"><div class="section-title"><div><p class="eyebrow">UPCOMING</p><h2>Zaplanowane spotkania</h2></div><span class="pill" id="pending-count">0</span></div>
+<nav class="main-tabs" aria-label="Sekcje dashboardu"><button class="active" data-tab="upcoming">Upcoming</button><button data-tab="stats">Statystyki</button><button data-tab="simulation">Symulacja</button></nav><div class="tab-content active" id="tab-upcoming"><section class="panel edge-overview"><div class="section-title"><div><p class="eyebrow">EDGE-BASED · WYNIKI</p><h2>Wyniki strategii</h2></div><span class="pill">start 1000 j</span></div><div id="edge-persona-stats" class="edge-persona-stats"><div class="empty">Ładowanie wyników strategii…</div></div></section><section class="panel"><div class="section-title"><div><p class="eyebrow">UPCOMING</p><h2>Zaplanowane spotkania</h2></div><span class="pill" id="pending-count">0</span></div>
 <div class="filters"><nav><button class="active" data-tour="ALL">Wszystkie</button><button data-tour="ATP">ATP</button><button data-tour="WTA">WTA</button><button data-tour="CHALLENGER">Challenger</button></nav><input id="search" placeholder="Szukaj zawodnika lub turnieju…"><label class="check"><input id="value-only" type="checkbox"> Tylko value</label></div>
 <div id="predictions" class="cards"><div class="empty">Brak załadowanych predykcji.</div></div></section></div><div class="tab-content" id="tab-stats"><section class="metrics">
 <article><small>WSZYSTKIE ANALIZY</small><strong id="total">—</strong><span>zapisane w NeonDB</span></article>
@@ -49,7 +49,7 @@
     gate.hidden=true;
     if(!window.__predyktorScriptsLoaded){
       window.__predyktorScriptsLoaded=true;
-      const app=document.createElement("script");app.src="app.js?v=compact-edge-picks";app.onload=function(){const duel=document.createElement("script");duel.src="duel.js?v=interactive-strategy-history";document.body.appendChild(duel);};document.body.appendChild(app);
+      const app=document.createElement("script");app.src="app.js?v=click-edge-persona";app.onload=function(){const duel=document.createElement("script");duel.src="duel.js?v=interactive-strategy-history";document.body.appendChild(duel);};document.body.appendChild(app);
     }
   }
   if(sessionStorage.getItem(KEY)==="1")openDashboard();
