@@ -53,6 +53,7 @@ function renderDuel(){
     stake=Math.min(bank*fullKelly*0.25,rule.stake*2);
    }
    if(kind==="kelly")stake=Math.max(0,Math.min(stake,Math.max(0,bank)));
+   else if(bank<stake)stake=0;
    const placedBet=stake>0;
    const won=r[winField[key]]===true;
    const delta=placedBet?(won?stake*(rule.odds-1):-stake):0;
