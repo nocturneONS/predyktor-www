@@ -691,3 +691,15 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
  .edge-persona-card .edge-persona-portrait,
  .edge-persona-card .edge-persona-content{flex-basis:calc(50% - 4px)!important;width:calc(50% - 4px)!important;max-width:calc(50% - 4px)!important}
 }
+
+
+/* Simulation persona cards: keep the currency unit in the persona color. */
+.duel-card.hades .duel-bank,.duel-card.hades .duel-bank small{color:#57c7ff!important}
+.duel-card.zeus .duel-bank,.duel-card.zeus .duel-bank small{color:#13e0b0!important}
+.duel-card.hera .duel-bank,.duel-card.hera .duel-bank small{color:#f18ae9!important}
+.duel-card-main{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.duel-card-main .duel-name{margin:0 0 2px}
+.duel-card-main .duel-tag,.duel-card-main .duel-rule,.duel-card-main .duel-odds-note{margin:0;line-height:1.35}
+.duel-card-main .duel-tag{font-size:10px}
+.duel-card-main .duel-rule{font-size:10px;color:#c1cedd}
+.duel-card-main .duel-odds-note{font-size:9px;color:#8499b2}
