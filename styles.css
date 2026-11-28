@@ -59,7 +59,7 @@
 @media(max-width:900px){.intel-kpis{grid-template-columns:repeat(2,1fr)}.intel-columns{grid-template-columns:1fr}}
 @media(max-width:520px){.intel-kpis{gap:6px}.intel-kpis article{padding:10px}.intel-kpis strong{font-size:21px}.intel-filters{width:100%;justify-content:space-between}.intel-filters button{padding:7px 9px}.intel-block{padding:11px}.mistake-grid{grid-template-columns:1fr}.outcome-row{align-items:flex-start;flex-direction:column}.outcome-row>strong{text-align:left}}
 
-/* Hades vs Herkules simulation */
+/* Persona simulation */
 .duel-rules{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;background:#101a27;border:1px solid #2b4059;border-radius:9px;color:#a9bbd0;font-size:10px;margin-bottom:12px}
 .duel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .duel-card{display:grid;grid-template-columns:58px 1fr;gap:4px 12px;align-items:center;padding:15px;border-radius:12px;background:linear-gradient(130deg,#17382d,#121b29);border:1px solid #398766}
