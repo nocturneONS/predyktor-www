@@ -1285,3 +1285,34 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 footer{justify-content:flex-end!important}
 .footer-meta{display:flex;flex-direction:column;align-items:flex-end;text-align:right;gap:2px}
 @media(max-width:600px){.sport-tabs button{padding:7px 10px}.brand small{letter-spacing:.13em}.footer-meta{max-width:100%}}
+
+
+/* Final flip-card palette: muted bar colors across the whole back; equal type/stake sizing. */
+#tab-upcoming #predictions .edge-pick-back .edge-pick-type,
+#tab-upcoming #predictions .edge-pick-back .edge-pick-stake{
+  font-size:14px!important;
+  line-height:1.15!important;
+}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-zeus .edge-pick-back:has(.edge-pick-type.player-a),
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hera .edge-pick-back:has(.edge-pick-type.player-a){
+  background:linear-gradient(90deg,#82765f,#a99a7c)!important;
+  color:#101a29!important;
+}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-zeus .edge-pick-back:has(.edge-pick-type.player-b),
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hera .edge-pick-back:has(.edge-pick-type.player-b){
+  background:linear-gradient(90deg,#8e5637,#b7774f)!important;
+  color:#101a29!important;
+}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-zeus .edge-pick-back:has(.edge-pick-type) .edge-pick-type,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-zeus .edge-pick-back:has(.edge-pick-type) .edge-pick-stake,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hera .edge-pick-back:has(.edge-pick-type) .edge-pick-type,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hera .edge-pick-back:has(.edge-pick-type) .edge-pick-stake{
+  color:#101a29!important;
+}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hades .edge-pick-back{
+  background:linear-gradient(90deg,#376f8b,#579bb3)!important;
+}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hades .edge-pick-back .edge-pick-type,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hades .edge-pick-back .edge-pick-stake{
+  color:#fff!important;
+}
