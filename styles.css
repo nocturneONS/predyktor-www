@@ -1010,3 +1010,44 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
   background:linear-gradient(90deg,#74563b,#a27b53)!important;
   opacity:1!important;
 }
+
+
+/* Hard cap history column to left chart + rules height; let table body scroll internally. */
+.persona-detail-layout{display:grid!important;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)!important;align-items:stretch!important}
+.persona-detail-left{min-width:0!important;height:auto!important;min-height:0!important}
+.persona-detail-info{
+  box-sizing:border-box!important;
+  min-width:0!important;
+  min-height:0!important;
+  align-self:stretch!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+}
+.persona-detail-history{
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:100%!important;
+  max-height:100%!important;
+  min-height:0!important;
+  flex:1 1 auto!important;
+  overflow:hidden!important;
+}
+.persona-detail-history .table-scroll{
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:100%!important;
+  max-height:100%!important;
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+}
+.persona-detail-history .duel-table{width:100%!important;min-width:0!important}
+.persona-detail-rules span{display:block!important}
+@media(max-width:760px){
+ .persona-detail-layout{grid-template-columns:minmax(0,1fr)!important}
+ .persona-detail-info{height:auto!important;max-height:none!important}
+ .persona-detail-history,.persona-detail-history .table-scroll{height:auto!important;max-height:none!important;overflow:visible!important}
+}
