@@ -61,7 +61,7 @@ function renderEdgeOverview(){
   const {result}=best,profit=result.profit;
   const outcome=key==="herkules"?"Skuteczność · ROI n/d (brak kursów 2:1)":("Bankroll "+result.bank.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j · ROI "+(result.turnover?profit/result.turnover*100:0).toFixed(1)+"%");
   const value=key==="herkules"?result.wins+"/"+result.placed+" trafień · "+(result.placed?result.accuracy*100:0).toFixed(1)+"% · "+result.placed+" zakładów":result.wins+"/"+result.placed+" trafień · "+(result.placed?result.accuracy*100:0).toFixed(1)+"% · "+result.placed+" zakładów";
-  return '<button type="button" class="edge-persona-card'+(S.edgePlayer===key?" active":"")+'" data-edge-player="'+key+'" aria-pressed="'+(S.edgePlayer===key)+'"><b>'+edgeRules[key].label+'</b><span class="edge-best-strategy">Najlepsza strategia: '+strategyNames[best.id]+'</span><strong class="'+(key==="herkules"?"neutral":profit>=0?"positive":"negative")+'">'+(key==="herkules"?"Brak danych ROI":(profit>0?"+":"")+profit.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j")+'</strong><small>'+outcome+'</small><div class="edge-result">'+value+'</div></button>';
+  return '<div class="edge-persona-card"><b>'+edgeRules[key].label+'</b><span class="edge-best-strategy">Najlepsza strategia: '+strategyNames[best.id]+'</span><strong class="'+(key==="herkules"?"neutral":profit>=0?"positive":"negative")+'">'+(key==="herkules"?"Brak danych ROI":(profit>0?"+":"")+profit.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j")+'</strong><small>'+outcome+'</small><div class="edge-result">'+value+'</div></div>';
  }).join("");
 }
 
