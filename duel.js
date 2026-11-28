@@ -10,9 +10,9 @@ function renderDuel(){
  }).sort((a,b)=>new Date(a.kickoff_utc||a.match_date)-new Date(b.kickoff_utc||b.match_date));
  const start=1000;
  const rules={
-  hades:{stake:100,odds:2.3,label:"Hades",condition:"Trzy sety · EDGE 5–15 pp",oddsNote:"Kurs 2,30 — założenie symulacyjne"},
-  zeus:{stake:50,odds:4.0,label:"Zeus",condition:"Modelowy faworyt 2:0 · EDGE 15–25 pp",oddsNote:"Kurs 4,00 — założenie symulacyjne"},
-  hera:{stake:100,odds:null,label:"Hera",condition:"Modelowy faworyt wygra · EDGE 5–25 pp",oddsNote:"Kurs zwycięzcy pobierany z danych meczu"}
+  hades:{stake:100,odds:2.3,label:"Hades",condition:"3 sety",edge:"EDGE 5–15 pp",stakeMode:"Stawka ×2 po porażce",oddsNote:"Kurs 2,30 — założenie symulacyjne"},
+  zeus:{stake:50,odds:4.0,label:"Zeus",condition:"Modelowy faworyt 2:0",edge:"EDGE 15–25 pp",stakeMode:"Flat stake",oddsNote:"Kurs 4,00 — założenie symulacyjne"},
+  hera:{stake:100,odds:null,label:"Hera",condition:"Modelowy faworyt wygra",edge:"EDGE 5–25 pp",stakeMode:"Stawka ×2 po porażce",oddsNote:"Kurs zwycięzcy"}
  };
  const fmt=v=>Number(v).toLocaleString("pl-PL",{minimumFractionDigits:2,maximumFractionDigits:2});
  const pct=v=>(v*100).toFixed(1)+"%";
@@ -66,7 +66,7 @@ function renderDuel(){
  };
  const card=(key,res,cls,avatar)=>{
   const rule=rules[key];
-  return '<article class="duel-card '+cls+'"><div class="duel-avatar"><img src="data/'+key+'.png" alt="'+rule.label+'" loading="lazy"></div><div class="duel-card-main"><div class="duel-name">'+rule.label.toUpperCase()+'</div><div class="duel-tag">'+rule.condition+'</div><div class="duel-rule">Baza '+rule.stake+' j · '+(key==="zeus"?"bez progresji":"stawka ×2 po każdej porażce")+'</div><div class="duel-odds-note">'+rule.oddsNote+'</div></div><div class="duel-bank">'+fmt(res.bank)+' <small>j</small></div><div class="duel-profit '+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j · ROI '+(res.roi===null?"—":pct(res.roi))+'</div><div class="duel-card-stats">'+res.wins+'/'+res.placed+' trafień · '+(res.placed?pct(res.accuracy):"—")+' · '+res.placed+' zakładów</div></article>';
+  return '<article class="duel-card '+cls+'"><div class="duel-avatar"><img src="data/'+key+'.png" alt="'+rule.label+'" loading="lazy"></div><div class="duel-card-main"><div class="duel-name">'+rule.label.toUpperCase()+'</div><div class="duel-tag">'+rule.condition+'</div><div class="duel-tag">'+rule.edge+'</div><div class="duel-rule">Stawka bazowa '+rule.stake+' j</div><div class="duel-rule">'+rule.stakeMode+'</div><div class="duel-odds-note">'+rule.oddsNote+'</div></div><div class="duel-bank">'+fmt(res.bank)+' <small>j</small></div><div class="duel-profit '+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j · ROI '+(res.roi===null?"—":pct(res.roi))+'</div><div class="duel-card-stats">'+res.wins+'/'+res.placed+' trafień · '+(res.placed?pct(res.accuracy):"—")+' · '+res.placed+' zakładów</div></article>';
  };
  const chartCard=(key,res,cls)=>{
   return '<article class="duel-chart-card '+cls+'"><div class="duel-chart-heading"><div><h3>'+rules[key].label+'</h3><p>'+rules[key].condition+'</p></div><strong class="'+(res.profit>=0?"positive":"negative")+'">'+signed(res.profit)+' j</strong></div>'+chart(key,res)+'<div class="duel-chart-footer"><span>Start: 0 j zysku</span><span>'+res.placed+' zakładów</span><span>Końcowy zysk: '+signed(res.profit)+' j</span></div></article>';
