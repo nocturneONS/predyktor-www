@@ -968,3 +968,26 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
   overflow-y:auto!important;
   flex:1 1 auto!important;
 }
+
+
+/* Probability palette refresh: cool teal for player A, plum for player B.
+   Market bars are intentionally desaturated; model bars use brighter versions. */
+#predictions .prob-progress-fill.winner-a{
+  background:linear-gradient(90deg,#159bb5,#48c4d2)!important;
+  opacity:1!important;
+}
+#predictions .prob-progress-fill.winner-b{
+  background:linear-gradient(90deg,#9852a7,#d17acb)!important;
+  opacity:1!important;
+}
+#predictions .prob-progress.market-muted .prob-progress-fill.winner-a{
+  background:linear-gradient(90deg,#376f7e,#6599a2)!important;
+  opacity:1!important;
+}
+#predictions .prob-progress.market-muted .prob-progress-fill.winner-b{
+  background:linear-gradient(90deg,#765080,#a27ba7)!important;
+  opacity:1!important;
+}
+@media(max-width:560px){
+  .main-tabs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
