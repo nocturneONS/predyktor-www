@@ -1070,3 +1070,25 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
   background:linear-gradient(90deg,#8e5637,#b7774f)!important;
   opacity:1!important;
 }
+
+ 
+/* Upcoming: apply the cream/orange palette consistently to odds and labels. */
+#predictions .odds.odds-a{
+  color:#182334!important;
+  background:linear-gradient(180deg,#eadfc7,#d8c7a2)!important;
+  border:1px solid #c8b58d!important;
+}
+#predictions .odds.odds-b{
+  color:#fff8ee!important;
+  background:linear-gradient(180deg,#d97840,#bd5e2d)!important;
+  border:1px solid #e18b55!important;
+}
+#predictions .prob-progress-model .prob-progress-name{
+  color:#101b2a!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+#predictions .edge-pick-mini .edge-pick-score.player-a{color:#d8c7a2!important}
+#predictions .edge-pick-mini .edge-pick-score.player-b{color:#ed914c!important}
+#predictions .edge-pick-mini .edge-pick-name.player-a{color:#d8c7a2!important}
+#predictions .edge-pick-mini .edge-pick-name.player-b{color:#ed914c!important}
