@@ -372,3 +372,7 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .edge-persona-card.edge-persona-hera>b,.edge-persona-card.edge-persona-hera .edge-best-strategy{color:#f18ae9}
 @media(max-width:900px){.edge-persona-stats{grid-template-columns:1fr}.edge-persona-card{min-height:150px}.edge-persona-portrait{width:116px}.edge-persona-portrait img{height:145px}}
 @media(max-width:480px){.edge-persona-card{gap:9px;padding:10px}.edge-persona-portrait{width:92px;min-width:82px}.edge-persona-portrait img{height:128px}.edge-persona-card b{font-size:17px}.edge-persona-card strong{font-size:23px}}
+
+
+/* Strategy cards remain stationary on hover. */
+.edge-persona-card:hover{transform:none!important}
