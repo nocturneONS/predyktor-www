@@ -107,9 +107,9 @@ function renderDuel(){
     return '<tr><td>'+dateText+'</td><td><b>'+shortPlayerName(item.player_a)+' – '+shortPlayerName(item.player_b)+'</b></td><td>'+score(item)+'</td><td>'+fmt(item.stake)+' j</td><td class="'+(item.won?"positive":"negative")+'">'+(item.won?"+":"")+fmt(item.delta)+' j</td></tr>';
    }).join("");
    detailRoot.hidden=false;
-   detailRoot.innerHTML='<div class="persona-detail-heading"><div><p class="eyebrow">SZCZEGÓŁY STRATEGII</p><h2>'+rule.label+'</h2></div><button type="button" class="persona-detail-close" aria-label="Zamknij szczegóły">×</button></div>'+
+   detailRoot.innerHTML='<div class="persona-detail-heading"><div><p class="eyebrow">SZCZEGÓŁY STRATEGII</p></div><button type="button" class="persona-detail-close" aria-label="Zamknij szczegóły">×</button></div>'+
     '<div class="persona-detail-layout"><div class="persona-detail-left"><div class="persona-detail-chart '+cls+'"><div class="persona-detail-chart-head"><strong class="persona-detail-profit '+cls+'">'+signed(res.profit)+' j</strong></div>'+chart(selected,res,true)+'</div>'+
-    '<div class="persona-detail-rules"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j</span><span>'+(selected==="zeus"?"Flat stake":"Progresja ×2 po porażce")+'</span><span>'+rule.oddsNote+'</span></div></div>'+
+    '<div class="persona-detail-rules"><img class="persona-detail-avatar" src="data/'+selected+'.png" alt="'+rule.label+'"><div class="persona-detail-rules-copy"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j</span><span>'+(selected==="zeus"?"Flat stake":"Progresja ×2 po porażce")+'</span><span>'+rule.oddsNote+'</span></div></div></div>'+
     '<div class="persona-detail-info"><div class="persona-detail-history"><div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Mecz</th><th>Wynik</th><th>Stawka</th><th>Rozliczenie</th></tr></thead><tbody>'+(historyRows||'<tr><td colspan="5" class="empty">Brak postawionych zakładów.</td></tr>')+'</tbody></table></div></div></div></div>';
    const syncHistoryHeight=()=>{
     const layout=detailRoot.querySelector(".persona-detail-layout");
