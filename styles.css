@@ -703,3 +703,52 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .duel-card-main .duel-tag{font-size:10px}
 .duel-card-main .duel-rule{font-size:10px;color:#c1cedd}
 .duel-card-main .duel-odds-note{font-size:9px;color:#8499b2}
+
+
+/* Simulation persona cards: all text and bankroll left, portrait right. */
+.duel-card{
+  grid-template-columns:minmax(0,1fr) 112px!important;
+  grid-template-rows:1fr!important;
+  align-items:center!important;
+  gap:8px 14px!important;
+}
+.duel-card-main{
+  grid-column:1!important;grid-row:1!important;
+  min-width:0!important;align-items:flex-start!important;text-align:left!important;
+}
+.duel-avatar{
+  grid-column:2!important;grid-row:1!important;
+  width:112px!important;height:132px!important;
+  justify-self:end!important;align-self:center!important;
+  border:0!important;border-radius:0!important;
+  background:transparent!important;background-image:none!important;
+  box-shadow:none!important;overflow:visible!important;
+}
+.duel-card .duel-avatar,
+.duel-card.hades .duel-avatar,
+.duel-card.zeus .duel-avatar,
+.duel-card.hera .duel-avatar{
+  background:transparent!important;background-image:none!important;
+  border:0!important;box-shadow:none!important;
+}
+.duel-avatar img{
+  display:block!important;width:100%!important;height:100%!important;
+  object-fit:contain!important;object-position:center!important;
+  background:transparent!important;filter:drop-shadow(0 5px 8px #0008);
+}
+.duel-card .duel-bank{
+  display:block!important;grid-column:auto!important;grid-row:auto!important;
+  align-self:flex-start!important;margin-top:5px!important;
+  text-align:left!important;font-size:25px!important;line-height:1.15!important;
+}
+.duel-card .duel-bank small{font-size:13px!important}
+@media(max-width:1050px){
+ .duel-card{grid-template-columns:minmax(0,1fr) 100px!important}
+ .duel-avatar{width:100px!important;height:120px!important}
+}
+@media(max-width:560px){
+ .duel-card{grid-template-columns:minmax(0,1fr) 76px!important;grid-template-rows:1fr!important}
+ .duel-card-main{grid-column:1!important;grid-row:1!important}
+ .duel-avatar{grid-column:2!important;grid-row:1!important;width:76px!important;height:96px!important}
+ .duel-card .duel-bank{grid-column:auto!important;grid-row:auto!important;font-size:22px!important}
+}
