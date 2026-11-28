@@ -91,7 +91,7 @@ function renderDuel(){
   else{
    const rule=rules[selected],res=results[selected],cls=selected;
    const shortPlayerName=name=>{
-    const parts=String(name??"").trim().split(/\\s+/).filter(Boolean);
+    const parts=String(name??"").trim().split(/\s+/).filter(Boolean);
     if(parts.length<2)return esc(name);
     return esc(parts.slice(0,-1).map(part=>Array.from(part)[0].toLocaleUpperCase("pl-PL")+".").join(" ")+" "+parts.at(-1));
    };
