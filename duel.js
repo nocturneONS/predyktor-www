@@ -95,7 +95,13 @@ function renderDuel(){
     if(parts.length<2)return esc(name);
     return esc(parts.slice(0,-1).map(part=>Array.from(part)[0].toLocaleUpperCase("pl-PL")+".").join(" ")+" "+parts.at(-1));
    };
-   const historyRows=res.items.map(item=>{
+   const historyRows=[...res.items].sort((a,b)=>{
+    const dateA=new Date(a.kickoff_utc||a.match_date).getTime();
+    const dateB=new Date(b.kickoff_utc||b.match_date).getTime();
+    if(!Number.isFinite(dateA))return 1;
+    if(!Number.isFinite(dateB))return -1;
+    return dateB-dateA;
+   }).map(item=>{
     const date=new Date(item.kickoff_utc||item.match_date);
     const dateText=Number.isNaN(date.getTime())?"—":new Intl.DateTimeFormat("pl-PL",{timeZone:"Europe/Warsaw",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(date);
     return '<tr><td>'+dateText+'</td><td><b>'+shortPlayerName(item.player_a)+' – '+shortPlayerName(item.player_b)+'</b></td><td>'+score(item)+'</td><td>'+fmt(item.stake)+' j</td><td class="'+(item.won?"positive":"negative")+'">'+(item.won?"+":"")+fmt(item.delta)+' j</td></tr>';
