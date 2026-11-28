@@ -327,7 +327,7 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 
 
 /* Seven-column match table with shared header/row geometry. */
-:root{--match-columns:minmax(0,1.08fr) minmax(64px,.62fr) minmax(0,1.42fr) minmax(0,1.12fr) minmax(0,1.12fr) minmax(0,.76fr) minmax(0,1.12fr)}
+:root{--match-columns:minmax(0,1.08fr) minmax(0,1.42fr) minmax(64px,.62fr) minmax(0,1.12fr) minmax(0,1.12fr) minmax(0,.76fr) minmax(0,1.12fr)}
 .match-header-wrap{width:100%;overflow-x:auto;margin:8px 0 6px}
 .match-header{display:grid;grid-template-columns:var(--match-columns);gap:14px;align-items:center;padding:0 16px;min-width:1050px;color:#8da7c3;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
 #predictions{overflow-x:auto;display:grid;grid-template-columns:1fr;gap:9px}
@@ -341,7 +341,7 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .edge-column{border:0!important;padding:0!important;text-align:center}
 #predictions .strategy-proposals{border:0!important;padding:0!important}
 @media(min-width:1051px) and (max-width:1250px){
- :root{--match-columns:minmax(0,1fr) minmax(58px,.55fr) minmax(0,1.3fr) minmax(0,1.05fr) minmax(0,1.05fr) minmax(0,.7fr) minmax(0,1fr)}
+ :root{--match-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(58px,.55fr) minmax(0,1.05fr) minmax(0,1.05fr) minmax(0,.7fr) minmax(0,1fr)}
  #predictions .match-header{gap:9px}
  #predictions .match{gap:9px}
 }
@@ -349,3 +349,5 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
  .match-header{min-width:1050px}
  #predictions .match{min-width:1050px}
 }
+
+.match-header>span{text-align:center;justify-self:stretch}
