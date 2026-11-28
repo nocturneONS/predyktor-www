@@ -95,8 +95,7 @@ function renderDuel(){
    detailRoot.hidden=false;
    detailRoot.innerHTML='<div class="persona-detail-heading"><div><p class="eyebrow">SZCZEGÓŁY STRATEGII</p><h2>'+rule.label+'</h2></div><button type="button" class="persona-detail-close" aria-label="Zamknij szczegóły">×</button></div>'+
     '<div class="persona-detail-layout"><div class="persona-detail-chart '+cls+'"><div class="persona-detail-chart-head"><b>Wynik strategii</b><strong>'+signed(res.profit)+' j</strong></div>'+chart(selected,res)+'</div>'+
-    '<div class="persona-detail-info"><div class="persona-detail-kpis"><div><small>BANKROLL</small><b>'+fmt(res.bank)+' j</b></div><div><small>ROI</small><b>'+(res.roi===null?"—":pct(res.roi))+'</b></div><div><small>SKUTECZNOŚĆ</small><b>'+(res.placed?pct(res.accuracy):"—")+'</b></div><div><small>ZAKŁADY</small><b>'+res.placed+' · '+res.wins+' trafień</b></div></div>'+
-    '<div class="persona-detail-rules"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j · '+rule.stakeMode+'</span><span>'+rule.oddsNote+'</span></div>'+
+    '<div class="persona-detail-info"><div class="persona-detail-rules"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j · '+rule.stakeMode+'</span><span>'+rule.oddsNote+'</span></div>'+
     '<div class="persona-detail-history"><h3>Historia typów</h3><div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Mecz</th><th>Wynik</th><th>Stawka</th><th>Rozliczenie</th></tr></thead><tbody>'+(historyRows||'<tr><td colspan="5" class="empty">Brak postawionych zakładów.</td></tr>')+'</tbody></table></div></div></div></div>';
    const close=detailRoot.querySelector(".persona-detail-close");
    if(close)close.addEventListener("click",()=>{
