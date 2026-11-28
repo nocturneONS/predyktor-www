@@ -439,3 +439,15 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .edge-persona-card .edge-result{align-self:center!important;text-align:center!important}
 .edge-persona-card .edge-result{align-items:center!important;margin-top:0!important;padding-top:0!important;gap:2px!important}
 .edge-persona-card .edge-persona-content>strong{margin-top:0!important}
+
+
+/* Match table: neutral Value Edge text, tour-specific labels, interactive headers. */
+#predictions .edge-column .edge{color:#f4f7fb!important}
+#predictions .edge-column .edge.negative{color:#f4f7fb!important}
+#predictions .match-info .tour-challenger{color:#35d6a0!important}
+#predictions .match-info .tour-wta{color:#d58af4!important}
+.match-header [data-prediction-sort]{cursor:pointer;user-select:none;transition:color .12s ease}
+.match-header [data-prediction-sort]:hover,.match-header [data-prediction-sort].sort-active{color:#f1f6fc}
+.match-header [data-prediction-sort]::after{content:"";display:inline-block;margin-left:5px;vertical-align:middle;border:4px solid transparent;opacity:0}
+.match-header [data-prediction-sort][data-sort-direction="asc"]::after{border-top-color:#72c6ff;border-bottom:0;opacity:1}
+.match-header [data-prediction-sort][data-sort-direction="desc"]::after{border-bottom-color:#72c6ff;border-top:0;opacity:1}
