@@ -1,7 +1,8 @@
 "use strict";
 function renderDuel(){
  const root=document.getElementById("duel-panel");if(!root)return;
- const rows=(window.__predyktorSettled||[]).filter(r=>
+ const hasMedical=r=>[r.mto_a_days_ago,r.mto_b_days_ago].some(v=>v!=null&&Number.isFinite(Number(v)));
+ const rows=(window.__predyktorSettled||[]).filter(r=>!hasMedical(r)&&
   r.status==="settled"&&r.result_type==="regular"&&r.market_analysis&&r.market_analysis.is_value===true
  ).filter(r=>{
   const a=Number(r.set_score_a),b=Number(r.set_score_b);
