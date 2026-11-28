@@ -103,7 +103,7 @@ function warsawDayOffset(instant){
  return Math.round((Date.UTC(get("year"),get("month")-1,get("day"))-Date.UTC(now("year"),now("month")-1,now("day")))/86400000);
 }
 function renderPredictions(){
- let rows=S.predictions.filter(r=>(S.tour==="ALL"||r.tour===S.tour)&&(S.date==="ALL"||warsawDayOffset(r.kickoff_utc)===(S.date==="YESTERDAY"?-1:S.date==="TODAY"?0:1))&&(!S.valueOnly||value(r))&&(!S.q||[r.player_a,r.player_b,r.league,r.tourney_name].join(" ").toLocaleLowerCase("pl-PL").includes(S.q)));
+ let rows=S.predictions.filter(r=>(S.tour==="ALL"||r.tour===S.tour)&&(S.date==="ALL"||warsawDayOffset(r.kickoff_utc)===(S.date==="YESTERDAY"?-1:S.date==="TODAY"?0:1))&&(!S.valueOnly||value(r))&&Math.max(Math.abs(Number(r.edge_a)||0),Math.abs(Number(r.edge_b)||0))>=0.05&&(!S.q||[r.player_a,r.player_b,r.league,r.tourney_name].join(" ").toLocaleLowerCase("pl-PL").includes(S.q)));
  const timeSort=(a,b)=>new Date(a.kickoff_utc)-new Date(b.kickoff_utc);
  if(S.predictionSort?.key==="edge"){
   const edgeValue=r=>Math.max(Number(r.edge_a||0),Number(r.edge_b||0));
