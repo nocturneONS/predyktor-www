@@ -1,5 +1,5 @@
 "use strict";
-const S={predictions:[],settled:[],stats:null,unsettled:null,tour:"ALL",analyticsTour:"overall",q:"",valueOnly:false,edgePlayer:"hades"};
+const S={predictions:[],settled:[],stats:null,unsettled:null,tour:"ALL",date:"TODAY",analyticsTour:"overall",q:"",valueOnly:false,edgePlayer:"hades"};
 const $=id=>document.getElementById(id);
 const n=v=>v==null||v===""?null:Number(v);
 const pct=v=>v==null||!Number.isFinite(Number(v))?"—":(Number(v)*100).toFixed(1)+"%";
@@ -76,8 +76,16 @@ function renderEdgeOverview(){
  }).join("");
 }
 
+function warsawDayOffset(instant){
+ const date=new Date(instant);if(Number.isNaN(date.getTime()))return null;
+ const parts=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Warsaw",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(date);
+ const get=k=>Number(parts.find(p=>p.type===k)?.value);
+ const nowParts=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Warsaw",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+ const now=k=>Number(nowParts.find(p=>p.type===k)?.value);
+ return Math.round((Date.UTC(get("year"),get("month")-1,get("day"))-Date.UTC(now("year"),now("month")-1,now("day")))/86400000);
+}
 function renderPredictions(){
- let rows=S.predictions.filter(r=>(S.tour==="ALL"||r.tour===S.tour)&&(!S.valueOnly||value(r))&&(!S.q||[r.player_a,r.player_b,r.league,r.tourney_name].join(" ").toLocaleLowerCase("pl-PL").includes(S.q)));
+ let rows=S.predictions.filter(r=>(S.tour==="ALL"||r.tour===S.tour)&&(S.date==="ALL"||warsawDayOffset(r.kickoff_utc)===(S.date==="YESTERDAY"?-1:S.date==="TODAY"?0:1))&&(!S.valueOnly||value(r))&&(!S.q||[r.player_a,r.player_b,r.league,r.tourney_name].join(" ").toLocaleLowerCase("pl-PL").includes(S.q)));
  rows.sort((a,b)=>new Date(a.kickoff_utc)-new Date(b.kickoff_utc));
  if(!rows.length){$("predictions").innerHTML='<div class="empty">Brak spotkań spełniających wybrane kryteria.</div>';return}
  const width=v=>Math.max(0,Math.min(100,Number(v||0)*100)),odds=v=>{const x=Number(v);return Number.isFinite(x)&&x>0?x.toFixed(2):"—"};
