@@ -902,3 +902,23 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
   position:sticky;top:0;z-index:2;
   background:#15263a!important;
 }
+
+
+/* Persona detail: history panel matches the combined height of chart + strategy rules. */
+.persona-detail-layout{align-items:stretch!important}
+.persona-detail-left{height:100%;min-height:0}
+.persona-detail-info{height:100%;min-height:0;align-self:stretch}
+.persona-detail-history{
+  height:100%!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+.persona-detail-history .table-scroll{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  height:100%!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+}
