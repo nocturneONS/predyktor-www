@@ -612,3 +612,82 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .prob-progress-label{text-shadow:none!important}
 #predictions .prob-progress-market .prob-progress-label{color:#fff!important;text-shadow:none!important}
 #predictions .prob-progress-model .prob-progress-label{color:#101b2a!important;text-shadow:none!important}
+
+
+/* Strategy persona cards: balanced left/right halves, right-aligned details. */
+.edge-persona-card{
+  box-sizing:border-box!important;
+  padding-left:16px!important;
+  padding-right:16px!important;
+  gap:12px!important;
+  justify-content:space-between!important;
+}
+.edge-persona-card .edge-persona-portrait{
+  flex:0 0 calc(50% - 6px)!important;
+  width:calc(50% - 6px)!important;
+  min-width:0!important;
+  max-width:calc(50% - 6px)!important;
+  justify-content:center!important;
+  align-self:center!important;
+}
+.edge-persona-card .edge-persona-portrait img{
+  object-position:center center!important;
+  margin-inline:auto!important;
+}
+.edge-persona-card .edge-persona-content{
+  flex:0 0 calc(50% - 6px)!important;
+  width:calc(50% - 6px)!important;
+  min-width:0!important;
+  align-self:stretch!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  text-align:right!important;
+  padding:6px 0!important;
+  gap:4px!important;
+}
+.edge-persona-card .edge-persona-heading{
+  width:100%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-end!important;
+  justify-content:flex-start!important;
+  gap:2px!important;
+  white-space:normal!important;
+  text-align:right!important;
+}
+.edge-persona-card .edge-persona-heading .edge-best-strategy{
+  order:0!important;
+  align-self:flex-end!important;
+  text-align:right!important;
+}
+.edge-persona-card .edge-persona-heading>b{
+  order:1!important;
+  align-self:flex-end!important;
+  text-align:right!important;
+}
+.edge-persona-card .edge-persona-content>strong,
+.edge-persona-card .edge-result{
+  align-self:flex-end!important;
+  width:100%!important;
+  text-align:right!important;
+}
+.edge-persona-card .edge-result{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-end!important;
+  justify-content:flex-start!important;
+  gap:2px!important;
+  margin-top:0!important;
+  padding-top:0!important;
+}
+.edge-persona-card .edge-result span{
+  width:100%!important;
+  text-align:right!important;
+}
+@media(max-width:480px){
+ .edge-persona-card{padding-left:12px!important;padding-right:12px!important;gap:8px!important}
+ .edge-persona-card .edge-persona-portrait,
+ .edge-persona-card .edge-persona-content{flex-basis:calc(50% - 4px)!important;width:calc(50% - 4px)!important;max-width:calc(50% - 4px)!important}
+}
