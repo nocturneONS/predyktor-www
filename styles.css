@@ -606,3 +606,9 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
  .duel-card-stats{grid-column:2;grid-row:4;text-align:left;white-space:normal}
  .duel-chart-card{padding:10px 8px}
 }
+
+
+/* Upcoming: legible labels inside market/model probability bars. */
+#predictions .prob-progress-label{text-shadow:none!important}
+#predictions .prob-progress-market .prob-progress-label{color:#fff!important;text-shadow:none!important}
+#predictions .prob-progress-model .prob-progress-label{color:#101b2a!important;text-shadow:none!important}
