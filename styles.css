@@ -428,3 +428,14 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .edge-pick-mini{gap:2px}
 #predictions .edge-pick-mini .edge-pick-type{display:block;font-size:10px;line-height:1.25;color:#e3edf8;overflow-wrap:anywhere}
 #predictions .edge-pick-mini .edge-pick-stake{display:block;font-size:10px;line-height:1.2;color:#e3edf8}
+
+
+/* Center strategy-card content and tighten the gap between profit and stats. */
+.edge-persona-content{align-items:center!important;justify-content:center!important;text-align:center!important;padding:6px 0!important;gap:4px!important}
+.edge-persona-heading{justify-content:center!important;gap:8px!important;width:100%;text-align:center!important}
+.edge-persona-card .edge-persona-heading>b,
+.edge-persona-card .edge-persona-heading .edge-best-strategy,
+.edge-persona-card .edge-persona-content>strong,
+.edge-persona-card .edge-result{align-self:center!important;text-align:center!important}
+.edge-persona-card .edge-result{align-items:center!important;margin-top:0!important;padding-top:0!important;gap:2px!important}
+.edge-persona-card .edge-persona-content>strong{margin-top:0!important}
