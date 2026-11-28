@@ -377,3 +377,17 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 
 /* Strategy cards remain stationary on hover. */
 .edge-persona-card:hover{transform:none!important}
+
+
+/* Align strategy details to the upper-right; center portraits vertically. */
+.edge-persona-card{align-items:center;min-height:188px}
+.edge-persona-portrait{align-self:center;align-items:center;height:100%;min-height:156px}
+.edge-persona-portrait img{height:166px;max-height:100%;object-position:center}
+.edge-persona-content{align-self:stretch;justify-content:flex-start;align-items:flex-end;text-align:right;padding:8px 2px 6px 0;gap:7px}
+.edge-persona-card .edge-best-strategy{align-self:flex-end}
+.edge-persona-card .edge-persona-content>b{align-self:flex-end}
+.edge-persona-card .edge-persona-content>strong{align-self:flex-end;margin-top:1px}
+.edge-persona-card .edge-result{align-items:flex-end;margin-top:auto;padding-top:6px;gap:4px}
+.edge-persona-card .edge-result strong{font-size:14px}
+@media(max-width:900px){.edge-persona-card{min-height:174px}.edge-persona-portrait{align-self:center;min-height:140px}.edge-persona-portrait img{height:148px}.edge-persona-content{padding-top:7px;padding-bottom:7px}}
+@media(max-width:480px){.edge-persona-card{min-height:160px}.edge-persona-portrait{min-height:132px}.edge-persona-portrait img{height:132px}.edge-persona-content{gap:5px}.edge-persona-card .edge-result{font-size:11px}}
