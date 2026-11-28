@@ -73,7 +73,7 @@ function renderEdgeOverview(){
  root.innerHTML=keys.map(key=>{
   const r=results[key],label=edgeRules[key].label;
   const portrait="data/"+key+".png";
-  return '<article class="edge-persona-card edge-persona-'+key+'"><div class="edge-persona-portrait"><img src="'+portrait+'" alt="'+label+'" loading="lazy"></div><div class="edge-persona-content"><b>'+label+'</b><span class="edge-best-strategy">'+(key==="zeus"?"Flat stake":"Progresja")+'</span><strong class="'+(r.profit>=0?"positive":"negative")+'">'+(r.profit>0?"+":"")+r.profit.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j</strong><div class='edge-result'><span><strong>"+r.wins+"/"+r.placed+"</strong> trafień · "+(r.accuracy*100).toFixed(1)+"%</span><span>Bankroll "+r.bank.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j · ROI "+(r.roi*100).toFixed(1)+"%</span></div></div></article>";
+  return '<article class="edge-persona-card edge-persona-'+key+'"><div class="edge-persona-portrait"><img src="'+portrait+'" alt="'+label+'" loading="lazy"></div><div class="edge-persona-content"><div class="edge-persona-heading"><span class="edge-best-strategy">'+(key==="zeus"?"Flat stake":"Progresja")+'</span><b>'+label+'</b></div><strong class="'+(r.profit>=0?"positive":"negative")+'">'+(r.profit>0?"+":"")+r.profit.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j</strong><div class='edge-result'><span><strong>"+r.wins+"/"+r.placed+"</strong> trafień · "+(r.accuracy*100).toFixed(1)+"%</span><span>Bankroll "+r.bank.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j · ROI "+(r.roi*100).toFixed(1)+"%</span></div></div></article>";
  }).join("");
 }
 
