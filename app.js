@@ -150,14 +150,18 @@ document.querySelectorAll("[data-intel-tour]").forEach(b=>b.addEventListener("cl
 document.querySelectorAll("[data-date]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-date]").forEach(x=>x.classList.remove("active"));b.classList.add("active");S.date=b.dataset.date;renderPredictions()}));
 document.querySelectorAll("[data-tour]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-tour]").forEach(x=>x.classList.remove("active"));b.classList.add("active");S.tour=b.dataset.tour;renderPredictions()}));
 $("search").addEventListener("input",e=>{S.q=e.target.value.toLocaleLowerCase("pl-PL");renderPredictions()});$("value-only").addEventListener("change",e=>{S.valueOnly=e.target.checked;renderPredictions()});document.querySelectorAll(".match-header [data-prediction-sort]").forEach(el=>{
- el.addEventListener("click",()=>{
-  if(el.dataset.predictionSort==="edge")S.predictionSort={key:"edge",direction:"asc"};
-  else S.predictionSort={key:"types",direction:"desc"};
+ const activate=()=>{
+  const key=el.dataset.predictionSort;
+  if(key==="edge"){
+   const direction=S.predictionSort?.key==="edge"&&S.predictionSort.direction==="asc"?"desc":"asc";
+   S.predictionSort={key:"edge",direction};
+  }else{
+   S.predictionSort=S.predictionSort?.key==="types"?null:{key:"types",direction:"desc"};
+  }
   renderPredictions();
- });
- el.addEventListener("dblclick",()=>{
-  if(el.dataset.predictionSort==="edge"){S.predictionSort={key:"edge",direction:"desc"};renderPredictions()}
- });
+ };
+ el.addEventListener("click",activate);
+ el.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();activate()}});
 });
 const refreshButton=$("refresh");if(refreshButton)refreshButton.addEventListener("click",load);
 const fileInput=$("file-input");if(fileInput)fileInput.addEventListener("change",async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;try{await importFile(f);$("updated").textContent="Import: "+f.name}catch(err){alert("Błąd importu: "+err.message)}finally{e.target.value=""}});
