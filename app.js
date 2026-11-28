@@ -75,6 +75,23 @@ function renderEdgeOverview(){
   const portrait="data/"+key+".png";
   return '<article class="edge-persona-card edge-persona-'+key+'"><div class="edge-persona-portrait"><img src="'+portrait+'" alt="'+label+'" loading="lazy"></div><div class="edge-persona-content"><div class="edge-persona-heading"><span class="edge-best-strategy">'+(key==="zeus"?"Flat stake":"Progresja")+'</span><b>'+label+'</b></div><strong class="'+(r.profit>=0?"positive":"negative")+'">'+(r.profit>0?"+":"")+r.profit.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j</strong><div class='edge-result'><span>"+r.wins+"/"+r.placed+" trafień · "+(r.accuracy*100).toFixed(1)+"%</span><span>ROI "+(r.roi*100).toFixed(1)+"%</span></div></div></article>";
  }).join("");
+ root.querySelectorAll(".edge-persona-card").forEach(card=>{
+  const key=card.classList.contains("edge-persona-hades")?"hades":card.classList.contains("edge-persona-zeus")?"zeus":"hera";
+  card.dataset.personaDetail=key;card.setAttribute("role","button");card.setAttribute("tabindex","0");
+  card.setAttribute("aria-expanded",String(window.__predyktorPersonaDetail===key));
+  card.classList.toggle("selected",window.__predyktorPersonaDetail===key);
+  const activate=()=>{
+   window.__predyktorPersonaDetail=window.__predyktorPersonaDetail===key?null:key;
+   root.querySelectorAll(".edge-persona-card").forEach(el=>{
+    const active=el.dataset.personaDetail===window.__predyktorPersonaDetail;
+    el.classList.toggle("selected",active);el.setAttribute("aria-expanded",String(active));
+   });
+   const panel=$("persona-detail");
+   if(panel){panel.hidden=!window.__predyktorPersonaDetail;if(window.__predyktorPersonaDetail&&typeof window.renderDuel==="function")window.renderDuel();}
+  };
+  card.addEventListener("click",activate);
+  card.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();activate()}});
+ });
 }
 
 function warsawDayOffset(instant){
