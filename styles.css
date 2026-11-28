@@ -306,3 +306,9 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
  .match,.match:has(.strategy-proposals){grid-template-columns:repeat(2,minmax(0,1fr))}
  .match-info,.matchup,.prob-group,.match .edge-column,.match .strategy-proposals{grid-column:1/-1}
 }
+
+
+/* Match row alignment and neutral player-name typography. */
+.match-info{align-items:center!important;text-align:center}
+.match-info>*{width:100%;text-align:center}
+.matchup .player-name{color:#e5edf6!important}
