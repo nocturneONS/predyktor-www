@@ -863,3 +863,20 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .persona-detail-rules{background:transparent!important}
 .persona-detail-chart .duel-chart{display:block;width:100%;height:auto;overflow:visible}
 .persona-detail-chart .duel-axis-title{display:none!important}
+
+
+/* Persona detail history: center every column's header and cell content. */
+.persona-detail-history .duel-table th,
+.persona-detail-history .duel-table td{
+  text-align:center!important;
+  vertical-align:middle!important;
+}
+/* Match the chart surface to the navy history panel; remove persona-colored frame. */
+.persona-detail-chart,
+.persona-detail-chart.hades,
+.persona-detail-chart.zeus,
+.persona-detail-chart.hera{
+  background:#101b2a!important;
+  border:1px solid #2b4059!important;
+  box-shadow:none!important;
+}
