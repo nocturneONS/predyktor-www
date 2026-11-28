@@ -490,3 +490,8 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .prob-progress-name{position:absolute;z-index:2;top:0;bottom:0;display:flex;align-items:center;width:50%;font-size:9px;font-weight:800;letter-spacing:.08em;color:#e8f1fb;opacity:.8;pointer-events:none}
 #predictions .prob-progress-name-a{left:50%;justify-content:flex-end;padding-right:9px}
 #predictions .prob-progress-name-b{left:0;justify-content:flex-start;padding-left:9px}
+
+
+/* Strategy tip: the pick itself is prominent; the stake remains secondary. */
+#predictions .edge-pick-mini .edge-pick-type{font-size:12px!important;line-height:1.2;font-weight:800!important;color:#f2f5f9!important}
+#predictions .edge-pick-mini .edge-pick-stake{font-size:10px!important;line-height:1.2;font-weight:400!important;color:#d4deea!important}
