@@ -312,3 +312,10 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .match-info{align-items:center!important;text-align:center}
 .match-info>*{width:100%;text-align:center}
 .matchup .player-name{color:#e5edf6!important}
+
+
+/* Two independent filter groups: local date first, tour second. */
+.filter-groups{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.filter-divider{height:25px;width:1px;background:var(--line);display:block}
+.filters .date-filters,.filters .tour-filters{width:auto;justify-content:flex-start}
+@media(max-width:760px){.filter-groups{width:100%;gap:7px}.filter-divider{display:none}.filters .date-filters,.filters .tour-filters{max-width:100%;overflow-x:auto}.filters #search{min-width:160px}}
