@@ -1092,3 +1092,19 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .edge-pick-mini .edge-pick-score.player-b{color:#ed914c!important}
 #predictions .edge-pick-mini .edge-pick-name.player-a{color:#d8c7a2!important}
 #predictions .edge-pick-mini .edge-pick-name.player-b{color:#ed914c!important}
+
+
+/* Keep the chart/rules column intrinsic; history must never stretch the grid row. */
+.persona-detail-layout{align-items:start!important}
+.persona-detail-left{align-self:start!important}
+.persona-detail-info{align-self:start!important;box-sizing:border-box!important}
+.persona-detail-history{height:100%!important;max-height:100%!important;min-height:0!important;overflow:hidden!important}
+.persona-detail-history .table-scroll{
+  display:block!important;
+  height:100%!important;
+  max-height:100%!important;
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  scrollbar-gutter:stable;
+}
