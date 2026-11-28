@@ -422,3 +422,9 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .edge-pick-mini.edge-pick-hera>b{color:#ef9aeb}
 @media(max-width:900px){#predictions .strategy-proposals{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}#predictions .edge-pick-mini img{width:29px;height:29px}}
 @media(max-width:600px){#predictions .strategy-proposals{grid-template-columns:repeat(3,minmax(0,1fr))}#predictions .edge-pick-mini{min-height:76px}#predictions .edge-pick-mini>span{font-size:9px}}
+
+
+/* Avatar identifies the strategy; omit redundant persona label and separate pick from stake. */
+#predictions .edge-pick-mini{gap:2px}
+#predictions .edge-pick-mini .edge-pick-type{display:block;font-size:10px;line-height:1.25;color:#e3edf8;overflow-wrap:anywhere}
+#predictions .edge-pick-mini .edge-pick-stake{display:block;font-size:10px;line-height:1.2;color:#e3edf8}
