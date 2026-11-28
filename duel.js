@@ -103,7 +103,7 @@ function renderDuel(){
    detailRoot.hidden=false;
    detailRoot.innerHTML='<div class="persona-detail-heading"><div><p class="eyebrow">SZCZEGÓŁY STRATEGII</p><h2>'+rule.label+'</h2></div><button type="button" class="persona-detail-close" aria-label="Zamknij szczegóły">×</button></div>'+
     '<div class="persona-detail-layout"><div class="persona-detail-left"><div class="persona-detail-chart '+cls+'"><div class="persona-detail-chart-head"><strong class="persona-detail-profit '+cls+'">'+signed(res.profit)+' j</strong></div>'+chart(selected,res,true)+'</div>'+
-    '<div class="persona-detail-rules"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j · '+rule.stakeMode+'</span><span>'+rule.oddsNote+'</span></div></div>'+
+    '<div class="persona-detail-rules"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j</span><span>'+(selected==="zeus"?"Flat stake":"Progresja ×2 po porażce")+'</span><span>'+rule.oddsNote+'</span></div></div>'+
     '<div class="persona-detail-info"><div class="persona-detail-history"><div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Mecz</th><th>Wynik</th><th>Stawka</th><th>Rozliczenie</th></tr></thead><tbody>'+(historyRows||'<tr><td colspan="5" class="empty">Brak postawionych zakładów.</td></tr>')+'</tbody></table></div></div></div></div>';
    const syncHistoryHeight=()=>{
     const left=detailRoot.querySelector(".persona-detail-left");
@@ -112,19 +112,31 @@ function renderDuel(){
     const scroll=detailRoot.querySelector(".persona-detail-history .table-scroll");
     if(!left||!info||!history||!scroll)return;
     const targetHeight=Math.ceil(left.getBoundingClientRect().height);
-    info.style.height=targetHeight+"px";
-    info.style.minHeight="0";
-    history.style.height="100%";
-    history.style.minHeight="0";
-    scroll.style.height="100%";
-    scroll.style.maxHeight="100%";
-    scroll.style.minHeight="0";
-    scroll.style.overflowY=scroll.scrollHeight>scroll.clientHeight+1?"auto":"hidden";
+    info.style.setProperty("height",targetHeight+"px","important");
+    info.style.setProperty("max-height",targetHeight+"px","important");
+    info.style.setProperty("min-height","0","important");
+    info.style.setProperty("overflow","hidden","important");
+    history.style.setProperty("height","100%","important");
+    history.style.setProperty("max-height","100%","important");
+    history.style.setProperty("min-height","0","important");
+    history.style.setProperty("overflow","hidden","important");
+    scroll.style.setProperty("height","100%","important");
+    scroll.style.setProperty("max-height","100%","important");
+    scroll.style.setProperty("min-height","0","important");
+    scroll.style.setProperty("overflow-x","hidden","important");
+    scroll.style.setProperty("overflow-y","auto","important");
    };
    syncHistoryHeight();
+   requestAnimationFrame(syncHistoryHeight);
    if(window.__personaDetailResizeHandler)window.removeEventListener("resize",window.__personaDetailResizeHandler);
    window.__personaDetailResizeHandler=syncHistoryHeight;
    window.addEventListener("resize",window.__personaDetailResizeHandler);
+   if(window.__personaDetailResizeObserver)window.__personaDetailResizeObserver.disconnect();
+   if(window.ResizeObserver){
+    window.__personaDetailResizeObserver=new ResizeObserver(syncHistoryHeight);
+    const left=detailRoot.querySelector(".persona-detail-left");
+    if(left)window.__personaDetailResizeObserver.observe(left);
+   }
    const close=detailRoot.querySelector(".persona-detail-close");
    if(close)close.addEventListener("click",()=>{
     window.__predyktorPersonaDetail=null;detailRoot.hidden=true;detailRoot.innerHTML="";
