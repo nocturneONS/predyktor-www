@@ -1227,12 +1227,36 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .edge-persona-card .edge-best-strategy-zeus{color:#00d9a7!important}
 .edge-persona-card .edge-best-strategy-hera{color:#ed55df!important}
 
-/* Upcoming picks: portrait only, with a compact CSS tooltip on hover/focus. */
+/* Upcoming picks: colored outline, transparent face, 3D flip reveals pick and stake. */
 #tab-upcoming #predictions .strategy-proposals{display:flex;align-items:center;justify-content:center;gap:8px;overflow:visible}
-#tab-upcoming #predictions .edge-pick-mini{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;width:42px!important;height:48px!important;min-width:42px!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;cursor:help}
-#tab-upcoming #predictions .edge-pick-mini img{display:block!important;width:38px!important;height:44px!important;object-fit:contain!important}
-#tab-upcoming #predictions .edge-pick-mini::after{content:attr(data-tooltip);position:absolute;z-index:30;left:50%;bottom:calc(100% + 7px);transform:translate(-50%,4px);display:block;width:max-content;max-width:160px;padding:6px 9px;border:1px solid #38516d;border-radius:7px;background:#172538;color:#eaf2fb;box-shadow:0 6px 18px rgba(0,0,0,.35);font-size:10px;font-weight:600;line-height:1.25;white-space:nowrap;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .14s ease,transform .14s ease,visibility .14s ease}
-#tab-upcoming #predictions .edge-pick-mini:hover::after,#tab-upcoming #predictions .edge-pick-mini:focus-visible::after{opacity:1;visibility:visible;transform:translate(-50%,0)}
+#tab-upcoming #predictions .edge-pick-mini{
+  position:relative!important;display:block!important;flex:0 0 58px!important;width:58px!important;height:66px!important;
+  min-width:58px!important;padding:0!important;margin:0!important;border:0!important;border-radius:8px!important;
+  background:transparent!important;box-shadow:none!important;overflow:visible!important;perspective:600px;cursor:pointer
+}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hades{--pick-accent:#168fd0}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-zeus{--pick-accent:#00a985}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hera{--pick-accent:#d34bc7}
+#tab-upcoming #predictions .edge-pick-flip{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.72,.25,1)}
+#tab-upcoming #predictions .edge-pick-mini:hover .edge-pick-flip,
+#tab-upcoming #predictions .edge-pick-mini:focus .edge-pick-flip{transform:rotateY(180deg)}
+#tab-upcoming #predictions .edge-pick-face{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--pick-accent);border-radius:8px;background:transparent;
+  -webkit-backface-visibility:hidden;backface-visibility:hidden
+}
+#tab-upcoming #predictions .edge-pick-front img{display:block;width:43px;height:52px;object-fit:contain}
+#tab-upcoming #predictions .edge-pick-back{transform:rotateY(180deg);flex-direction:column;gap:5px;padding:5px 3px;text-align:center}
+#tab-upcoming #predictions .edge-pick-back .edge-pick-type{display:block!important;font-size:10px!important;line-height:1.15;font-weight:700!important;color:#f2f5f9!important;overflow-wrap:anywhere}
+#tab-upcoming #predictions .edge-pick-back .edge-pick-type.player-a{color:#d8c7a2!important}
+#tab-upcoming #predictions .edge-pick-back .edge-pick-type.player-b{color:#ed914c!important}
+#tab-upcoming #predictions .edge-pick-back .edge-pick-stake{display:block!important;font-size:10px!important;line-height:1.15;font-weight:400!important;color:#d4deea!important}
+#tab-upcoming #predictions .edge-pick-mini:focus{outline:none}
+#tab-upcoming #predictions .edge-pick-mini:focus-visible .edge-pick-face{box-shadow:0 0 0 2px #8ca4c2}
+@media(max-width:600px){
+  #tab-upcoming #predictions .edge-pick-mini{flex-basis:52px!important;width:52px!important;height:60px!important;min-width:52px!important}
+  #tab-upcoming #predictions .edge-pick-front img{width:39px;height:47px}
+}
 
 /* No white hover/focus frame or lift on Upcoming match rows. */
 #tab-upcoming #predictions .match:hover,#tab-upcoming #predictions .match:focus,#tab-upcoming #predictions .match:focus-within{border-color:#2b4059!important;outline:0!important;box-shadow:none!important;transform:none!important}
