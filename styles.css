@@ -1134,3 +1134,19 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .edge-pick-mini .edge-pick-name{
   color:#f4f6fa!important;
 }
+
+
+/* Final contrast correction: dark navy text on the first (market) bar. */
+#predictions .prob-progress-market .prob-progress-label,
+#predictions .prob-progress-market .prob-progress-name{
+  color:#101b2a!important;
+  text-shadow:none!important;
+  opacity:1!important;
+}
+/* Zeus score and Hera surname use one identical neutral text color. */
+#predictions .edge-pick-mini .edge-pick-type.edge-pick-score.player-a,
+#predictions .edge-pick-mini .edge-pick-type.edge-pick-score.player-b,
+#predictions .edge-pick-mini .edge-pick-type.edge-pick-name.player-a,
+#predictions .edge-pick-mini .edge-pick-type.edge-pick-name.player-b{
+  color:#f4f6fa!important;
+}
