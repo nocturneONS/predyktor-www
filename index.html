@@ -6,7 +6,7 @@
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta name="theme-color" content="#0b1018"><title>PREDYKTOR — Tennis Intelligence</title>
-<link rel="stylesheet" href="styles.css?v=upcoming-two-tabs-teal-plum-bars-20261128">
+<link rel="stylesheet" href="styles.css?v=upcoming-detail-container-neutral-bars-20261128">
 </head>
 <body>
 <header class="topbar"><a class="brand" href="./"><span class="brand-icon">P</span><span><b>PREDYKTOR</b><small>TENNIS INTELLIGENCE</small></span></a><div class="status"><i></i> AUTOMATYCZNY PIPELINE <span id="updated">Ładowanie danych…</span></div></header>
@@ -34,7 +34,7 @@
 <article><small>SKUTECZNOŚĆ MODELU</small><strong id="model-acc">—</strong><span id="model-correct">trafne wskazania</span></article>
 <article><small>SKUTECZNOŚĆ RYNKU</small><strong id="market-acc">—</strong><span>trafne wskazania</span></article>
 <article class="warning"><small>NIEROZLICZONE</small><strong id="unsettled">—</strong><span>mecze po terminie</span></article>
-</section><section class="panel"><div class="section-title"><div><p class="eyebrow">TOUR BREAKDOWN</p><h2>Skuteczność według rozgrywek</h2></div></div><div class="table-scroll"><table><thead><tr><th>Tour</th><th>Mecze</th><th>Model</th><th>Rynek</th><th>Rozbieżne</th><th>Brier modelu</th><th>Brier rynku</th></tr></thead><tbody id="tour-stats"><tr><td colspan="7" class="empty">Brak danych.</td></tr></tbody></table></div></section><section class="panel unresolved"><div class="section-title"><div><p class="eyebrow">DATA QUALITY</p><h2>Nierozliczone mecze</h2><p class="sub">Mecze po terminie, dla których nie odnaleziono jeszcze jednoznacznego wyniku.</p></div><span class="pill amber" id="unsettled-pill">0</span></div><div id="reasons" class="reason-grid"></div><div class="table-scroll"><table><thead><tr><th>Spotkanie</th><th>Tour / turniej</th><th>Powód</th><th>Próby</th><th>Ostatnia kontrola</th><th>Wiek</th></tr></thead><tbody id="unsettled-rows"><tr><td colspan="6" class="empty">Brak nierozliczonych meczów.</td></tr></tbody></table></div></section></div><section class="panel" hidden><div class="section-title"><div><p class="eyebrow">HISTORY</p><h2>Ostatnio rozliczone spotkania</h2></div><span class="pill" id="history-count">0</span></div><div class="table-scroll"><table><thead><tr><th>Mecz</th><th>Tour</th><th>Wynik setów</th><th>Zwycięzca</th><th>Model</th><th>Rynek</th><th>Relacja</th></tr></thead><tbody id="history-rows"><tr><td colspan="7" class="empty">Brak historii.</td></tr></tbody></table></div></section>
+</section><section class="panel"><div class="section-title"><div><p class="eyebrow">TOUR BREAKDOWN</p><h2>Skuteczność według rozgrywek</h2></div></div><div class="table-scroll"><table><thead><tr><th>Tour</th><th>Mecze</th><th>Model</th><th>Rynek</th><th>Rozbieżne</th><th>Brier modelu</th><th>Brier rynku</th></tr></thead><tbody id="tour-stats"><tr><td colspan="7" class="empty">Brak danych.</td></tr></tbody></table></div></section><section class="panel unresolved"><div class="section-title"><div><p class="eyebrow">DATA QUALITY</p><h2>Nierozliczone mecze</h2><p class="sub">Mecze po terminie, dla których nie odnaleziono jeszcze jednoznacznego wyniku.</p></div><span class="pill amber" id="unsettled-pill">0</span></div><div id="reasons" class="reason-grid"></div><div class="table-scroll"><table><thead><tr><th>Spotkanie</th><th>Tour / turniej</th><th>Powód</th><th>Próby</th><th>Ostatnia kontrola</th><th>Wiek</th></tr></thead><tbody id="unsettled-rows"><tr><td colspan="6" class="empty">Brak nierozliczonych meczów.</td></tr></tbody></table></div></section></div><div id="duel-panel" hidden aria-hidden="true"></div><section class="panel" hidden><div class="section-title"><div><p class="eyebrow">HISTORY</p><h2>Ostatnio rozliczone spotkania</h2></div><span class="pill" id="history-count">0</span></div><div class="table-scroll"><table><thead><tr><th>Mecz</th><th>Tour</th><th>Wynik setów</th><th>Zwycięzca</th><th>Model</th><th>Rynek</th><th>Relacja</th></tr></thead><tbody id="history-rows"><tr><td colspan="7" class="empty">Brak historii.</td></tr></tbody></table></div></section>
 <footer><span>PREDYKTOR · PRIVATE ANALYTICS</span><span>Model probabilities are estimates, not guarantees.</span></footer>
 </main>
 <script src="config.js"></script>
@@ -50,7 +50,7 @@
     gate.hidden=true;
     if(!window.__predyktorScriptsLoaded){
       window.__predyktorScriptsLoaded=true;
-      const app=document.createElement("script");app.src="app.js?v=upcoming-two-tabs-teal-plum-bars-20261128";app.onload=function(){const duel=document.createElement("script");duel.src="duel.js?v=upcoming-two-tabs-teal-plum-bars-20261128";document.body.appendChild(duel);};document.body.appendChild(app);
+      const app=document.createElement("script");app.src="app.js?v=upcoming-detail-container-neutral-bars-20261128";app.onload=function(){const duel=document.createElement("script");duel.src="duel.js?v=upcoming-detail-container-neutral-bars-20261128";document.body.appendChild(duel);};document.body.appendChild(app);
     }
   }
   if(sessionStorage.getItem(KEY)==="1")openDashboard();
