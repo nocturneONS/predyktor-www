@@ -1247,13 +1247,19 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 }
 #tab-upcoming #predictions .edge-pick-front img{display:block;width:43px;height:52px;object-fit:contain}
 #tab-upcoming #predictions .edge-pick-back{transform:rotateY(180deg);flex-direction:column;gap:5px;padding:5px 3px;text-align:center;background:#172538}
-#tab-upcoming #predictions .edge-pick-mini.edge-pick-hades .edge-pick-back{background:rgba(22,143,208,.16)}
-#tab-upcoming #predictions .edge-pick-mini.edge-pick-zeus .edge-pick-back{background:rgba(0,169,133,.16)}
-#tab-upcoming #predictions .edge-pick-mini.edge-pick-hera .edge-pick-back{background:rgba(211,75,199,.16)}
 #tab-upcoming #predictions .edge-pick-back .edge-pick-type{display:block!important;font-size:14px!important;line-height:1.15;font-weight:800!important;color:#f2f5f9!important;overflow-wrap:anywhere}
-#tab-upcoming #predictions .edge-pick-back .edge-pick-type.player-a{color:#d8c7a2!important}
-#tab-upcoming #predictions .edge-pick-back .edge-pick-type.player-b{color:#ed914c!important}
-#tab-upcoming #predictions .edge-pick-back .edge-pick-stake{display:block!important;font-size:10px!important;line-height:1.15;font-weight:400!important;color:#d4deea!important}
+#tab-upcoming #predictions .edge-pick-back .edge-pick-stake{display:block!important;font-size:10px!important;line-height:1.15;font-weight:400!important;color:#f2f5f9!important}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-zeus .edge-pick-back .edge-pick-type.player-a,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-zeus .edge-pick-back .edge-pick-stake,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hera .edge-pick-back .edge-pick-type.player-a,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hera .edge-pick-back .edge-pick-stake{background:#d8c7a2;color:#101a29!important}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-zeus .edge-pick-back .edge-pick-type.player-b,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-zeus .edge-pick-back .edge-pick-stake,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hera .edge-pick-back .edge-pick-type.player-b,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hera .edge-pick-back .edge-pick-stake{background:#ed914c;color:#101a29!important}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hades .edge-pick-back{background:#168fd0!important}
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hades .edge-pick-back .edge-pick-type,
+#tab-upcoming #predictions .edge-pick-mini.edge-pick-hades .edge-pick-back .edge-pick-stake{color:#fff!important}
 #tab-upcoming #predictions .edge-pick-mini:focus{outline:none}
 #tab-upcoming #predictions .edge-pick-mini:focus-visible .edge-pick-face{box-shadow:0 0 0 2px #8ca4c2}
 @media(max-width:600px){
