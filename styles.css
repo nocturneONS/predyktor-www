@@ -269,3 +269,15 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .edge-pick-zeus>b,.edge-pick-zeus strong{color:#8bd2ff}
 .edge-pick-hera{border-left-color:#df83dc;background:linear-gradient(90deg,#3b2440,#2b2038);color:#f8def8}
 .edge-pick-hera>b,.edge-pick-hera strong{color:#f0a5f2}
+
+
+/* Homepage persona performance cards use their own identity colors. */
+.edge-persona-card.edge-persona-hades{background:linear-gradient(130deg,#10352f,#101d25);border-color:#168c70}
+.edge-persona-card.edge-persona-hades>b,.edge-persona-card.edge-persona-hades .edge-best-strategy{color:#70e6bd}
+.edge-persona-card.edge-persona-zeus{background:linear-gradient(130deg,#172e43,#111c29);border-color:#397ca8}
+.edge-persona-card.edge-persona-zeus>b,.edge-persona-card.edge-persona-zeus .edge-best-strategy{color:#8bd2ff}
+.edge-persona-card.edge-persona-hera{background:linear-gradient(130deg,#38233b,#191b2a);border-color:#9a5b9d}
+.edge-persona-card.edge-persona-hera>b,.edge-persona-card.edge-persona-hera .edge-best-strategy{color:#f0a5f2}
+.edge-persona-card.edge-persona-hades:hover{border-color:#45c486}
+.edge-persona-card.edge-persona-zeus:hover{border-color:#55b9f0}
+.edge-persona-card.edge-persona-hera:hover{border-color:#df83dc}
