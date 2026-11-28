@@ -752,3 +752,36 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
  .duel-avatar{grid-column:2!important;grid-row:1!important;width:76px!important;height:96px!important}
  .duel-card .duel-bank{grid-column:auto!important;grid-row:auto!important;font-size:22px!important}
 }
+
+
+/* Upcoming: persona boxes are outline-only and never change on hover. */
+#tab-upcoming .edge-persona-card{background:transparent!important;box-shadow:none!important;cursor:pointer!important;transition:none!important}
+#tab-upcoming .edge-persona-card:hover{border-color:inherit!important;background:transparent!important;box-shadow:none!important;transform:none!important}
+#tab-upcoming .edge-persona-card.edge-persona-hades{border-color:#129fe0!important}
+#tab-upcoming .edge-persona-card.edge-persona-zeus{border-color:#00c99a!important}
+#tab-upcoming .edge-persona-card.edge-persona-hera{border-color:#d34acb!important}
+#tab-upcoming .edge-persona-card.selected{box-shadow:inset 0 0 0 1px currentColor!important}
+#tab-upcoming .match:hover{border-color:inherit!important;background:inherit!important;transform:none!important}
+.persona-detail-panel{margin-top:12px}
+.persona-detail-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.persona-detail-heading h2{margin:0}
+.persona-detail-close{border:1px solid #354b64;background:transparent;color:#d9e5f2;border-radius:8px;font-size:22px;line-height:1;padding:4px 10px;cursor:pointer}
+.persona-detail-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:16px;align-items:start}
+.persona-detail-chart{min-width:0;padding:14px;border:1px solid #2b4059;border-radius:12px;background:#101b2a}
+.persona-detail-chart.hades{border-color:#129fe0;background:linear-gradient(145deg,#102b40,#101b2a)}
+.persona-detail-chart.zeus{border-color:#00a985;background:linear-gradient(145deg,#0d302d,#101b2a)}
+.persona-detail-chart.hera{border-color:#b94ab4;background:linear-gradient(145deg,#35213a,#101b2a)}
+.persona-detail-chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.persona-detail-chart-head strong{font-size:18px}
+.persona-detail-info{min-width:0;display:flex;flex-direction:column;gap:12px}
+.persona-detail-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.persona-detail-kpis>div{padding:10px;border:1px solid #2b4059;border-radius:9px;background:#101b2a;min-width:0}
+.persona-detail-kpis small{display:block;color:#8da5bf;font-size:9px;letter-spacing:.08em;margin-bottom:5px}
+.persona-detail-kpis b{font-size:14px;color:#eaf2fb}
+.persona-detail-rules{display:flex;flex-direction:column;gap:4px;padding:11px 12px;border:1px solid #2b4059;border-radius:9px;background:#101b2a;font-size:11px;color:#c5d2e0}
+.persona-detail-rules b{font-size:13px;color:#fff}
+.persona-detail-history h3{font-size:13px;margin:0 0 8px}
+.persona-detail-history .duel-table{min-width:620px}
+#tab-upcoming .edge-persona-card:focus-visible{outline:2px solid #78b9f5;outline-offset:3px}
+@media(max-width:900px){.persona-detail-layout{grid-template-columns:1fr}}
+@media(max-width:600px){.persona-detail-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.persona-detail-chart{padding:10px 7px}}
