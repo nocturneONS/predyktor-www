@@ -20,12 +20,14 @@ const edgeRules={
  zeus:{label:"Zeus",base:50,odds:4.0},
  hera:{label:"Hera",base:100,odds:null}
 };
+function hasMedical(r){return [r.mto_a_days_ago,r.mto_b_days_ago].some(v=>v!=null&&Number.isFinite(Number(v)));}
 function simulationRows(){
- return S.settled.filter(r=>r.status==="settled"&&r.result_type==="regular"&&r.market_analysis&&r.market_analysis.is_value===true)
+ return S.settled.filter(r=>!hasMedical(r)&&r.status==="settled"&&r.result_type==="regular"&&r.market_analysis&&r.market_analysis.is_value===true)
   .filter(r=>[[2,0],[0,2],[2,1],[1,2]].some(([a,b])=>Number(r.set_score_a)===a&&Number(r.set_score_b)===b))
   .sort((a,b)=>new Date(a.kickoff_utc||a.match_date)-new Date(b.kickoff_utc||b.match_date));
 }
 function strategyBet(key,r,streak){
+ if(hasMedical(r))return {stake:0,won:false,odds:NaN};
  const gap=Math.abs(Number(r.model_probability_a)-Number(r.market_probability_a)),model=r.model_favorite_side;
  let eligible=false,won=false,odds=NaN;
  if(key==="hades"){eligible=gap>=.05&&gap<.15;won=Number(r.set_score_a)+Number(r.set_score_b)===3;odds=2.3;}
@@ -45,6 +47,7 @@ function currentLossStreak(key){
  return streak;
 }
 function edgePick(r,key){
+ if(hasMedical(r))return {stake:0,line:"",odds:NaN};
  const gap=Math.abs(Number(r.model_probability_a)-Number(r.market_probability_a));
  const modelFull=r.model_favorite_side==="A"?r.player_a:r.model_favorite_side==="B"?r.player_b:null;
  const shortName=name=>name?String(name).trim().split(/\\s+/).filter(Boolean).at(-1):null;
@@ -69,7 +72,7 @@ function renderEdgeOverview(){
  }));
  root.innerHTML=keys.map(key=>{
   const r=results[key],label=edgeRules[key].label;
-  return '<div class="edge-persona-card"><b>'+label+'</b><span class="edge-best-strategy">'+(key==="zeus"?"Flat stake":"Progresja 2× po porażce")+'</span><strong class="'+(r.profit>=0?"positive":"negative")+'">'+(r.profit>0?"+":"")+r.profit.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j</strong><small>Bankroll "+r.bank.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j · ROI "+(r.roi*100).toFixed(1)+"%</small><div class=\"edge-result\">"+r.wins+"/"+r.placed+" trafień · "+(r.accuracy*100).toFixed(1)+"% · "+r.placed+" zakładów</div></div>";
+  return '<div class="edge-persona-card edge-persona-'+key+'"><b>'+label+'</b><span class="edge-best-strategy">'+(key==="zeus"?"Flat stake":"Progresja 2× po porażce")+'</span><strong class="'+(r.profit>=0?"positive":"negative")+'">'+(r.profit>0?"+":"")+r.profit.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j</strong><small>Bankroll "+r.bank.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j · ROI "+(r.roi*100).toFixed(1)+"%</small><div class=\"edge-result\">"+r.wins+"/"+r.placed+" trafień · "+(r.accuracy*100).toFixed(1)+"% · "+r.placed+" zakładów</div></div>";
  }).join("");
 }
 
