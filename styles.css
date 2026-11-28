@@ -157,7 +157,7 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .duel-strategy-chart:focus-visible{outline:2px solid #78b9f5;outline-offset:3px}
 
 .edge-persona-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.edge-persona-card{display:block;width:100%;text-align:left;color:inherit;font:inherit;cursor:pointer;padding:12px;background:#101823;border:1px solid #2a3b50;border-radius:10px;min-width:0;transition:border-color .15s,background .15s,transform .15s}.edge-persona-card:hover{border-color:#52769d;transform:translateY(-1px)}.edge-persona-card.active{border-color:#63a7e8;background:#17283a;box-shadow:inset 0 0 0 1px #63a7e855}.edge-persona-card:focus-visible{outline:2px solid #78b9f5;outline-offset:3px}
+.edge-persona-card{display:block;width:100%;text-align:left;color:inherit;font:inherit;cursor:default;padding:12px;background:#101823;border:1px solid #2a3b50;border-radius:10px;min-width:0;transition:border-color .15s,background .15s,transform .15s}.edge-persona-card:hover{border-color:#52769d;transform:translateY(-1px)}.edge-persona-card.active{border-color:#63a7e8;background:#17283a;box-shadow:inset 0 0 0 1px #63a7e855}.edge-persona-card:focus-visible{outline:2px solid #78b9f5;outline-offset:3px}
 .edge-persona-card b{display:block;font-size:12px;margin-bottom:6px}
 .edge-persona-card .edge-best-strategy{display:block;color:#9fc8ee;font-size:10px;font-weight:700;letter-spacing:.02em;margin:-2px 0 6px}
 .edge-persona-card strong{display:block;font-size:19px;font-weight:800}
@@ -167,5 +167,10 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 
 .edge-pick{margin-top:7px;padding:7px 9px;border-left:2px solid #58a6e7;background:#142235;border-radius:0 6px 6px 0;font-size:10px;line-height:1.45;color:#dbe9f7}
 .edge-pick b{color:#fff}
+.edge-picks{display:grid;gap:4px;width:100%;margin-top:7px;text-align:left}
+.edge-pick-row{display:flex;align-items:baseline;gap:5px;padding:3px 6px;border-left:2px solid #58a6e7;background:#142235;border-radius:0 4px 4px 0;font-size:10px;line-height:1.35;color:#dbe9f7}
+.edge-pick-row>b{flex:0 0 58px;color:#9fc8ee}
+.edge-pick-row>span{min-width:0}
+.edge-pick-row strong{color:#fff}
 @media(max-width:900px){.edge-persona-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.edge-persona-stats{grid-template-columns:1fr 1fr}}
