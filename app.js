@@ -105,13 +105,8 @@ function warsawDayOffset(instant){
 function renderPredictions(){
  let rows=S.predictions.filter(r=>(S.tour==="ALL"||r.tour===S.tour)&&(S.date==="ALL"||warsawDayOffset(r.kickoff_utc)===(S.date==="YESTERDAY"?-1:S.date==="TODAY"?0:1))&&(!S.valueOnly||value(r))&&Math.max(Math.abs(Number(r.edge_a)||0),Math.abs(Number(r.edge_b)||0))>=0.05&&(!S.q||[r.player_a,r.player_b,r.league,r.tourney_name].join(" ").toLocaleLowerCase("pl-PL").includes(S.q)));
  const timeSort=(a,b)=>new Date(a.kickoff_utc)-new Date(b.kickoff_utc);
- if(S.predictionSort?.key==="edge"){
-  const edgeValue=r=>Math.max(Number(r.edge_a||0),Number(r.edge_b||0));
-  rows.sort((a,b)=>{const d=edgeValue(a)-edgeValue(b);return (S.predictionSort.direction==="desc"?-d:d)||timeSort(a,b)});
- }else if(S.predictionSort?.key==="types"){
-  const hasTypes=r=>["hades","zeus","hera"].some(key=>Number((edgePick(r,key)||{}).stake)>0);
+ const hasTypes=r=>["hades","zeus","hera"].some(key=>Number((edgePick(r,key)||{}).stake)>0);
   rows.sort((a,b)=>Number(hasTypes(b))-Number(hasTypes(a))||timeSort(a,b));
- }else rows.sort(timeSort);
  document.querySelectorAll(".match-header [data-prediction-sort]").forEach(el=>{
   const active=S.predictionSort?.key===el.dataset.predictionSort;
   el.dataset.sortDirection=active?S.predictionSort.direction:"";
@@ -166,20 +161,15 @@ async function importFile(file){const raw=await file.text();let rows=file.name.t
 document.querySelectorAll("[data-intel-tour]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-intel-tour]").forEach(x=>x.classList.remove("active"));b.classList.add("active");S.analyticsTour=b.dataset.intelTour;renderSets()}));
 document.querySelectorAll("[data-date]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-date]").forEach(x=>x.classList.remove("active"));b.classList.add("active");S.date=b.dataset.date;renderPredictions()}));
 document.querySelectorAll("[data-tour]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-tour]").forEach(x=>x.classList.remove("active"));b.classList.add("active");S.tour=b.dataset.tour;renderPredictions()}));
-$("search").addEventListener("input",e=>{S.q=e.target.value.toLocaleLowerCase("pl-PL");renderPredictions()});$("value-only").addEventListener("change",e=>{S.valueOnly=e.target.checked;renderPredictions()});document.querySelectorAll(".match-header [data-prediction-sort]").forEach(el=>{
- const activate=()=>{
-  const key=el.dataset.predictionSort;
-  if(key==="edge"){
+$("search").addEventListener("input",e=>{S.q=e.target.value.toLocaleLowerCase("pl-PL");renderPredictions()});$("value-only").addEventListener("change",e=>{S.valueOnly=e.target.checked;renderPredictions()});document.querySelectorAll('.match-header [data-prediction-sort="edge"]').forEach(el=>{
+  const activate=()=>{
    const direction=S.predictionSort?.key==="edge"&&S.predictionSort.direction==="asc"?"desc":"asc";
    S.predictionSort={key:"edge",direction};
-  }else{
-   S.predictionSort=S.predictionSort?.key==="types"?null:{key:"types",direction:"desc"};
-  }
-  renderPredictions();
- };
- el.addEventListener("click",activate);
- el.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();activate()}});
-});
-const refreshButton=$("refresh");if(refreshButton)refreshButton.addEventListener("click",load);
+   renderPredictions();
+  };
+  el.addEventListener("click",activate);
+  el.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();activate()}});
+ });
+ const refreshButton=$("refresh");if(refreshButton)refreshButton.addEventListener("click",load);
 const fileInput=$("file-input");if(fileInput)fileInput.addEventListener("change",async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;try{await importFile(f);$("updated").textContent="Import: "+f.name}catch(err){alert("Błąd importu: "+err.message)}finally{e.target.value=""}});
 load();
