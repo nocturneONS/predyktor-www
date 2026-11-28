@@ -1,5 +1,5 @@
 "use strict";
-const S={predictions:[],settled:[],stats:null,unsettled:null,tour:"ALL",date:"TODAY",analyticsTour:"overall",q:"",valueOnly:false,edgePlayer:"hades"};
+const S={predictions:[],settled:[],stats:null,unsettled:null,tour:"ALL",date:"TODAY",analyticsTour:"overall",q:"",valueOnly:false,edgePlayer:"hades",predictionSort:null};
 const $=id=>document.getElementById(id);
 const n=v=>v==null||v===""?null:Number(v);
 const pct=v=>v==null||!Number.isFinite(Number(v))?"—":(Number(v)*100).toFixed(1)+"%";
@@ -87,7 +87,19 @@ function warsawDayOffset(instant){
 }
 function renderPredictions(){
  let rows=S.predictions.filter(r=>(S.tour==="ALL"||r.tour===S.tour)&&(S.date==="ALL"||warsawDayOffset(r.kickoff_utc)===(S.date==="YESTERDAY"?-1:S.date==="TODAY"?0:1))&&(!S.valueOnly||value(r))&&(!S.q||[r.player_a,r.player_b,r.league,r.tourney_name].join(" ").toLocaleLowerCase("pl-PL").includes(S.q)));
- rows.sort((a,b)=>new Date(a.kickoff_utc)-new Date(b.kickoff_utc));
+ const timeSort=(a,b)=>new Date(a.kickoff_utc)-new Date(b.kickoff_utc);
+ if(S.predictionSort?.key==="edge"){
+  const edgeValue=r=>Math.max(Number(r.edge_a||0),Number(r.edge_b||0));
+  rows.sort((a,b)=>{const d=edgeValue(a)-edgeValue(b);return (S.predictionSort.direction==="desc"?-d:d)||timeSort(a,b)});
+ }else if(S.predictionSort?.key==="types"){
+  const hasTypes=r=>["hades","zeus","hera"].some(key=>Number((edgePick(r,key)||{}).stake)>0);
+  rows.sort((a,b)=>Number(hasTypes(b))-Number(hasTypes(a))||timeSort(a,b));
+ }else rows.sort(timeSort);
+ document.querySelectorAll(".match-header [data-prediction-sort]").forEach(el=>{
+  const active=S.predictionSort?.key===el.dataset.predictionSort;
+  el.dataset.sortDirection=active?S.predictionSort.direction:"";
+  el.classList.toggle("sort-active",active);
+ });
  if(!rows.length){$("predictions").innerHTML='<div class="empty">Brak spotkań spełniających wybrane kryteria.</div>';return}
  const width=v=>Math.max(0,Math.min(100,Number(v||0)*100)),odds=v=>{const x=Number(v);return Number.isFinite(x)&&x>0?x.toFixed(2):"—"};
  const split=(a,b,muted=false)=>'<div class="prob-pair'+(muted?' market-muted':'')+'"><span class="prob-a">'+pct(a)+'</span><span class="prob-b">'+pct(b)+'</span></div><div class="split-bar'+(muted?' market-muted':'')+'" role="img" aria-label="A '+pct(a)+', B '+pct(b)+'"><i class="split-a" style="width:'+width(a)+'%"></i><i class="split-b" style="width:'+width(b)+'%"></i></div>';
@@ -97,7 +109,7 @@ function renderPredictions(){
  const picks=personas.map(key=>proposal(key,edgePick(r,key),r)).filter(Boolean).join("");
  const proposals='<div class="strategy-proposals">'+picks+'</div>';
  const kickoff=new Date(r.kickoff_utc),validKickoff=!Number.isNaN(kickoff.getTime()),warsaw={timeZone:"Europe/Warsaw"},dateParts=validKickoff?new Intl.DateTimeFormat("en-CA",{...warsaw,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(kickoff):[],datePart=k=>dateParts.find(p=>p.type===k)?.value,currentParts=new Intl.DateTimeFormat("en-CA",{...warsaw,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date()),currentPart=k=>currentParts.find(p=>p.type===k)?.value,matchDay=validKickoff?Date.UTC(Number(datePart("year")),Number(datePart("month"))-1,Number(datePart("day"))):NaN,today=Date.UTC(Number(currentPart("year")),Number(currentPart("month"))-1,Number(currentPart("day"))),dayDiff=Math.round((matchDay-today)/86400000),dateLabel=!validKickoff?"—":dayDiff===-1?"Wczoraj":dayDiff===0?"Dzisiaj":dayDiff===1?"Jutro":new Intl.DateTimeFormat("pl-PL",{...warsaw,day:"numeric",month:"short",year:"numeric"}).format(kickoff),timeLabel=validKickoff?new Intl.DateTimeFormat("pl-PL",{...warsaw,hour:"2-digit",minute:"2-digit"}).format(kickoff):"—",rawTournament=r.tourney_name||r.league||"—",tournamentLabel=String(rawTournament).replace(/^(?:(?:ATP|WTA)\s+|Challenger\s+)/i,"").trim()||rawTournament;
- return '<article class="match"><div class="match-info"><b>'+esc(r.tour==="CHALLENGER"?"CHALLENGER":r.tour)+'</b><span>'+esc(tournamentLabel)+'</span><span class="match-date-time">'+esc(timeLabel)+' '+esc(dateLabel)+'</span></div><div class="match-players"><div class="player-line player-a"><span class="player-name">'+playerLabel(r.player_a,r.mto_a_days_ago)+'</span></div><div class="player-line player-b"><span class="player-name">'+playerLabel(r.player_b,r.mto_b_days_ago)+'</span></div></div><div class="match-odds"><div class="player-line player-a"><span class="odds odds-a">'+odds(r.odds_a)+'</span></div><div class="player-line player-b"><span class="odds odds-b">'+odds(r.odds_b)+'</span></div></div><div class="prob-column market-column">'+split(r.market_probability_a,r.market_probability_b,true)+'</div><div class="prob-column model-column">'+split(r.model_probability_a,r.model_probability_b)+'</div><div class="edge-column"><div class="edge '+(best<0?"negative":"")+'">'+(best>=0?"+":"")+(best*100).toFixed(1)+' pp</div></div>'+proposals+'</article>'}).join("");
+ return '<article class="match"><div class="match-info"><b class="tour-label tour-'+String(r.tour||"").toLowerCase()+'">'+esc(r.tour==="CHALLENGER"?"CHALLENGER":r.tour)+'</b><span>'+esc(tournamentLabel)+'</span><span class="match-date-time">'+esc(timeLabel)+' '+esc(dateLabel)+'</span></div><div class="match-players"><div class="player-line player-a"><span class="player-name">'+playerLabel(r.player_a,r.mto_a_days_ago)+'</span></div><div class="player-line player-b"><span class="player-name">'+playerLabel(r.player_b,r.mto_b_days_ago)+'</span></div></div><div class="match-odds"><div class="player-line player-a"><span class="odds odds-a">'+odds(r.odds_a)+'</span></div><div class="player-line player-b"><span class="odds odds-b">'+odds(r.odds_b)+'</span></div></div><div class="prob-column market-column">'+split(r.market_probability_a,r.market_probability_b,true)+'</div><div class="prob-column model-column">'+split(r.model_probability_a,r.model_probability_b)+'</div><div class="edge-column"><div class="edge '+(best<0?"negative":"")+'">'+(best>=0?"+":"")+(best*100).toFixed(1)+' pp</div></div>'+proposals+'</article>'}).join("");
 }
 function renderOutcomes(){
  const v=S.stats&&S.stats.match_intelligence&&S.stats.match_intelligence.overall||{};
@@ -137,6 +149,16 @@ async function importFile(file){const raw=await file.text();let rows=file.name.t
 document.querySelectorAll("[data-intel-tour]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-intel-tour]").forEach(x=>x.classList.remove("active"));b.classList.add("active");S.analyticsTour=b.dataset.intelTour;renderSets()}));
 document.querySelectorAll("[data-date]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-date]").forEach(x=>x.classList.remove("active"));b.classList.add("active");S.date=b.dataset.date;renderPredictions()}));
 document.querySelectorAll("[data-tour]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-tour]").forEach(x=>x.classList.remove("active"));b.classList.add("active");S.tour=b.dataset.tour;renderPredictions()}));
-$("search").addEventListener("input",e=>{S.q=e.target.value.toLocaleLowerCase("pl-PL");renderPredictions()});$("value-only").addEventListener("change",e=>{S.valueOnly=e.target.checked;renderPredictions()});const refreshButton=$("refresh");if(refreshButton)refreshButton.addEventListener("click",load);
+$("search").addEventListener("input",e=>{S.q=e.target.value.toLocaleLowerCase("pl-PL");renderPredictions()});$("value-only").addEventListener("change",e=>{S.valueOnly=e.target.checked;renderPredictions()});document.querySelectorAll(".match-header [data-prediction-sort]").forEach(el=>{
+ el.addEventListener("click",()=>{
+  if(el.dataset.predictionSort==="edge")S.predictionSort={key:"edge",direction:"asc"};
+  else S.predictionSort={key:"types",direction:"desc"};
+  renderPredictions();
+ });
+ el.addEventListener("dblclick",()=>{
+  if(el.dataset.predictionSort==="edge"){S.predictionSort={key:"edge",direction:"desc"};renderPredictions()}
+ });
+});
+const refreshButton=$("refresh");if(refreshButton)refreshButton.addEventListener("click",load);
 const fileInput=$("file-input");if(fileInput)fileInput.addEventListener("change",async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;try{await importFile(f);$("updated").textContent="Import: "+f.name}catch(err){alert("Błąd importu: "+err.message)}finally{e.target.value=""}});
 load();
