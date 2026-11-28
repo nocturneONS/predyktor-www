@@ -1236,3 +1236,17 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 
 /* No white hover/focus frame or lift on Upcoming match rows. */
 #tab-upcoming #predictions .match:hover,#tab-upcoming #predictions .match:focus,#tab-upcoming #predictions .match:focus-within{border-color:#2b4059!important;outline:0!important;box-shadow:none!important;transform:none!important}
+
+
+/* Sport selector in the top navigation. */
+.sport-tabs{display:flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--line);border-radius:9px;background:#101a29}
+.sport-tabs button{border:0;border-radius:6px;padding:7px 16px;background:transparent;color:var(--muted);font:600 11px/1.2 inherit;cursor:pointer;transition:background .15s,color .15s}
+.sport-tabs button.active{background:#263b55;color:#f0f5fc}
+.sport-tabs button:hover:not(.active){color:var(--text);background:#1b2a3d}
+.sport-placeholder{min-height:320px;padding-top:20px}
+.sport-placeholder .panel{max-width:760px;margin:0 auto;text-align:center;padding:40px 24px}
+.sport-placeholder .panel h2{margin:6px 0 8px}
+.sport-placeholder .panel p:last-child{color:var(--muted)}
+footer{justify-content:flex-end!important}
+.footer-meta{display:flex;flex-direction:column;align-items:flex-end;text-align:right;gap:2px}
+@media(max-width:600px){.sport-tabs button{padding:7px 10px}.brand small{letter-spacing:.13em}.footer-meta{max-width:100%}}
