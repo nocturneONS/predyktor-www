@@ -880,3 +880,25 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
   border:1px solid #2b4059!important;
   box-shadow:none!important;
 }
+
+
+/* Persona detail: right-align strategy rules and keep a compact, vertically scrollable bet history. */
+.persona-detail-rules{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-end!important;
+  text-align:right!important;
+}
+.persona-detail-rules>*{width:100%;text-align:right!important}
+.persona-detail-history{min-width:0!important;width:100%!important}
+.persona-detail-history .table-scroll{
+  max-height:310px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  scrollbar-gutter:stable;
+}
+.persona-detail-history .duel-table{width:100%!important;min-width:0!important;table-layout:fixed!important}
+.persona-detail-history .duel-table thead th{
+  position:sticky;top:0;z-index:2;
+  background:#15263a!important;
+}
