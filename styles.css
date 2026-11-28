@@ -795,3 +795,59 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
  transform:none!important;
  transition-property:border-color,background-color,background!important;
 }
+
+
+/* Upcoming selected persona: use a soft persona tint, never a white inner frame. */
+#tab-upcoming .edge-persona-card.selected{
+  box-shadow:none!important;
+}
+#tab-upcoming .edge-persona-card.edge-persona-hades.selected{
+  background:rgba(18,159,224,.11)!important;
+  border-color:#129fe0!important;
+}
+#tab-upcoming .edge-persona-card.edge-persona-zeus.selected{
+  background:rgba(0,201,154,.10)!important;
+  border-color:#00c99a!important;
+}
+#tab-upcoming .edge-persona-card.edge-persona-hera.selected{
+  background:rgba(211,74,203,.10)!important;
+  border-color:#d34acb!important;
+}
+
+/* Persona details: chart surface stays transparent; history fits its column. */
+.persona-detail-chart,
+.persona-detail-chart.hades,
+.persona-detail-chart.zeus,
+.persona-detail-chart.hera{
+  background:transparent!important;
+}
+.persona-detail-history{width:100%;min-width:0;max-width:100%;overflow:hidden}
+.persona-detail-history .table-scroll{width:100%;max-width:100%;overflow-x:hidden}
+.persona-detail-history .duel-table{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  table-layout:fixed!important;
+  white-space:normal!important;
+}
+.persona-detail-history .duel-table th,
+.persona-detail-history .duel-table td{
+  padding:7px 6px!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+.persona-detail-history .duel-table th:nth-child(1),
+.persona-detail-history .duel-table td:nth-child(1){width:20%}
+.persona-detail-history .duel-table th:nth-child(2),
+.persona-detail-history .duel-table td:nth-child(2){width:32%}
+.persona-detail-history .duel-table th:nth-child(3),
+.persona-detail-history .duel-table td:nth-child(3){width:12%}
+.persona-detail-history .duel-table th:nth-child(4),
+.persona-detail-history .duel-table td:nth-child(4){width:14%}
+.persona-detail-history .duel-table th:nth-child(5),
+.persona-detail-history .duel-table td:nth-child(5){width:22%}
+@media(max-width:600px){
+ .persona-detail-history .duel-table th,
+ .persona-detail-history .duel-table td{font-size:9px!important;padding:6px 4px!important}
+}
