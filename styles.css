@@ -1074,12 +1074,12 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
  
 /* Upcoming: apply the cream/orange palette consistently to odds and labels. */
 #predictions .odds.odds-a{
-  color:#182334!important;
+  color:#101b2a!important;
   background:linear-gradient(180deg,#eadfc7,#d8c7a2)!important;
   border:1px solid #c8b58d!important;
 }
 #predictions .odds.odds-b{
-  color:#fff8ee!important;
+  color:#101b2a!important;
   background:linear-gradient(180deg,#d97840,#bd5e2d)!important;
   border:1px solid #e18b55!important;
 }
@@ -1126,4 +1126,11 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .prob-progress.market-muted .prob-progress-fill.winner-b{
   background:linear-gradient(90deg,#8e5637,#b7774f)!important;
   opacity:1!important;
+}
+
+
+/* Keep Zeus and Hera pick labels neutral and consistent, independent of player side. */
+#predictions .edge-pick-mini .edge-pick-score,
+#predictions .edge-pick-mini .edge-pick-name{
+  color:#f4f6fa!important;
 }
