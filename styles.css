@@ -495,3 +495,51 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 /* Strategy tip: the pick itself is prominent; the stake remains secondary. */
 #predictions .edge-pick-mini .edge-pick-type{font-size:12px!important;line-height:1.2;font-weight:800!important;color:#f2f5f9!important}
 #predictions .edge-pick-mini .edge-pick-stake{font-size:10px!important;line-height:1.2;font-weight:400!important;color:#d4deea!important}
+
+
+/* Strategy cards: center the avatar + text group within each card. */
+.edge-persona-card{
+  justify-content:center!important;
+  align-items:center!important;
+}
+.edge-persona-card .edge-persona-portrait{
+  flex:0 0 128px!important;
+  width:128px!important;
+  min-width:128px!important;
+  align-self:center!important;
+  justify-content:center!important;
+}
+.edge-persona-card .edge-persona-content{
+  flex:0 1 210px!important;
+  min-width:0!important;
+  align-self:center!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  padding:6px 0!important;
+  gap:5px!important;
+}
+.edge-persona-card .edge-persona-heading{
+  justify-content:center!important;
+  align-items:baseline!important;
+  width:100%!important;
+}
+.edge-persona-card .edge-persona-heading>b,
+.edge-persona-card .edge-persona-heading .edge-best-strategy,
+.edge-persona-card .edge-persona-content>strong,
+.edge-persona-card .edge-result{
+  align-self:center!important;
+  text-align:center!important;
+}
+.edge-persona-card .edge-result{
+  align-items:center!important;
+  margin-top:0!important;
+  padding-top:0!important;
+}
+.edge-persona-card.edge-persona-hades .edge-persona-content>strong{color:#57c7ff!important}
+.edge-persona-card.edge-persona-zeus .edge-persona-content>strong{color:#13e0b0!important}
+.edge-persona-card.edge-persona-hera .edge-persona-content>strong{color:#f18ae9!important}
+@media(max-width:480px){
+ .edge-persona-card .edge-persona-portrait{flex-basis:100px!important;width:100px!important;min-width:100px!important}
+ .edge-persona-card .edge-persona-content{flex-basis:170px!important}
+}
