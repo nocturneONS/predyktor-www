@@ -260,3 +260,12 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
  .match .strategy-proposals{grid-template-columns:1fr}
  .prob-group{gap:8px}
 }
+
+
+/* Persona-colored proposal rows */
+.edge-pick-hades{border-left-color:#16c99a;background:linear-gradient(90deg,#10352f,#142b2b);color:#c7f7e8}
+.edge-pick-hades>b,.edge-pick-hades strong{color:#70e6bd}
+.edge-pick-zeus{border-left-color:#55b9f0;background:linear-gradient(90deg,#16364d,#14283a);color:#d5efff}
+.edge-pick-zeus>b,.edge-pick-zeus strong{color:#8bd2ff}
+.edge-pick-hera{border-left-color:#df83dc;background:linear-gradient(90deg,#3b2440,#2b2038);color:#f8def8}
+.edge-pick-hera>b,.edge-pick-hera strong{color:#f0a5f2}
