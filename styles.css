@@ -785,3 +785,13 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #tab-upcoming .edge-persona-card:focus-visible{outline:2px solid #78b9f5;outline-offset:3px}
 @media(max-width:900px){.persona-detail-layout{grid-template-columns:1fr}}
 @media(max-width:600px){.persona-detail-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.persona-detail-chart{padding:10px 7px}}
+
+
+/* Upcoming match rows: disable hover lift/motion entirely. */
+#tab-upcoming #predictions .match,
+#tab-upcoming #predictions .match:hover,
+#tab-upcoming #predictions .match:focus,
+#tab-upcoming #predictions .match:focus-within{
+ transform:none!important;
+ transition-property:border-color,background-color,background!important;
+}
