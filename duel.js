@@ -52,17 +52,20 @@ function renderDuel(){
   return {bank,profit,turnover,wins,placed,history,items,accuracy:placed?wins/placed:0,roi:turnover?profit/turnover:null,lossStreak};
  }
  const results={hades:simulate("hades"),zeus:simulate("zeus"),hera:simulate("hera")};
- const chart=(key,res)=>{
-  const values=res.history, w=700,h=210,left=62,right=14,top=14,bottom=35,plotW=w-left-right,plotH=h-top-bottom;
-  const min=Math.min(0,...values),max=Math.max(0,...values),pad=(max-min)*.12||100,lo=min-pad,hi=max+pad,range=hi-lo||1;
+ const chart=(key,res,detailAxis=false)=>{
+  const values=res.history, w=700,h=210,left=detailAxis?48:62,right=14,top=14,bottom=detailAxis?25:35,plotW=w-left-right,plotH=h-top-bottom;
+  const min=Math.min(0,...values),max=Math.max(0,...values),pad=(max-min)*.12||100;
+  const lo=detailAxis?Math.floor((min-pad)/100)*100:min-pad;
+  const hi=detailAxis?Math.ceil((max+pad)/100)*100:max+pad;
+  const range=hi-lo||1;
   const x=i=>left+(values.length<=1?0:i/(values.length-1)*plotW),y=v=>top+(hi-v)/range*plotH;
   const path=values.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ");
-  const ticks=Array.from({length:5},(_,i)=>lo+(hi-lo)*i/4);
-  const yGrid=ticks.map(v=>'<g><line class="duel-gridline" x1="'+left+'" y1="'+y(v)+'" x2="'+(w-right)+'" y2="'+y(v)+'"/><text class="duel-axis-label" x="'+(left-9)+'" y="'+(y(v)+3)+'" text-anchor="end">'+Math.round(v).toLocaleString("pl-PL")+'</text></g>').join("");
-  const xMarks=[0,Math.floor((values.length-1)/2),Math.max(0,values.length-1)].filter((v,i,a)=>a.indexOf(v)===i);
-  const xLabels=xMarks.map(i=>'<text class="duel-axis-label" x="'+x(i)+'" y="'+(h-10)+'" text-anchor="middle">'+i+'</text>').join("");
+  const ticks=detailAxis?Array.from({length:Math.round((hi-lo)/100)+1},(_,i)=>lo+i*100):Array.from({length:5},(_,i)=>lo+(hi-lo)*i/4);
+  const yGrid=ticks.map(v=>'<g><line class="duel-gridline" x1="'+left+'" y1="'+y(v)+'" x2="'+(w-right)+'" y2="'+y(v)+'"/><text class="duel-axis-label" x="'+(left-8)+'" y="'+(y(v)+3)+'" text-anchor="end">'+Math.round(v).toLocaleString("pl-PL")+'</text></g>').join("");
+  const xMarks=detailAxis?Array.from({length:values.length},(_,i)=>i):[0,Math.floor((values.length-1)/2),Math.max(0,values.length-1)].filter((v,i,a)=>a.indexOf(v)===i);
+  const xLabels=xMarks.map(i=>'<text class="duel-axis-label" x="'+x(i)+'" y="'+(h-8)+'" text-anchor="middle">'+i+'</text>').join("");
   const line=key==="hades"?"hades-line":key==="zeus"?"zeus-line":"hera-line";
-  return '<svg class="duel-chart" viewBox="0 0 700 210" role="img" aria-label="'+rules[key].label+' — skumulowany zysk po kolejnych zakładach"><text class="duel-axis-title" x="12" y="12">ZYSK (j)</text>'+yGrid+'<line class="duel-zero" x1="'+left+'" y1="'+y(0)+'" x2="'+(w-right)+'" y2="'+y(0)+'"/><path class="'+line+'" d="'+path+'"/>'+values.map((v,i)=>'<circle class="duel-point '+line+'" cx="'+x(i)+'" cy="'+y(v)+'" r="'+(i===values.length-1?3.5:2)+'"/>').join("")+xLabels+'<text class="duel-axis-title" x="'+(w-right)+'" y="'+(h-1)+'" text-anchor="end">KOLEJNY ZAKŁAD</text></svg>';
+  return '<svg class="duel-chart" viewBox="0 0 700 210" role="img" aria-label="'+rules[key].label+' — skumulowany zysk po kolejnych zakładach">'+(detailAxis?"":'<text class="duel-axis-title" x="12" y="12">ZYSK (j)</text>')+yGrid+'<line class="duel-zero" x1="'+left+'" y1="'+y(0)+'" x2="'+(w-right)+'" y2="'+y(0)+'"/><path class="'+line+'" d="'+path+'"/>'+values.map((v,i)=>'<circle class="duel-point '+line+'" cx="'+x(i)+'" cy="'+y(v)+'" r="'+(i===values.length-1?3.5:2)+'"/>').join("")+xLabels+(detailAxis?"":'<text class="duel-axis-title" x="'+(w-right)+'" y="'+(h-1)+'" text-anchor="end">KOLEJNY ZAKŁAD</text>')+'</svg>';
  };
  const card=(key,res,cls,avatar)=>{
   const rule=rules[key];
@@ -94,9 +97,9 @@ function renderDuel(){
    }).join("");
    detailRoot.hidden=false;
    detailRoot.innerHTML='<div class="persona-detail-heading"><div><p class="eyebrow">SZCZEGÓŁY STRATEGII</p><h2>'+rule.label+'</h2></div><button type="button" class="persona-detail-close" aria-label="Zamknij szczegóły">×</button></div>'+
-    '<div class="persona-detail-layout"><div class="persona-detail-chart '+cls+'"><div class="persona-detail-chart-head"><b>Wynik strategii</b><strong>'+signed(res.profit)+' j</strong></div>'+chart(selected,res)+'</div>'+
-    '<div class="persona-detail-info"><div class="persona-detail-rules"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j · '+rule.stakeMode+'</span><span>'+rule.oddsNote+'</span></div>'+
-    '<div class="persona-detail-history"><h3>Historia typów</h3><div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Mecz</th><th>Wynik</th><th>Stawka</th><th>Rozliczenie</th></tr></thead><tbody>'+(historyRows||'<tr><td colspan="5" class="empty">Brak postawionych zakładów.</td></tr>')+'</tbody></table></div></div></div></div>';
+    '<div class="persona-detail-layout"><div class="persona-detail-left"><div class="persona-detail-chart '+cls+'"><div class="persona-detail-chart-head"><strong class="persona-detail-profit '+cls+'">'+signed(res.profit)+' j</strong></div>'+chart(selected,res,true)+'</div>'+
+    '<div class="persona-detail-rules"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j · '+rule.stakeMode+'</span><span>'+rule.oddsNote+'</span></div></div>'+
+    '<div class="persona-detail-info"><div class="persona-detail-history"><h3>Historia typów</h3><div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Mecz</th><th>Wynik</th><th>Stawka</th><th>Rozliczenie</th></tr></thead><tbody>'+(historyRows||'<tr><td colspan="5" class="empty">Brak postawionych zakładów.</td></tr>')+'</tbody></table></div></div></div></div>';
    const close=detailRoot.querySelector(".persona-detail-close");
    if(close)close.addEventListener("click",()=>{
     window.__predyktorPersonaDetail=null;detailRoot.hidden=true;detailRoot.innerHTML="";
