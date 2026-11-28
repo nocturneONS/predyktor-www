@@ -92,7 +92,7 @@
 @media(max-width:420px){.duel-card{grid-template-columns:48px 1fr;padding:11px;gap:4px 9px}.duel-avatar{width:48px;height:48px;font-size:26px}.duel-name{font-size:17px}.duel-stats b{font-size:13px}}
 
 /* Medical timeout player marker */
-.mto-flag{display:inline-block;margin-left:5px;color:#ff666f;font-size:13px;vertical-align:1px;cursor:help;filter:drop-shadow(0 0 5px #ff4d5a66)}
+.mto-flag{display:inline-block;margin-right:5px;color:#ff666f;font-size:13px;vertical-align:1px;cursor:help;filter:drop-shadow(0 0 5px #ff4d5a66)}
 
 .duel-mode-label{display:block;margin-top:5px;color:var(--muted);font-size:9px}
 .duel-mode-select{min-width:210px;max-width:100%;padding:9px 30px 9px 11px;border:1px solid #39516b;border-radius:8px;background:#101a27;color:#e8f0fa;font:inherit;font-size:11px;cursor:pointer}
