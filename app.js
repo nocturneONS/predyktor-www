@@ -15,53 +15,61 @@ function value(r){return !!r.model_favorite_side&&!!r.market_favorite_side&&r.mo
 function renderSummary(){const o=S.stats&&S.stats.overall||{};$("total").textContent=count(S.stats&&S.stats.total_predictions!=null?S.stats.total_predictions:S.predictions.length+Number(o.settled||0));$("settled").textContent=count(o.settled||0);$("model-acc").textContent=pct(o.model_accuracy);$("market-acc").textContent=pct(o.market_accuracy);$("model-correct").textContent=count(o.model_correct||0)+" trafnych wskazań";$("unsettled").textContent=count(S.unsettled&&S.unsettled.count||0);$("pending-count").textContent=count(S.predictions.length)+" spotkań";$("unsettled-pill").textContent=count(S.unsettled&&S.unsettled.count||0);$("history-count").textContent=count(S.settled.length)}
 function playerLabel(name,days){const safe=esc(name);if(days==null||!Number.isFinite(Number(days)))return safe;const d=Number(days),when=d===0?"dzisiaj":d===1?"1 dzień temu":d+" dni temu";return safe+' <span class="mto-flag" title="MTO: '+when+'" aria-label="MTO: '+when+'">✚</span>'}
 
-const edgeRules={hades:{label:"Hades",base:100,odds:2.3},herkules:{label:"Herkules",base:50,odds:null},zeus:{label:"Zeus",base:100,odds:4.0},hera:{label:"Hera",base:50,odds:null}};
-function edgeStake(base,gap,reverse){if(!Number.isFinite(gap)||gap<0)return 0;if(reverse){if(gap<.05)return base*1.25;if(gap<.10)return base;if(gap<.15)return base*.75;if(gap<.20)return base*.5;if(gap<.25)return base*.25;return 0}if(gap<.05)return 0;if(gap<.10)return base*.25;if(gap<.15)return base*.5;if(gap<.20)return base*.75;if(gap<.25)return base;return base*1.25}
-function edgePick(r,key){const gap=Math.abs(Number(r.model_probability_a)-Number(r.market_probability_a));const modelFull=r.model_favorite_side==="A"?r.player_a:r.model_favorite_side==="B"?r.player_b:null,marketFull=r.market_favorite_side==="A"?r.player_a:r.market_favorite_side==="B"?r.player_b:null,shortName=name=>name?String(name).trim().split(/\s+/).filter(Boolean).at(-1):null,model=shortName(modelFull),market=shortName(marketFull);let stake=0,line="",odds=NaN;if(key==="hades"){if(gap>=.05&&gap<.15)stake=100;line="3 sety · progresja 2× po porażce";odds=2.3}else if(key==="herkules"){if(gap>=.15)stake=edgeStake(50,gap,false);line=(market||"Faworyt rynku")+" 2:1 · Faworyt rynku · EDGE 15 pp+";odds=NaN}else if(key==="zeus"){if(gap>=.15&&gap<.25)stake=100;line=(model||"Faworyt modelu")+" 2:0 · EDGE 15–25 pp";odds=edgeRules.zeus.odds}else if(key==="hera"){if(gap>=.05&&gap<.25)stake=edgeStake(50,gap,false);line=(model||"Faworyt modelu")+" · Model wygra · EDGE 5–25 pp";odds=r.model_favorite_side==="A"?Number(r.odds_a):r.model_favorite_side==="B"?Number(r.odds_b):NaN}if(!value(r)||(key!=="herkules"&&(!Number.isFinite(odds)||odds<=1)))stake=0;return{stake,line,odds}}
-function renderEdgeOverview(){
- const root=$("edge-persona-stats");if(!root)return;
- const history=S.settled.filter(r=>r.status==="settled"&&r.result_type==="regular"&&r.market_analysis&&r.market_analysis.is_value===true)
+const edgeRules={
+ hades:{label:"Hades",base:100,odds:2.3},
+ zeus:{label:"Zeus",base:50,odds:4.0},
+ hera:{label:"Hera",base:100,odds:null}
+};
+function simulationRows(){
+ return S.settled.filter(r=>r.status==="settled"&&r.result_type==="regular"&&r.market_analysis&&r.market_analysis.is_value===true)
   .filter(r=>[[2,0],[0,2],[2,1],[1,2]].some(([a,b])=>Number(r.set_score_a)===a&&Number(r.set_score_b)===b))
   .sort((a,b)=>new Date(a.kickoff_utc||a.match_date)-new Date(b.kickoff_utc||b.match_date));
- const strategyNames={flat:"Flat stake",edge:"Edge-based",progressive:"Progresja"};
- function run(key,kind){
-  let bank=1000,profit=0,turnover=0,wins=0,placed=0,lossStreak=0;
-  history.forEach(r=>{
-   const pick=edgePick(r,key);let stake=pick.stake;
-   if(key==="hades")stake=pick.stake>0?100*(lossStreak===0?1:lossStreak*2):0;
-   else if(key==="herkules"){
-    if(kind==="flat"||kind==="progressive")stake=Math.abs(Number(r.model_probability_a)-Number(r.market_probability_a))>=.15?50:0;
-    else stake=edgeStake(50,Math.abs(Number(r.model_probability_a)-Number(r.market_probability_a)),false);
-   }else if(key==="zeus")stake=pick.stake;
-   else if(key==="hera"){
-    const gap=Math.abs(Number(r.model_probability_a)-Number(r.market_probability_a));
-    if(gap<.05||gap>=.25)stake=0;
-    else stake=kind==="edge"?edgeStake(50,gap,false):50;
-   }
-   if(bank<stake)stake=0;if(!stake)return;
-   const a=Number(r.set_score_a),b=Number(r.set_score_b);
-   const won=key==="hades"?a+b===3:key==="herkules"?(r.market_favorite_side==="A"?a===2&&b===1:r.market_favorite_side==="B"?b===2&&a===1:false):key==="zeus"?(r.model_favorite_side==="A"?a===2&&b===0:r.model_favorite_side==="B"?b===2&&a===0:false):(r.model_favorite_side==="A"?a===2&&b<=1:r.model_favorite_side==="B"?b===2&&a<=1:false);
-   turnover+=stake;placed++;if(won)wins++;
-   if(key!=="herkules"){const delta=won?stake*(pick.odds-1):-stake;bank+=delta;profit+=delta;}
-   if(key==="hades")lossStreak=won?0:lossStreak+1;
+}
+function strategyBet(key,r,streak){
+ const gap=Math.abs(Number(r.model_probability_a)-Number(r.market_probability_a)),model=r.model_favorite_side;
+ let eligible=false,won=false,odds=NaN;
+ if(key==="hades"){eligible=gap>=.05&&gap<.15;won=Number(r.set_score_a)+Number(r.set_score_b)===3;odds=2.3;}
+ else if(key==="zeus"){eligible=gap>=.15&&gap<.25;won=(model==="A"&&Number(r.set_score_a)===2&&Number(r.set_score_b)===0)||(model==="B"&&Number(r.set_score_b)===2&&Number(r.set_score_a)===0);odds=4;}
+ else {eligible=gap>=.05&&gap<.25;won=(model==="A"&&Number(r.set_score_a)===2&&Number(r.set_score_b)<=1)||(model==="B"&&Number(r.set_score_b)===2&&Number(r.set_score_a)<=1);odds=Number(model==="A"?r.odds_a:model==="B"?r.odds_b:NaN);}
+ if(!eligible||!value(r)||!Number.isFinite(odds)||odds<=1)return {stake:0,won:false,odds};
+ return {stake:edgeRules[key].base*(key==="zeus"?1:Math.pow(2,streak)),won,odds};
+}
+function currentLossStreak(key){
+ if(key==="zeus")return 0;
+ let streak=0,bank=1000;
+ simulationRows().forEach(r=>{
+  const bet=strategyBet(key,r,streak);if(!bet.stake||bank<bet.stake)return;
+  bank+=bet.won?bet.stake*(bet.odds-1):-bet.stake;
+  streak=bet.won?0:streak+1;
+ });
+ return streak;
+}
+function edgePick(r,key){
+ const gap=Math.abs(Number(r.model_probability_a)-Number(r.market_probability_a));
+ const modelFull=r.model_favorite_side==="A"?r.player_a:r.model_favorite_side==="B"?r.player_b:null;
+ const shortName=name=>name?String(name).trim().split(/\\s+/).filter(Boolean).at(-1):null;
+ const model=shortName(modelFull);let stake=0,line="",odds=NaN;
+ if(key==="hades"){if(gap>=.05&&gap<.15)stake=100*Math.pow(2,currentLossStreak("hades"));line="3 sety · progresja 2× po porażce";odds=2.3;}
+ else if(key==="zeus"){if(gap>=.15&&gap<.25)stake=50;line=(model||"Faworyt modelu")+" 2:0 · EDGE 15–25 pp";odds=4;}
+ else if(key==="hera"){if(gap>=.05&&gap<.25)stake=100*Math.pow(2,currentLossStreak("hera"));line=(model||"Faworyt modelu")+" · Model wygra · progresja 2× po porażce";odds=r.model_favorite_side==="A"?Number(r.odds_a):r.model_favorite_side==="B"?Number(r.odds_b):NaN;}
+ if(!value(r)||(key==="hera"&&(!Number.isFinite(odds)||odds<=1)))stake=0;
+ return {stake,line,odds};
+}
+function renderEdgeOverview(){
+ const root=$("edge-persona-stats");if(!root)return;
+ const keys=["hades","zeus","hera"];
+ const results=Object.fromEntries(keys.map(key=>{
+  let bank=1000,profit=0,turnover=0,wins=0,placed=0,streak=0;
+  simulationRows().forEach(r=>{
+   const bet=strategyBet(key,r,streak);if(!bet.stake||bank<bet.stake)return;
+   const delta=bet.won?bet.stake*(bet.odds-1):-bet.stake;bank+=delta;profit+=delta;turnover+=bet.stake;placed++;if(bet.won)wins++;
+   if(key!=="zeus")streak=bet.won?0:streak+1;
   });
-  return {bank:key==="herkules"?null:bank,profit:key==="herkules"?null:profit,turnover,wins,placed,accuracy:placed?wins/placed:0};
- }
- const variants={
-  hades:[{id:"progressive",result:run("hades","progressive")}],
-  herkules:["flat","edge"].map(id=>({id,result:run("herkules",id)})),
-  zeus:[{id:"flat",result:run("zeus","flat")}],
-  hera:["flat","edge"].map(id=>({id,result:run("hera",id)}))
- };
- root.innerHTML=Object.keys(edgeRules).map(key=>{
-  const choices=variants[key];
-  const best=key==="herkules"
-   ?choices.slice().sort((a,b)=>b.result.accuracy-a.result.accuracy||b.result.placed-a.result.placed)[0]
-   :choices.slice().sort((a,b)=>b.result.profit-a.result.profit)[0];
-  const {result}=best,profit=result.profit;
-  const outcome=key==="herkules"?"Skuteczność · ROI n/d (brak kursów 2:1)":("Bankroll "+result.bank.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j · ROI "+(result.turnover?profit/result.turnover*100:0).toFixed(1)+"%");
-  const value=key==="herkules"?result.wins+"/"+result.placed+" trafień · "+(result.placed?result.accuracy*100:0).toFixed(1)+"% · "+result.placed+" zakładów":result.wins+"/"+result.placed+" trafień · "+(result.placed?result.accuracy*100:0).toFixed(1)+"% · "+result.placed+" zakładów";
-  return '<div class="edge-persona-card"><b>'+edgeRules[key].label+'</b><span class="edge-best-strategy">Najlepsza strategia: '+strategyNames[best.id]+'</span><strong class="'+(key==="herkules"?"neutral":profit>=0?"positive":"negative")+'">'+(key==="herkules"?"Brak danych ROI":(profit>0?"+":"")+profit.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j")+'</strong><small>'+outcome+'</small><div class="edge-result">'+value+'</div></div>';
+  return [key,{bank,profit,turnover,wins,placed,roi:turnover?profit/turnover:0,accuracy:placed?wins/placed:0}];
+ }));
+ root.innerHTML=keys.map(key=>{
+  const r=results[key],label=edgeRules[key].label;
+  return '<div class="edge-persona-card"><b>'+label+'</b><span class="edge-best-strategy">'+(key==="zeus"?"Flat stake":"Progresja 2× po porażce")+'</span><strong class="'+(r.profit>=0?"positive":"negative")+'">'+(r.profit>0?"+":"")+r.profit.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j</strong><small>Bankroll "+r.bank.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j · ROI "+(r.roi*100).toFixed(1)+"%</small><div class=\"edge-result\">"+r.wins+"/"+r.placed+" trafień · "+(r.accuracy*100).toFixed(1)+"% · "+r.placed+" zakładów</div></div>";
  }).join("");
 }
 
@@ -71,7 +79,7 @@ function renderPredictions(){
  if(!rows.length){$("predictions").innerHTML='<div class="empty">Brak spotkań spełniających wybrane kryteria.</div>';return}
  const width=v=>Math.max(0,Math.min(100,Number(v||0)*100)),odds=v=>{const x=Number(v);return Number.isFinite(x)&&x>0?x.toFixed(2):"—"};
  const split=(a,b)=>'<div class="prob-pair"><span class="prob-a">'+pct(a)+'</span><span class="prob-b">'+pct(b)+'</span></div><div class="split-bar" role="img" aria-label="A '+pct(a)+', B '+pct(b)+'"><i class="split-a" style="width:'+width(a)+'%"></i><i class="split-b" style="width:'+width(b)+'%"></i></div>';
- const personas=["hades","herkules","zeus","hera"];
+ const personas=["hades","zeus","hera"];
  const proposal=(key,pick)=>pick.stake>0?'<div class="edge-pick-row"><b>'+edgeRules[key].label+':</b> <span><strong>'+pick.stake.toLocaleString("pl-PL",{maximumFractionDigits:2})+' j</strong> · '+esc(pick.line)+'</span></div>':"";
  $("predictions").innerHTML=rows.map(r=>{const a=Number(r.edge_a||0),b=Number(r.edge_b||0),best=Math.max(a,b);
  const picks=personas.map(key=>proposal(key,edgePick(r,key))).filter(Boolean).join("");
