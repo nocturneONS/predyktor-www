@@ -125,13 +125,7 @@ function renderDuel(){
  const card=(key,title,tag,ruleText,res,cls,avatar)=>
   '<article class="duel-card '+cls+'"><div class="duel-avatar">'+avatar+'</div><div><div class="duel-name">'+title+'</div><div class="duel-tag">'+tag+'</div><div class="duel-rule">'+ruleText+'</div></div><div class="duel-bank">'+(res.bank===null?"—":fmt(res.bank))+' <small>j</small></div><div class="duel-profit '+(res.profit===null?"neutral":res.profit>=0?"positive":"negative")+'">'+(res.profit===null?"Brak kursów 2:1 · ROI n/d":signed(res.profit)+' j · ROI '+(res.roi===null?"—":pct(res.roi)))+'</div></article>';
  const totalPlaced=Object.values(selectedResults).reduce((s,x)=>s+x.placed,0);
- root.innerHTML='<div class="duel-stake-box"><div class="duel-stake-heading"><b>Tabela stawek i kursów</b><span>Założenia symulacji</span></div><div class="table-scroll"><table class="duel-stake-table"><thead><tr><th>Persona</th><th>Strategia</th><th>Kurs</th><th>Stawka bazowa</th><th>Zarządzanie stawką</th></tr></thead><tbody>'+
- '<tr><td><b>Hades</b></td><td>3 sety · EDGE 5–15 pp</td><td>2.30*</td><td>100 j bazowo</td><td><span class="stake-direction rising">Progresja 2×</span></td></tr>'+
- '<tr><td><b>Herkules</b></td><td>Faworyt rynku 2:1 · EDGE ≥15 pp</td><td>Brak kursów 2:1</td><td>50 j</td><td>Flat: 50 j · Edge-based: 37,5 / 50 / 62,5 j</td></tr>'+
- '<tr><td><b>Zeus</b></td><td>Model 2:0 · EDGE 15–25 pp</td><td>4.00</td><td>100 j</td><td><span class="stake-direction">Stała</span></td></tr>'+
- '<tr><td><b>Hera</b></td><td>Model wygra · EDGE 5–25 pp</td><td>Kurs główny</td><td>50 j bazowo</td><td>Flat: 50 j · Edge-based: rosnąca</td></tr>'+
- '</tbody></table></div><p class="hint">* Hades: kurs 2.30 jest założeniem symulacji, nie historycznym kursem rynku 3 setów. Dla Herkulesa archiwum nie zawiera historycznych kursów dokładnego wyniku 2:1, dlatego pokazujemy skuteczność i liczbę zakładów, ale nie wyliczamy zysku ani ROI.</p></div>'+
- '<div class="section-title"><div><p class="eyebrow">SIMULATED VALUE BETTING</p><h2>⚔️ Pojedynek typerów — 4 persony</h2><p class="sub">Wyłącznie kompletne mecze VALUE · start 1000 j na personę</p></div><span class="pill">'+bets.length+' meczów VALUE</span></div>'+
+ root.innerHTML='<div class="section-title"><div><p class="eyebrow">SIMULATED VALUE BETTING</p><h2>⚔️ Pojedynek typerów — 4 persony</h2><p class="sub">Wyłącznie kompletne mecze VALUE · start 1000 j na personę</p></div><span class="pill">'+bets.length+' meczów VALUE</span></div>'+
  '<div class="duel-grid">'+
  card("hades","HADES","Łowca trzeciego seta","EDGE 5–15 pp · progresja 2× po każdej porażce.",h,"hades","♛")+
  card("herkules","HERKULES","Faworyt rynku · 2:1","Faworyt rynku wygrywa 2:1 · EDGE ≥15 pp.",k,"herkules","⚔")+
