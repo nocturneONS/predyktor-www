@@ -391,3 +391,12 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .edge-persona-card .edge-result strong{font-size:14px}
 @media(max-width:900px){.edge-persona-card{min-height:174px}.edge-persona-portrait{align-self:center;min-height:140px}.edge-persona-portrait img{height:148px}.edge-persona-content{padding-top:7px;padding-bottom:7px}}
 @media(max-width:480px){.edge-persona-card{min-height:160px}.edge-persona-portrait{min-height:132px}.edge-persona-portrait img{height:132px}.edge-persona-content{gap:5px}.edge-persona-card .edge-result{font-size:11px}}
+
+
+/* Inline persona name and strategy label; keep all copy right-aligned. */
+.edge-persona-content{align-items:flex-end;text-align:right}
+.edge-persona-heading{display:flex;flex-direction:row;align-items:baseline;justify-content:flex-end;gap:9px;width:100%;white-space:nowrap}
+.edge-persona-card .edge-persona-heading>b{font-size:20px;line-height:1.15;margin:0}
+.edge-persona-card .edge-persona-heading .edge-best-strategy{border:0;border-radius:0;padding:0;margin:0;background:none;font-size:12px;font-weight:600;letter-spacing:0;line-height:1.2;opacity:.82}
+.edge-persona-card .edge-persona-content>strong,.edge-persona-card .edge-result{align-self:flex-end;text-align:right}
+@media(max-width:480px){.edge-persona-heading{gap:6px}.edge-persona-card .edge-persona-heading>b{font-size:17px}.edge-persona-card .edge-persona-heading .edge-best-strategy{font-size:10px}}
