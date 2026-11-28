@@ -1,11 +1,83 @@
 {
-  "generated_at": "2026-11-28T07:14:40.005186+00:00",
-  "count": 2,
+  "generated_at": "2026-11-28T16:39:12.913837+00:00",
+  "count": 3,
   "by_reason": {
-    "awaiting_result": 1,
-    "nonstandard_or_incomplete_result": 1
+    "nonstandard_or_incomplete_result": 2,
+    "awaiting_result": 1
   },
   "predictions": [
+    {
+      "id": 129,
+      "provider": "moviodds",
+      "provider_match_id": "205341947",
+      "tour": "CHALLENGER",
+      "competition_level": "ATP_CHALLENGER",
+      "league": "Challenger Monastir",
+      "tourney_name": "Challenger Monastir",
+      "kickoff_utc": "2026-11-28T10:00:00+00:00",
+      "player_a": "Kimmer Coppejans",
+      "player_b": "Gabriel Debru",
+      "player_a_id": "CG33",
+      "player_b_id": "D0HD",
+      "surface": null,
+      "round": null,
+      "best_of": 3,
+      "odds_a": "1.8000",
+      "odds_b": "1.9091",
+      "model_probability_a": 0.3536358105540141,
+      "model_probability_b": 0.646364189445986,
+      "market_probability_a": 0.5147058823529411,
+      "market_probability_b": 0.48529411764705876,
+      "edge_a": -0.16107007179892702,
+      "edge_b": 0.16107007179892718,
+      "model_favorite_side": "B",
+      "market_favorite_side": "A",
+      "market_analysis": {
+        "signal": "underdog_value",
+        "profile": "value_underdog",
+        "is_value": true,
+        "suggestions": [
+          {
+            "market": "total_sets",
+            "risk_tier": "medium",
+            "selection": "Total sets: 3"
+          },
+          {
+            "market": "match_winner",
+            "risk_tier": "higher",
+            "selection": "Gabriel Debru to win"
+          }
+        ],
+        "probability_gap": 0.16107007179892718,
+        "interpreted_side": "B",
+        "main_market_odds": 1.9090909090909092,
+        "model_probability": 0.646364189445986,
+        "interpreted_player": "Gabriel Debru",
+        "market_probability": 0.48529411764705876,
+        "model_favorite_band": null,
+        "model_favorite_side": "B",
+        "market_favorite_band": "mid",
+        "market_favorite_side": "A"
+      },
+      "status": "pending",
+      "match_date": null,
+      "winner_name": null,
+      "winner_side": null,
+      "score_raw": null,
+      "set_score_a": null,
+      "set_score_b": null,
+      "result_type": null,
+      "model_correct": null,
+      "market_correct": null,
+      "model_market_relation": null,
+      "settlement_attempts": 1,
+      "settlement_reason": "nonstandard_or_incomplete_result",
+      "last_checked_at": "2026-11-28T16:39:03.276112+00:00",
+      "settled_at": null,
+      "created_at": "2026-11-27T20:57:45.747196+00:00",
+      "updated_at": "2026-11-28T16:39:03.276112+00:00",
+      "hours_since_kickoff": 6.7
+    },
     {
       "id": 113,
       "provider": "moviodds",
@@ -76,7 +148,7 @@
       "settled_at": null,
       "created_at": "2026-11-26T21:16:31.069028+00:00",
       "updated_at": "2026-11-26T21:16:31.069028+00:00",
-      "hours_since_kickoff": 13.2
+      "hours_since_kickoff": 22.7
     },
     {
       "id": 104,
@@ -142,13 +214,13 @@
       "model_correct": null,
       "market_correct": null,
       "model_market_relation": null,
-      "settlement_attempts": 2,
+      "settlement_attempts": 3,
       "settlement_reason": "nonstandard_or_incomplete_result",
-      "last_checked_at": "2026-11-28T07:14:25.964893+00:00",
+      "last_checked_at": "2026-11-28T16:39:00.434702+00:00",
       "settled_at": null,
       "created_at": "2026-11-26T21:16:16.269060+00:00",
-      "updated_at": "2026-11-28T07:14:25.964893+00:00",
-      "hours_since_kickoff": 23.2
+      "updated_at": "2026-11-28T16:39:00.434702+00:00",
+      "hours_since_kickoff": 32.7
     }
   ]
 }
