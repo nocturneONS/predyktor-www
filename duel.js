@@ -106,11 +106,16 @@ function renderDuel(){
     '<div class="persona-detail-rules"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j</span><span>'+(selected==="zeus"?"Flat stake":"Progresja ×2 po porażce")+'</span><span>'+rule.oddsNote+'</span></div></div>'+
     '<div class="persona-detail-info"><div class="persona-detail-history"><div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Mecz</th><th>Wynik</th><th>Stawka</th><th>Rozliczenie</th></tr></thead><tbody>'+(historyRows||'<tr><td colspan="5" class="empty">Brak postawionych zakładów.</td></tr>')+'</tbody></table></div></div></div></div>';
    const syncHistoryHeight=()=>{
+    const layout=detailRoot.querySelector(".persona-detail-layout");
     const left=detailRoot.querySelector(".persona-detail-left");
     const info=detailRoot.querySelector(".persona-detail-info");
     const history=detailRoot.querySelector(".persona-detail-history");
     const scroll=detailRoot.querySelector(".persona-detail-history .table-scroll");
-    if(!left||!info||!history||!scroll)return;
+    if(!layout||!left||!info||!history||!scroll)return;
+    /* Do not let the grid stretch the left column to the history's intrinsic height. */
+    layout.style.setProperty("align-items","start","important");
+    left.style.setProperty("align-self","start","important");
+    info.style.setProperty("align-self","start","important");
     const targetHeight=Math.ceil(left.getBoundingClientRect().height);
     info.style.setProperty("height",targetHeight+"px","important");
     info.style.setProperty("max-height",targetHeight+"px","important");
