@@ -31,7 +31,7 @@ function strategyBet(key,r,streak){
  if(key==="hades"){eligible=gap>=.05&&gap<.15;won=Number(r.set_score_a)+Number(r.set_score_b)===3;odds=2.3;}
  else if(key==="zeus"){eligible=gap>=.15&&gap<.25;won=(model==="A"&&Number(r.set_score_a)===2&&Number(r.set_score_b)===0)||(model==="B"&&Number(r.set_score_b)===2&&Number(r.set_score_a)===0);odds=4;}
  else {eligible=gap>=.05&&gap<.25;won=(model==="A"&&Number(r.set_score_a)===2&&Number(r.set_score_b)<=1)||(model==="B"&&Number(r.set_score_b)===2&&Number(r.set_score_a)<=1);odds=Number(model==="A"?r.odds_a:model==="B"?r.odds_b:NaN);}
- if(!eligible||!value(r)||!Number.isFinite(odds)||odds<=1)return {stake:0,won:false,odds};
+ if(!eligible||!Number.isFinite(odds)||odds<=1)return {stake:0,won:false,odds};
  return {stake:edgeRules[key].base*(key==="zeus"?1:Math.pow(2,streak)),won,odds};
 }
 function currentLossStreak(key){
