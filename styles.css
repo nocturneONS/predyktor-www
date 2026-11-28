@@ -851,3 +851,15 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
  .persona-detail-history .duel-table th,
  .persona-detail-history .duel-table td{font-size:9px!important;padding:6px 4px!important}
 }
+
+
+/* Persona detail: strategy rules below the chart, profit above it. */
+.persona-detail-left{min-width:0;display:flex;flex-direction:column;gap:12px}
+.persona-detail-chart-head{justify-content:flex-start!important;margin-bottom:8px!important}
+.persona-detail-profit{font-size:22px!important;font-weight:800!important}
+.persona-detail-profit.hades{color:#39bfff!important}
+.persona-detail-profit.zeus{color:#00d9a6!important}
+.persona-detail-profit.hera{color:#f05be2!important}
+.persona-detail-rules{background:transparent!important}
+.persona-detail-chart .duel-chart{display:block;width:100%;height:auto;overflow:visible}
+.persona-detail-chart .duel-axis-title{display:none!important}
