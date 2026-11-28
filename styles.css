@@ -410,7 +410,7 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 
 /* Match tips as compact avatar-led mini columns. */
 #predictions .strategy-proposals{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:7px;min-width:0}
-#predictions .edge-pick-mini{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;min-width:0;min-height:84px;padding:5px 3px;border:1px solid #30445d;border-radius:8px;background:#111d2c;text-align:center;line-height:1.2}
+#predictions .edge-pick-mini{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;min-width:0;min-height:0;height:auto;padding:5px 3px;border:1px solid #30445d;border-radius:8px;background:#111d2c;text-align:center;line-height:1.2}
 #predictions .edge-pick-mini img{width:34px;height:34px;object-fit:contain;display:block}
 #predictions .edge-pick-mini>b{font-size:10px;font-weight:800;line-height:1.1}
 #predictions .edge-pick-mini>span{font-size:10px;line-height:1.25;color:#e3edf8;overflow-wrap:anywhere}
@@ -421,7 +421,7 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .edge-pick-mini.edge-pick-hera{border-color:#b94ab4;background:linear-gradient(180deg,#35213a,#111d2c)}
 #predictions .edge-pick-mini.edge-pick-hera>b{color:#ef9aeb}
 @media(max-width:900px){#predictions .strategy-proposals{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}#predictions .edge-pick-mini img{width:29px;height:29px}}
-@media(max-width:600px){#predictions .strategy-proposals{grid-template-columns:repeat(3,minmax(0,1fr))}#predictions .edge-pick-mini{min-height:76px}#predictions .edge-pick-mini>span{font-size:9px}}
+@media(max-width:600px){#predictions .strategy-proposals{grid-template-columns:repeat(3,minmax(0,1fr))}#predictions .edge-pick-mini{min-height:0}#predictions .edge-pick-mini>span{font-size:9px}}
 
 
 /* Avatar identifies the strategy; omit redundant persona label and separate pick from stake. */
