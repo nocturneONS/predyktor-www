@@ -90,16 +90,21 @@ function renderDuel(){
   if(!selected||!results[selected]){detailRoot.hidden=true;detailRoot.innerHTML="";}
   else{
    const rule=rules[selected],res=results[selected],cls=selected;
+   const shortPlayerName=name=>{
+    const parts=String(name??"").trim().split(/\\s+/).filter(Boolean);
+    if(parts.length<2)return esc(name);
+    return esc(parts.slice(0,-1).map(part=>Array.from(part)[0].toLocaleUpperCase("pl-PL")+".").join(" ")+" "+parts.at(-1));
+   };
    const historyRows=res.items.map(item=>{
     const date=new Date(item.kickoff_utc||item.match_date);
     const dateText=Number.isNaN(date.getTime())?"—":new Intl.DateTimeFormat("pl-PL",{timeZone:"Europe/Warsaw",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(date);
-    return '<tr><td>'+dateText+'</td><td><b>'+esc(item.player_a)+' – '+esc(item.player_b)+'</b></td><td>'+score(item)+'</td><td>'+fmt(item.stake)+' j</td><td class="'+(item.won?"positive":"negative")+'">'+(item.won?"+":"")+fmt(item.delta)+' j</td></tr>';
+    return '<tr><td>'+dateText+'</td><td><b>'+shortPlayerName(item.player_a)+' – '+shortPlayerName(item.player_b)+'</b></td><td>'+score(item)+'</td><td>'+fmt(item.stake)+' j</td><td class="'+(item.won?"positive":"negative")+'">'+(item.won?"+":"")+fmt(item.delta)+' j</td></tr>';
    }).join("");
    detailRoot.hidden=false;
    detailRoot.innerHTML='<div class="persona-detail-heading"><div><p class="eyebrow">SZCZEGÓŁY STRATEGII</p><h2>'+rule.label+'</h2></div><button type="button" class="persona-detail-close" aria-label="Zamknij szczegóły">×</button></div>'+
     '<div class="persona-detail-layout"><div class="persona-detail-left"><div class="persona-detail-chart '+cls+'"><div class="persona-detail-chart-head"><strong class="persona-detail-profit '+cls+'">'+signed(res.profit)+' j</strong></div>'+chart(selected,res,true)+'</div>'+
     '<div class="persona-detail-rules"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j · '+rule.stakeMode+'</span><span>'+rule.oddsNote+'</span></div></div>'+
-    '<div class="persona-detail-info"><div class="persona-detail-history"><h3>Historia typów</h3><div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Mecz</th><th>Wynik</th><th>Stawka</th><th>Rozliczenie</th></tr></thead><tbody>'+(historyRows||'<tr><td colspan="5" class="empty">Brak postawionych zakładów.</td></tr>')+'</tbody></table></div></div></div></div>';
+    '<div class="persona-detail-info"><div class="persona-detail-history"><div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Mecz</th><th>Wynik</th><th>Stawka</th><th>Rozliczenie</th></tr></thead><tbody>'+(historyRows||'<tr><td colspan="5" class="empty">Brak postawionych zakładów.</td></tr>')+'</tbody></table></div></div></div></div>';
    const close=detailRoot.querySelector(".persona-detail-close");
    if(close)close.addEventListener("click",()=>{
     window.__predyktorPersonaDetail=null;detailRoot.hidden=true;detailRoot.innerHTML="";
