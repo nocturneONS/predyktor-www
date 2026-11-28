@@ -1184,3 +1184,37 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
   opacity:.82;
 }
 .edge-persona-card .edge-result{margin-top:5px}
+
+
+/* Persona detail rules: avatar on the left, all strategy copy aligned right. */
+.persona-detail-rules{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:16px!important;
+  min-height:132px;
+}
+.persona-detail-rules .persona-detail-avatar{
+  display:block;
+  flex:0 0 116px;
+  width:116px;
+  height:116px;
+  object-fit:contain;
+  object-position:left center;
+  align-self:center;
+}
+.persona-detail-rules .persona-detail-rules-copy{
+  display:flex;
+  flex:1 1 auto;
+  min-width:0;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:4px;
+  text-align:right;
+}
+.persona-detail-rules .persona-detail-rules-copy>*{text-align:right}
+@media(max-width:600px){
+  .persona-detail-rules{gap:8px!important;min-height:112px}
+  .persona-detail-rules .persona-detail-avatar{flex-basis:96px;width:96px;height:104px}
+}
