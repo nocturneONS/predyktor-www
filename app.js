@@ -72,7 +72,7 @@ function renderEdgeOverview(){
  }));
  root.innerHTML=keys.map(key=>{
   const r=results[key],label=edgeRules[key].label;
-  const portrait="/data/"+key+".png";
+  const portrait="data/"+key+".png";
   return '<article class="edge-persona-card edge-persona-'+key+'"><div class="edge-persona-portrait"><img src="'+portrait+'" alt="'+label+'" loading="lazy"></div><div class="edge-persona-content"><b>'+label+'</b><span class="edge-best-strategy">'+(key==="zeus"?"Flat stake":"Progresja")+'</span><strong class="'+(r.profit>=0?"positive":"negative")+'">'+(r.profit>0?"+":"")+r.profit.toLocaleString("pl-PL",{maximumFractionDigits:2})+" j</strong><div class='edge-result'><span>Skuteczność: "+(r.accuracy*100).toFixed(1)+"%</span><span>"+r.placed+" zakładów</span></div></div></article>";
  }).join("");
 }
