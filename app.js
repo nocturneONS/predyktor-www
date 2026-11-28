@@ -104,9 +104,21 @@ function warsawDayOffset(instant){
 }
 function renderPredictions(){
  let rows=S.predictions.filter(r=>(S.tour==="ALL"||r.tour===S.tour)&&(S.date==="ALL"||warsawDayOffset(r.kickoff_utc)===(S.date==="YESTERDAY"?-1:S.date==="TODAY"?0:1))&&(!S.valueOnly||value(r))&&Math.max(Math.abs(Number(r.edge_a)||0),Math.abs(Number(r.edge_b)||0))>=0.05&&(!S.q||[r.player_a,r.player_b,r.league,r.tourney_name].join(" ").toLocaleLowerCase("pl-PL").includes(S.q)));
- const timeSort=(a,b)=>new Date(a.kickoff_utc)-new Date(b.kickoff_utc);
+ const timeSort=(a,b)=>{
+   const ta=new Date(a.kickoff_utc).getTime(),tb=new Date(b.kickoff_utc).getTime();
+   return (Number.isFinite(ta)?ta:Infinity)-(Number.isFinite(tb)?tb:Infinity);
+  };
  const hasTypes=r=>["hades","zeus","hera"].some(key=>Number((edgePick(r,key)||{}).stake)>0);
-  rows.sort((a,b)=>Number(hasTypes(b))-Number(hasTypes(a))||timeSort(a,b));
+ const edgeValue=r=>Math.max(Math.abs(Number(r.edge_a)||0),Math.abs(Number(r.edge_b)||0));
+ rows.sort((a,b)=>{
+  const groupOrder=Number(hasTypes(b))-Number(hasTypes(a));
+  if(groupOrder)return groupOrder;
+  if(S.predictionSort?.key==="edge"){
+   const edgeOrder=edgeValue(a)-edgeValue(b);
+   if(edgeOrder)return S.predictionSort.direction==="desc"?-edgeOrder:edgeOrder;
+  }
+  return timeSort(a,b);
+ });
  document.querySelectorAll(".match-header [data-prediction-sort]").forEach(el=>{
   const active=S.predictionSort?.key===el.dataset.predictionSort;
   el.dataset.sortDirection=active?S.predictionSort.direction:"";
