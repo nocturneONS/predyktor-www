@@ -105,6 +105,26 @@ function renderDuel(){
     '<div class="persona-detail-layout"><div class="persona-detail-left"><div class="persona-detail-chart '+cls+'"><div class="persona-detail-chart-head"><strong class="persona-detail-profit '+cls+'">'+signed(res.profit)+' j</strong></div>'+chart(selected,res,true)+'</div>'+
     '<div class="persona-detail-rules"><b>'+rule.condition+'</b><span>'+rule.edge+'</span><span>Stawka bazowa '+rule.stake+' j · '+rule.stakeMode+'</span><span>'+rule.oddsNote+'</span></div></div>'+
     '<div class="persona-detail-info"><div class="persona-detail-history"><div class="table-scroll"><table class="duel-table"><thead><tr><th>Data</th><th>Mecz</th><th>Wynik</th><th>Stawka</th><th>Rozliczenie</th></tr></thead><tbody>'+(historyRows||'<tr><td colspan="5" class="empty">Brak postawionych zakładów.</td></tr>')+'</tbody></table></div></div></div></div>';
+   const syncHistoryHeight=()=>{
+    const left=detailRoot.querySelector(".persona-detail-left");
+    const info=detailRoot.querySelector(".persona-detail-info");
+    const history=detailRoot.querySelector(".persona-detail-history");
+    const scroll=detailRoot.querySelector(".persona-detail-history .table-scroll");
+    if(!left||!info||!history||!scroll)return;
+    const targetHeight=Math.ceil(left.getBoundingClientRect().height);
+    info.style.height=targetHeight+"px";
+    info.style.minHeight="0";
+    history.style.height="100%";
+    history.style.minHeight="0";
+    scroll.style.height="100%";
+    scroll.style.maxHeight="100%";
+    scroll.style.minHeight="0";
+    scroll.style.overflowY=scroll.scrollHeight>scroll.clientHeight+1?"auto":"hidden";
+   };
+   syncHistoryHeight();
+   if(window.__personaDetailResizeHandler)window.removeEventListener("resize",window.__personaDetailResizeHandler);
+   window.__personaDetailResizeHandler=syncHistoryHeight;
+   window.addEventListener("resize",window.__personaDetailResizeHandler);
    const close=detailRoot.querySelector(".persona-detail-close");
    if(close)close.addEventListener("click",()=>{
     window.__predyktorPersonaDetail=null;detailRoot.hidden=true;detailRoot.innerHTML="";
