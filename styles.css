@@ -194,3 +194,39 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
  .match:has(.strategy-proposals) .edge-column,.match:has(.strategy-proposals) .strategy-proposals{grid-column:1}
  .match:has(.strategy-proposals) .strategy-proposals{grid-template-columns:1fr}
 }
+
+
+/* Three independent strategy simulations with cumulative profit charts. */
+.duel-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.duel-card{grid-template-columns:48px minmax(0,1fr) auto;grid-template-rows:auto auto;gap:5px 11px;align-items:center}
+.duel-avatar{grid-column:1;grid-row:1/3;width:48px;height:48px;font-size:26px}
+.duel-card-main{grid-column:2;grid-row:1;min-width:0}
+.duel-bank{grid-column:3;grid-row:1;font-size:22px;white-space:nowrap}
+.duel-profit{grid-column:2;grid-row:2}
+.duel-card-stats{grid-column:3;grid-row:2;text-align:right;font-size:9px;color:var(--muted);white-space:nowrap}
+.duel-odds-note{margin-top:4px;color:#8296ad;font-size:9px}
+.duel-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.duel-charts{display:grid;grid-template-columns:1fr;gap:12px;margin:14px 0}
+.duel-chart-card{min-width:0;padding:14px 16px;background:#101823;border:1px solid #2a3b50;border-radius:11px}
+.duel-chart-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.duel-chart-heading h3{margin:0;font-size:14px}
+.duel-chart-heading p{margin:3px 0 0;color:var(--muted);font-size:10px}
+.duel-chart-heading>strong{font-size:14px;white-space:nowrap}
+.duel-chart{width:100%;height:auto;display:block;margin-top:8px}
+.duel-chart .duel-gridline{stroke:#2b3c50;stroke-width:1;stroke-dasharray:3 5}
+.duel-chart .duel-zero{stroke:#7d91a9;stroke-width:1.2;stroke-dasharray:5 4}
+.duel-axis-label{fill:#8192a8;font-size:10px}
+.duel-axis-title{fill:#9eb0c5;font-size:9px;font-weight:800;letter-spacing:.08em}
+.duel-chart .hades-line{fill:none;stroke:#45c486;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.duel-chart .zeus-line{fill:none;stroke:#55b9f0;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.duel-chart .hera-line{fill:none;stroke:#df83dc;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.duel-chart .duel-point.hades-line{fill:#45c486}
+.duel-chart .duel-point.zeus-line{fill:#55b9f0}
+.duel-chart .duel-point.hera-line{fill:#df83dc}
+.duel-chart-footer{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:9px}
+.duel-history-title{margin-top:22px}
+.duel-table{min-width:700px}
+.duel-result{flex-direction:column;align-items:flex-start;gap:1px}
+.duel-result small{font-size:8px;color:inherit;opacity:.8}
+@media(max-width:1050px){.duel-grid{grid-template-columns:1fr}.duel-card{grid-template-columns:48px minmax(0,1fr) auto}.duel-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.duel-card{grid-template-columns:42px minmax(0,1fr)}.duel-avatar{width:42px;height:42px;grid-row:1/3}.duel-bank{grid-column:2;grid-row:2;font-size:20px}.duel-profit{grid-column:2;grid-row:3}.duel-card-stats{grid-column:2;grid-row:4;text-align:left}.duel-chart-card{padding:10px 8px}.duel-chart-footer{flex-wrap:wrap}}
