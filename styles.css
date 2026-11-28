@@ -400,3 +400,9 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 .edge-persona-card .edge-persona-heading .edge-best-strategy{border:0;border-radius:0;padding:0;margin:0;background:none;font-size:12px;font-weight:600;letter-spacing:0;line-height:1.2;opacity:.82}
 .edge-persona-card .edge-persona-content>strong,.edge-persona-card .edge-result{align-self:flex-end;text-align:right}
 @media(max-width:480px){.edge-persona-heading{gap:6px}.edge-persona-card .edge-persona-heading>b{font-size:17px}.edge-persona-card .edge-persona-heading .edge-best-strategy{font-size:10px}}
+
+
+/* Strategy performance rows use one consistent, neutral text style. */
+.edge-persona-card .edge-result,
+.edge-persona-card .edge-result span,
+.edge-persona-card .edge-result strong{font-size:12px!important;font-weight:400!important;color:#c5d2e0!important;line-height:1.35}
