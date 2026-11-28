@@ -1316,3 +1316,9 @@ footer{justify-content:flex-end!important}
 #tab-upcoming #predictions .edge-pick-mini.edge-pick-hades .edge-pick-back .edge-pick-stake{
   color:#fff!important;
 }
+
+
+/* Flip-card back has no colored outline; keep the front avatar frame intact. */
+#tab-upcoming #predictions .edge-pick-back{
+  border-color:transparent!important;
+}
