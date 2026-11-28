@@ -955,3 +955,16 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
   height:auto!important;
   min-height:0!important;
 }
+
+
+/* The history column is explicitly capped to the measured left column height. */
+.persona-detail-info{min-height:0!important;overflow:hidden!important}
+.persona-detail-history{height:100%!important;min-height:0!important;overflow:hidden!important}
+.persona-detail-history .table-scroll{
+  height:100%!important;
+  max-height:100%!important;
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  flex:1 1 auto!important;
+}
