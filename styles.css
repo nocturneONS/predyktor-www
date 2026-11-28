@@ -474,3 +474,19 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .edge-pick-mini .edge-pick-type{color:#f2f5f9!important}
 #predictions .edge-pick-mini .edge-pick-type.edge-pick-score.player-a{color:#28bfff!important}
 #predictions .edge-pick-mini .edge-pick-type.edge-pick-score.player-b{color:#ffad43!important}
+
+
+/* Market / Model: fixed player colors on both sides, with the dominant value
+   aligned to its own edge and the row label on the opposite side. */
+#predictions .prob-progress-track{display:flex;align-items:stretch;background:#253449}
+#predictions .prob-progress-fill{position:relative;display:block;flex:0 0 auto;height:100%;min-width:0;border-radius:0;transition:width .2s ease}
+#predictions .prob-progress-fill.winner-a{background:linear-gradient(90deg,#079bdc,#37c5ff)!important;opacity:1}
+#predictions .prob-progress-fill.winner-b{background:linear-gradient(90deg,#ed8d19,#ffbd4c)!important;opacity:1}
+#predictions .prob-progress.market-muted .prob-progress-fill.winner-a{background:linear-gradient(90deg,#376f8b,#579bb3)!important;opacity:1}
+#predictions .prob-progress.market-muted .prob-progress-fill.winner-b{background:linear-gradient(90deg,#8b653c,#bd9562)!important;opacity:1}
+#predictions .prob-progress-label{z-index:2;inset:0;display:flex;align-items:center;width:50%;font-size:13px;font-weight:800;pointer-events:none}
+#predictions .prob-progress-label-a{left:0;right:auto;justify-content:flex-start;padding-left:8px}
+#predictions .prob-progress-label-b{left:auto;right:0;justify-content:flex-end;padding-right:8px}
+#predictions .prob-progress-name{position:absolute;z-index:2;top:0;bottom:0;display:flex;align-items:center;width:50%;font-size:9px;font-weight:800;letter-spacing:.08em;color:#e8f1fb;opacity:.8;pointer-events:none}
+#predictions .prob-progress-name-a{left:50%;justify-content:flex-end;padding-right:9px}
+#predictions .prob-progress-name-b{left:0;justify-content:flex-start;padding-left:9px}
