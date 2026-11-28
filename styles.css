@@ -1150,3 +1150,22 @@ body:not(.authenticated) .topbar,body:not(.authenticated) .wrap{display:none}
 #predictions .edge-pick-mini .edge-pick-type.edge-pick-name.player-b{
   color:#f4f6fa!important;
 }
+
+
+/* Odds pills use the exact same subdued cream/orange tones as the probability bars. */
+#predictions .odds.odds-a{
+  color:#101b2a!important;
+  background:linear-gradient(90deg,#82765f,#a99a7c)!important;
+  border:1px solid #82765f!important;
+}
+#predictions .odds.odds-b{
+  color:#101b2a!important;
+  background:linear-gradient(90deg,#8e5637,#b7774f)!important;
+  border:1px solid #8e5637!important;
+}
+/* Hades remains neutral; Zeus and Hera labels follow the selected player's odds color. */
+#predictions .edge-pick-mini.edge-pick-hades .edge-pick-type{color:#f4f6fa!important}
+#predictions .edge-pick-mini .edge-pick-type.edge-pick-score.player-a,
+#predictions .edge-pick-mini .edge-pick-type.edge-pick-name.player-a{color:#d8c7a2!important}
+#predictions .edge-pick-mini .edge-pick-type.edge-pick-score.player-b,
+#predictions .edge-pick-mini .edge-pick-type.edge-pick-name.player-b{color:#ed914c!important}
